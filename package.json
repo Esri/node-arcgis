@@ -1,0 +1,28 @@
+{
+  "name": "node-arcgis",
+  "description": "Node client library for ArcGIS",
+  "version": "0.0.1",
+  "author": "Nikolas Wise <nikolaswise@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/nikolaswise/node-arcgis/issues"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "standard": "*",
+    "tape": "^4.0.0"
+  },
+  "homepage": "https://github.com/nikolaswise/node-arcgis",
+  "keywords": [
+    "arcgis",
+    "gis"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikolaswise/node-arcgis.git"
+  },
+  "scripts": {
+    "test": "standard && faucet"
+  }
+}
