@@ -28,7 +28,9 @@ let client = token => {
     getOrganization: require('./get-organization'),
     getOrganizationUsers: require('./get-organization-users'),
     getOrganizationContent: require('./get-organization-content'),
+    getOrganizationSummary: require('./get-organization-summary'),
     getGroup: require('./get-group'),
+    getGroupContent: require('./get-group-content'),
     getTags: require('./get-tags')
   }
   return ago
