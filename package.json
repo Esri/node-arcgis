@@ -1,5 +1,5 @@
 {
-  "name": "node-arcgis",
+  "name": "arcgis",
   "description": "Node client library for ArcGIS",
   "version": "0.0.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
@@ -18,7 +18,7 @@
     "gis"
   ],
   "license": "ISC",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikolaswise/node-arcgis.git"

@@ -24,6 +24,7 @@ let client = token => {
       return rq.get(`http://www.arcgis.com/sharing/rest/${url}`, form)
     },
     getItem: require('./get-item'),
+    getUserContent: require('./get-user-content'),
     getOrganization: require('./get-organization'),
     getOrganizationUsers: require('./get-organization-users'),
     getOrganizationContent: require('./get-organization-content'),
