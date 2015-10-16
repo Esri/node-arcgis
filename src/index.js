@@ -32,3 +32,5 @@ let client = token => {
   }
   return ago
 }
+
+module.exports = client
