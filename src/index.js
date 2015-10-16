@@ -1,8 +1,8 @@
 /**
  * Wrapper for arcgis api
  */
- var rq = require('./rq')
- var uniq = require('./uniq')
+var rq = require('./lib/rq')
+var uniq = require('./lib/uniq')
 
 /**
  * Sets up a new arcgis client
