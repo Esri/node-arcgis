@@ -48,7 +48,7 @@ let getOrganization = (orgId, options) => {
       });
       // Set the number of active users
       org.subscriptionInfo.activeUsers = org.users.filter(function (user){
-        return user.disabled
+        return !user.disabled
       }).length
       return org
     })
