@@ -9,6 +9,7 @@
   "devDependencies": {
     "babel": "^5.8.23",
     "faucet": "0.0.1",
+    "sanitize-html": "^1.11.1",
     "standard": "*",
     "tape": "^4.0.0"
   },

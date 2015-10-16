@@ -1,3 +1,5 @@
+var sanitizeHtml = require('sanitize-html')
+
 /**
  * Gets organization by ID, or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -22,7 +24,8 @@
 let getOrganization = (orgId, options) => {
   return ago.request(`portals/${orgId}`)
   .then(function (org) {
-    console.log('org processing happens here')
+    org.description = sanitizeHtml(org.description)
+    console.log(org.description)
     return org
   })
 }
