@@ -22,6 +22,7 @@ var sanitizeHtml = require('sanitize-html')
   // homePageFeaturedContentCount ✓
 
 let getOrganization = (orgId, options) => {
+  console.log(orgId)
   return ago.request(`portals/${orgId}`)
   // Clean Org Description
   .then(function (org) {
@@ -58,7 +59,6 @@ let getOrganization = (orgId, options) => {
     return ago.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group){
       group.description = sanitizeHtml(group.description)
       org.featuredContent = group
-      console.log(group)
       return org
     })
   })
