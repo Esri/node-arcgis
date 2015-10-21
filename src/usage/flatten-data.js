@@ -1,9 +1,13 @@
+var stypeToService = require('./stype-to-service')
+var parseProduct = require('./parse-product')
+
 /**
 * Flattens data and formats it for Dimple graphs
 * @param {Object} full response from usage API
 * @return {Object} usage totals, usage summary by product, and array of formatted graph data
 */
 let flatten = function (response) {
+  console.log(response)
 
   if (!response.data.length) {
     return response
@@ -14,13 +18,16 @@ let flatten = function (response) {
     credits: 0,
     products: [],
     graphData: [],
-    start: parseInt(response.data[0].credits[0][0], 10),
-    end: parseInt(response.data[0].credits[response.data[0].credits.length - 1][0], 10)
+    startCredits: parseInt(response.data[0].credits[0][0], 10),
+    endCredits: parseInt(response.data[0].credits[response.data[0].credits.length - 1][0], 10),
+    startTime: response.startTime,
+    endTime: response.endTime
   }
 
-  response.data.forEach(function (sevice, index){
-    var product = usage.getProduct(service)
-    var name = usage.stypeToService(service.stype)
+
+  response.data.forEach(function (service, index){
+    var product = parseProduct(service)
+    var name = stypeToService(service.stype)
 
     if (product) {
       product.name = name

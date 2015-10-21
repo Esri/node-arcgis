@@ -1,18 +1,18 @@
 var stypes = {
-  'portal':        'Portal',
-  'tiles':         'Custom Map Tiles',
-  'features':      'Feature Services',
-  'geocode':       'Geocoding',
-  'nasimpleroute': 'Simple Routing',
-  'natsproute':    'Optimized Routing',
-  'nacfroute':     'Closest Facility Routing',
-  'naservicearea': 'Drive-Time Areas',
-  'navrproute':    'Multi Vehicle Routing',
-  'geoenrich':     'GeoEnrichment',
-  'geotriggers':   'Geotrigger Service',
-  'spanalysis':    'Spatial Analysis',
-  'demogmaps':     'Demographic Maps',
-  'elevanalysis':  'Elevation Analysis',
+  'portal':          'Portal',
+  'tiles':           'Custom Map Tiles',
+  'features':        'Feature Services',
+  'geocode':         'Geocoding',
+  'nasimpleroute':   'Simple Routing',
+  'natsproute':      'Optimized Routing',
+  'nacfroute':       'Closest Facility Routing',
+  'naservicearea':   'Drive-Time Areas',
+  'navrproute':      'Multi Vehicle Routing',
+  'geoenrich':       'GeoEnrichment',
+  'geotriggers':     'Geotrigger Service',
+  'spanalysis':      'Spatial Analysis',
+  'demogmaps':       'Demographic Maps',
+  'elevanalysis':    'Elevation Analysis',
   'nalademandpoint': 'Location Allocation'
 }
 
@@ -26,4 +26,4 @@ let stypeToService = function (stype) {
   return stypes[stype] || stype
 }
 
-module.exports stypeToService
+module.exports = stypeToService
