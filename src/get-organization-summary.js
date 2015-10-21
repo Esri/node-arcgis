@@ -9,7 +9,8 @@ http://esripdx.maps.arcgis.com/sharing/rest/portals/self/resources/localizedOrgP
 let getOrganizationSummary = orgId => {
   return ago.request(`portals/${orgId}}/resources/localizedOrgProperties`)
   .then(function (results){
-    return results.default.description
+    if (results.default) return results.default.description
+
   })
 }
 

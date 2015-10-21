@@ -1,13 +1,12 @@
 /**
- * Gets items owned by an organization by organization ID or urlKey.
- * @param {String} Organization ID or unique urlKey
+ * Gets items owned by a group by group ID
+ * @param {String} Group ID
  * @param {Number} Number of items to return per page. Max is 100. Defaults to 100.
- * @returns {Promise} On resolution will return paginated users object.
+ * @returns {Promise} On resolution will return paginated content object.
  */
 
 let getGroupContent = function (groupId, num) {
-  // TODO: Figure out what the desired org object is, and write processing logic to accomplish that
-  return ago.request(`search`, {'q': '\"\" group:' + groupId, 'num': 100})
+  return ago.request(`search`, {'q': '\"\" group:' + groupId, 'num': num || 100})
 }
 
 module.exports = getGroupContent

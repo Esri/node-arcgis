@@ -31,7 +31,14 @@ let client = token => {
     getOrganizationSummary: require('./get-organization-summary'),
     getGroup: require('./get-group'),
     getGroupContent: require('./get-group-content'),
-    getTags: require('./get-tags')
+    getTags: require('./get-tags'),
+    usage: {
+      getSummary: require('./usage/get-summary'),
+      getTopUsers: function(num, start, end) { console.log('getTopUsers')},
+      getProducts: function(num, start, end) { console.log('getProducts')},
+      getApplication: function(id, start, end) { console.log('getApplication')},
+      getService: function(id, start, end) { console.log('getService')}
+    }
   }
   return ago
 }
