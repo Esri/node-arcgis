@@ -1,38 +1,6 @@
 
 # API Reference
 
-- Client
-- User
-- Organization
-	- Items
-	- Featured Content
-	- Members
-- Content
-	- Items
-		- New Item
-		- Edit Item
-		- Favorite Item
-		- Rate Item
-		- Copy Item
-	- Layers
-		- Add Feature
-		- Edit Visualization
-		- Download Data
-	- Maps
-	- Apps
-- Group
-	- Content
-	- Members
-- Usage
-	- Summary
-	- Top Users
-	- Products
-	- Application
-	- Layer
-	- Map
-- Analysis
-
-
 ## Client
 
 Initializes a set of methods to access the ArcGIS REST API.

@@ -33,11 +33,15 @@ let client = token => {
     getGroupContent: require('./get-group-content'),
     getTags: require('./get-tags'),
     usage: {
+      getUsage: require('./usage/usage'),
       getSummary: require('./usage/get-summary'),
       getTopUsers: function(num, start, end) { console.log('getTopUsers')},
       getProducts: function(num, start, end) { console.log('getProducts')},
       getApplication: function(id, start, end) { console.log('getApplication')},
-      getService: function(id, start, end) { console.log('getService')}
+      getService: function(id, start, end) { console.log('getService')},
+      stypeToService: require('./usage/stype-to-service'),
+      parseProduct: require('./usage/parse-product'),
+      flatten: require('./usage/flatten-data')
     }
   }
   return ago
