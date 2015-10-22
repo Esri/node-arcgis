@@ -113,9 +113,6 @@ let parseProduct = function (data) {
     return false
   }
 
-  // angular.forEach(product.variable, function(entry) {
-  //   product.count += parseInt(entry[1], 10);
-  // });
   product.variable.forEach(function (entry) {
     product.count += parseInt(entry[1], 10)
   })
