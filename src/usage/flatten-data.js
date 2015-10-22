@@ -7,8 +7,6 @@ var parseProduct = require('./parse-product')
 * @return {Object} usage totals, usage summary by product, and array of formatted graph data
 */
 let flatten = function (response) {
-  console.log(response)
-
   if (!response.data.length) {
     return response
   }
@@ -51,6 +49,8 @@ let flatten = function (response) {
       })
     }
   })
+
+  data.credits = Math.round(data.credits*100)/100;
 
   return data
 }

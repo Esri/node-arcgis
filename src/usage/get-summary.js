@@ -10,34 +10,24 @@ var flatten = require('./flatten-data')
  */
 
  let getSummary = (start, end, period) => {
-    return getUsage({
-      startTime: start,
-      endTime: end,
-      period: '1m'
-    })
+    return getUsage(start, end, period)
     .then( function (response){
-      console.log(response)
+      let duration = (response.endTime - response.startTime )/ (60 * 60 * 24 * 1000)
       let usage = flatten(response)
       usage.activeServices = usage.products.length
-      // if (usage.period == '1d') {
-          let day = 8.64e+7
-          console.log(day)
-          console.log(usage.endTime, usage.startTime)
-          let duration = usage.endTime - usage.startTime
-          console.log(duration)
-          let days = duration / day
-          console.log(days)
-      // }
+      console.log(usage.credits, duration)
+      let average = usage.credits / duration
+      usage.average = Math.round(average*100)/100;
+      // usage.average = average
+      console.log(usage)
       return usage
     })
     .then( function (usage) {
       return ago.request(`portals/self`)
       .then(function (org) {
-        console.log(org)
         usage.subscriptionId = org.id
         usage.creditsRemaining = org.subscriptionInfo.availableCredits
         usage.subscriptionExpire = org.subscriptionInfo.expDate
-        console.log(usage)
         return usage
       })
     })
