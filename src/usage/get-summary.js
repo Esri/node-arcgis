@@ -1,5 +1,6 @@
 var getUsage = require('./usage')
 var flatten = require('./flatten-data')
+var p2ms = require('./period-to-ms')
 
 /**
  * Gets Usage Summary for an Organiztion
@@ -12,21 +13,27 @@ var flatten = require('./flatten-data')
  let getSummary = (start, end, period) => {
     return getUsage(start, end, period)
     .then( function (response){
-      let duration = (response.endTime - response.startTime )/ (60 * 60 * 24 * 1000)
+      // flatten the weird api response into somethng manageable
       let usage = flatten(response)
+      // how many unique services are included
       usage.activeServices = usage.products.length
-      console.log(usage.credits, duration)
+      // duration that response covers in units of period
+      let duration = (response.endTime - response.startTime )/ p2ms(usage.period)
+      // average credit usage per period
       let average = usage.credits / duration
+      // round that sucker out to 2 decimel places
       usage.average = Math.round(average*100)/100;
-      // usage.average = average
       console.log(usage)
       return usage
     })
     .then( function (usage) {
       return ago.request(`portals/self`)
       .then(function (org) {
+        // add org id to summary
         usage.subscriptionId = org.id
+        // add remaining credits to summary
         usage.creditsRemaining = org.subscriptionInfo.availableCredits
+        // add experiration date to summary
         usage.subscriptionExpire = org.subscriptionInfo.expDate
         return usage
       })

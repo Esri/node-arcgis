@@ -22,7 +22,6 @@ let flatten = function (response) {
     endTime: response.endTime
   }
 
-
   response.data.forEach(function (service, index){
     var product = parseProduct(service)
     var name = stypeToService(service.stype)

@@ -41,7 +41,8 @@ let client = token => {
       getService: function(id, start, end) { console.log('getService')},
       stypeToService: require('./usage/stype-to-service'),
       parseProduct: require('./usage/parse-product'),
-      flatten: require('./usage/flatten-data')
+      flatten: require('./usage/flatten-data'),
+      periodToMs: require('./usage/period-to-ms')
     }
   }
   return ago
