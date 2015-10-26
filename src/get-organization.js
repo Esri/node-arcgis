@@ -21,7 +21,7 @@ var sanitizeHtml = require('sanitize-html')
   // homePageFeaturedContent (this gets replaced by items, cleans up after itself) ✓
   // homePageFeaturedContentCount ✓
 
-let getOrganization = (orgId) => {
+let getOrganization = (orgId = 'self') => {
   return ago.request(`portals/${orgId}`)
   // Clean Org Description
   .then(function (org) {

@@ -7,7 +7,8 @@ var parseProduct = require('./parse-product')
 * @return {Object} usage totals, usage summary by product, and array of formatted graph data
 */
 let flatten = function (response) {
-  if (!response.data.length) {
+  console.log(response)
+  if (!response.data) {
     return response
   }
 

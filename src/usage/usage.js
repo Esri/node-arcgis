@@ -1,7 +1,7 @@
 /**
  * Gets Usage
  * @param {Object} Usage options
- * @returns {Promise} On resolution will return Item Object
+ * @returns {Promise} On resolution will return Usage Object
  */
 
 let getUsage = (options = {}) => {
