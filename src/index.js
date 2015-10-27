@@ -23,29 +23,33 @@ let client = token => {
       form.f     = 'pjson'
       return rq.get(`${rootUrl}${url}`, form)
     },
-    getItem: require('./get-item'),
-    getUserContent: require('./get-user-content'),
-    getOrganization: require('./get-organization'),
-    getOrganizationUsers: require('./get-organization-users'),
-    getOrganizationContent: require('./get-organization-content'),
-    getOrganizationSummary: require('./get-organization-summary'),
-    getGroup: require('./get-group'),
-    getGroupContent: require('./get-group-content'),
-    getTags: require('./get-tags'),
+    user: {
+      getContent: require('./get-user-content')
+    },
+    organization: {
+      getOrganization: require('./get-organization'),
+      getUsers: require('./get-organization-users'),
+      getContent: require('./get-organization-content'),
+      getSummary: require('./get-organization-summary')
+    },
+    group: {
+      getGroup: require('./group/get-group'),
+      getContent: require('./group/get-group-content')
+    },
+    items: {
+      getItem: require('./items/get-item'),
+      getTags: require('./items/get-tags')
+    },
     usage: {
       getUsage: require('./usage/usage'),
       getSummary: require('./usage/get-summary'),
-      getTopUsers: function(num, start, end) { console.log('getTopUsers')},
-      getProducts: function(num, start, end) { console.log('getProducts')},
-      getApplication: function(id, start, end) { console.log('getApplication')},
-      getService: function(id, start, end) { console.log('getService')},
       stypeToService: require('./usage/stype-to-service'),
       parseProduct: require('./usage/parse-product'),
       flatten: require('./usage/flatten-data'),
       periodToMs: require('./usage/period-to-ms')
     },
     billing: {
-      getBilling: require('./billing/billing'),
+      getBilling: require('./billing/billing')
     }
   }
   return ago
