@@ -23,7 +23,6 @@ let client = token => {
         form.token = token
       }
       form.f     = 'pjson'
-      console.log(form)
       return rq.get(`${rootUrl}${url}`, form)
     },
     user: {
