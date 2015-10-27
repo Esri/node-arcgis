@@ -11,10 +11,12 @@
     "babelify": "^6.4.0",
     "browserify": "^12.0.0",
     "faucet": "0.0.1",
+    "parallelshell": "^2.0.0",
     "sanitize-html": "^1.11.1",
     "standard": "*",
     "tape": "^4.0.0",
     "uglifyify": "^3.0.1",
+    "unique": "0.0.1",
     "watchify": "^3.5.0"
   },
   "homepage": "https://github.com/nikolaswise/node-arcgis",
@@ -29,8 +31,7 @@
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "scripts": {
-    "dev": "watchify src/index.js -t babelify --outfile dist/index.js",
-    "pretest": "browserify test/index.js -t babelify --outfile test/bundle.js",
-    "test": "http-server"
+    "dev": "watchify test/index.js -t babelify --outfile test/bundle.js",
+    "test": "faucet"
   }
 }

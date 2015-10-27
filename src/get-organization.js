@@ -25,6 +25,7 @@ let getOrganization = (orgId = 'self') => {
   return ago.request(`portals/${orgId}`)
   // Clean Org Description
   .then(function (org) {
+    console.log(org)
     org.description = sanitizeHtml(org.description)
     return org
   })
@@ -40,6 +41,7 @@ let getOrganization = (orgId = 'self') => {
   .then(function (org) {
     return ago.getOrganizationUsers(orgId, 100)
     .then(function (results){
+      console.log(results)
       // Set the number of users
       org.subscriptionInfo.numUsers = results.total
       org.users = results.users.sort(function(a,b){
