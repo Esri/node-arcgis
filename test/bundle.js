@@ -8413,6 +8413,7 @@ var client = function client(token) {
         form.token = token;
       }
       form.f = 'pjson';
+      console.log(form);
       return rq.get('' + rootUrl + url, form);
     },
     user: {
@@ -8568,10 +8569,9 @@ module.exports = getOrganizationContent;
 
 "use strict";
 
-http: //esripdx.maps.arcgis.com/sharing/rest/portals/self/resources/localizedOrgProperties
-
-var getOrganizationSummary = function getOrganizationSummary(orgId) {
-  return ago.request("portals/" + orgId + "}/resources/localizedOrgProperties").then(function (results) {
+var getOrganizationSummary = function getOrganizationSummary() {
+  return ago.request("portals/self/resources/localizedOrgProperties").then(function (results) {
+    console.log(results);
     if (results["default"]) return results["default"].description;
   });
 };
@@ -8588,9 +8588,9 @@ module.exports = getOrganizationSummary;
 
 "use strict";
 
-var getOrganizationUsers = function getOrganizationUsers(orgId) {
-  var options = arguments.length <= 1 || arguments[1] === undefined ? { num: 100 } : arguments[1];
-  return ago.request("portals/" + orgId + "/users", options);
+var getOrganizationUsers = function getOrganizationUsers() {
+  var options = arguments.length <= 0 || arguments[0] === undefined ? { num: 100 } : arguments[0];
+  return ago.request("portals/self/users", options);
 };
 
 module.exports = getOrganizationUsers;
@@ -8640,7 +8640,7 @@ var getOrganization = function getOrganization() {
   })
   // Get Org Summary
   .then(function (org) {
-    return ago.organization.getSummary(orgId).then(function (results) {
+    return ago.organization.getSummary(orgId, options).then(function (results) {
       org.summary = results;
       return org;
     });
@@ -8650,7 +8650,7 @@ var getOrganization = function getOrganization() {
     if (options['public']) {
       return org;
     } else {
-      return ago.organization.getUsers(orgId, options).then(function (results) {
+      return ago.organization.getUsers(options).then(function (results) {
         // Set the number of users
         org.subscriptionInfo.numUsers = results.total;
         org.users = results.users.sort(function (a, b) {

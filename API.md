@@ -22,6 +22,7 @@ If no OrgId is passed, the method returns the object representing the organizati
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | OrgId          | String       | none                    |
+| Options        | Object       | none                    |
 
 ### `organization.getUsers()`
 
@@ -44,12 +45,7 @@ Gets a paginated list of an organizations items, with `num` items per page. If n
 
 ### `organization.getSummary()`
 
-Returns a small, plain text summary of the organization. If no OrgId is passed, the method returns the object representing the organization you are a part of.
-
-#### Parameters
-| Params         | Type         | Default                 |
-| -------------- | ------------ | ----------------------- |
-| OrgId          | String       | none                    |
+Returns a small, plain text summary of the organization you are a part of.
 
 ## Content
 

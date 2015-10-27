@@ -38,7 +38,7 @@ let getOrganization = (orgId = 'self') => {
   })
   // Get Org Summary
   .then(function (org) {
-    return ago.organization.getSummary(orgId)
+    return ago.organization.getSummary(orgId, options)
     .then(function (results){
       org.summary = results
       return org
@@ -49,7 +49,7 @@ let getOrganization = (orgId = 'self') => {
     if (options.public) {
       return org
     } else {
-      return ago.organization.getUsers(orgId, options)
+      return ago.organization.getUsers(options)
       .then(function (results){
         // Set the number of users
         org.subscriptionInfo.numUsers = results.total

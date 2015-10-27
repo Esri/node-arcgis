@@ -4,13 +4,11 @@
  * @returns {Promise} On resolution will return a string of the Organization summary.
  */
 
-http://esripdx.maps.arcgis.com/sharing/rest/portals/self/resources/localizedOrgProperties
-
-let getOrganizationSummary = orgId => {
-  return ago.request(`portals/${orgId}}/resources/localizedOrgProperties`)
+let getOrganizationSummary = () => {
+  return ago.request(`portals/self/resources/localizedOrgProperties`)
   .then(function (results){
+    console.log(results)
     if (results.default) return results.default.description
-
   })
 }
 
