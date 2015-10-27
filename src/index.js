@@ -24,13 +24,13 @@ let client = token => {
       return rq.get(`${rootUrl}${url}`, form)
     },
     user: {
-      getContent: require('./get-user-content')
+      getContent: require('./user/get-user-content')
     },
     organization: {
-      getOrganization: require('./get-organization'),
-      getUsers: require('./get-organization-users'),
-      getContent: require('./get-organization-content'),
-      getSummary: require('./get-organization-summary')
+      getOrganization: require('./org/get-organization'),
+      getUsers: require('./org/get-organization-users'),
+      getContent: require('./org/get-organization-content'),
+      getSummary: require('./org/get-organization-summary')
     },
     group: {
       getGroup: require('./group/get-group'),

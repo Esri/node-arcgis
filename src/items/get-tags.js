@@ -1,4 +1,4 @@
-var uniq = require('./lib/uniq')
+var uniq = require('../lib/uniq')
 /**
  * Gets unique tags from a group of items.
  * @param {Array} Array of Item objects
