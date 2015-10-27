@@ -19,7 +19,9 @@ let client = token => {
      * @returns {Promise} On resolution will return results
      */
     request: (url, form = {}, rootUrl = 'http://www.arcgis.com/sharing/rest/') => {
-      form.token = token
+      if (!form.public){
+        form.token = token
+      }
       form.f     = 'pjson'
       return rq.get(`${rootUrl}${url}`, form)
     },

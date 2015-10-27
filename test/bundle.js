@@ -8409,7 +8409,9 @@ var client = function client(token) {
       var form = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
       var rootUrl = arguments.length <= 2 || arguments[2] === undefined ? 'http://www.arcgis.com/sharing/rest/' : arguments[2];
 
-      form.token = token;
+      if (!form['public']) {
+        form.token = token;
+      }
       form.f = 'pjson';
       return rq.get('' + rootUrl + url, form);
     },
@@ -8603,6 +8605,9 @@ var sanitizeHtml = require('sanitize-html');
  * @returns {Promise} On resolution will return Organization Object
  */
 
+// sample public org id
+// e8gGAYmR5kxEFApE
+
 // Added Value to Organiztions:
 // Cleaned Org description ✓
 // Org snippet ✓
@@ -8621,40 +8626,46 @@ var sanitizeHtml = require('sanitize-html');
 var getOrganization = function getOrganization() {
   var orgId = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
 
-  return ago.request('portals/' + orgId)
+  if (orgId != 'self') {
+    var options = {
+      'public': true
+    };
+  }
+  console.log(options);
+  return ago.request('portals/' + orgId, options)
   // Clean Org Description
   .then(function (org) {
-    console.log(org);
     org.description = sanitizeHtml(org.description);
     return org;
   })
   // Get Org Summary
   .then(function (org) {
-    return ago.getOrganizationSummary(orgId).then(function (results) {
+    return ago.organization.getSummary(orgId).then(function (results) {
       org.summary = results;
       return org;
     });
   })
   // Get Org uses by lastLogin
   .then(function (org) {
-    return ago.getOrganizationUsers(orgId, 100).then(function (results) {
-      console.log(results);
-      // Set the number of users
-      org.subscriptionInfo.numUsers = results.total;
-      org.users = results.users.sort(function (a, b) {
-        var x = a.lastLogin > b.lastLogin ? -1 : 1;
-        return x;
-      });
-      // Set the number of active users
-      org.subscriptionInfo.activeUsers = org.users.filter(function (user) {
-        return !user.disabled;
-      }).length;
+    return ago.organization.getUsers(orgId, 100).then(function (results) {
+      if (org.subscriptionInfo) {
+        // Set the number of users
+        org.subscriptionInfo.numUsers = results.total;
+        org.users = results.users.sort(function (a, b) {
+          var x = a.lastLogin > b.lastLogin ? -1 : 1;
+          return x;
+        });
+        // Set the number of active users
+        org.subscriptionInfo.activeUsers = org.users.filter(function (user) {
+          return !user.disabled;
+        }).length;
+      }
       return org;
     });
   })
   // Get featured item group
   .then(function (org) {
-    return ago.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group) {
+    return ago.group.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group) {
       group.description = sanitizeHtml(group.description);
       org.featuredContent = group;
       return org;
@@ -8662,7 +8673,7 @@ var getOrganization = function getOrganization() {
   })
   // Get Featured item group content
   .then(function (org) {
-    return ago.getGroupContent(org.featuredContent.id).then(function (results) {
+    return ago.group.getContent(org.featuredContent.id).then(function (results) {
       org.featuredContent.items = results.results;
       return org;
     });
@@ -8672,6 +8683,7 @@ var getOrganization = function getOrganization() {
     delete org.rotatorPanels;
     delete org.homePageFeaturedContent;
     delete org.homePageFeaturedContentCount;
+    console.log(org);
     return org;
   });
 };
@@ -8690,7 +8702,6 @@ var parseProduct = require('./parse-product');
 * @return {Object} usage totals, usage summary by product, and array of formatted graph data
 */
 var flatten = function flatten(response) {
-  console.log(response);
   if (!response.data) {
     return response;
   }
@@ -8758,6 +8769,7 @@ var p2ms = require('./period-to-ms');
 
 var getSummary = function getSummary(start, end, period) {
   return getUsage({ startTime: start, endTime: end, period: period }).then(function (response) {
+
     var usage = flatten(response);
     usage.activeServices = usage.products.length;
     var duration = (response.endTime - response.startTime) / p2ms(usage.period);
@@ -9032,7 +9044,6 @@ var getUsage = function getUsage() {
   options.period = options.period || '1d';
   options.vars = 'credits,num,cost,bw,stg';
   options.groupby = 'etype,stype,task';
-
   return ago.request('portals/self/usage', options);
 };
 
@@ -9058,7 +9069,7 @@ module.exports = getOrganizationContent;
 
 var ArcGIS = require('../src/index');
 
-var token = '_yOcUXgK_iGrksN1j2OhXhoUhWn03VUzdZ6ymiAf3WLwmfJQ9hPI8X2gbdOZKXvNtPJ98n8mOyEpevVOq7QV-ywz8X5q_c3M7858PqKVyH56foSEJOlMmdgtIZ2o7vsxOMpVLSO-5lSM2OjwZb1Ruw..';
+var token = 'OH7d1fgQVdwe1TuzkwYU0VHrDnBe2rxpxZTpWSNDy705j0D58buf-67ZILCqCdd5kg75keYwHvySLzymEWONAsH5fZAAhSdLd2U0beM4PqHpwfSyvkLkY92mLrsXgaOkwf4fc_FQ0jMh_JQm6fyK31Ai4mP-jsOx_Dg8YW_k37hiSJHSvsTYQVeNVhh3bAlC';
 
 var ago = ArcGIS(token);
 window.ago = ago;

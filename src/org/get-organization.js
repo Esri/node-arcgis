@@ -6,6 +6,9 @@ var sanitizeHtml = require('sanitize-html')
  * @returns {Promise} On resolution will return Organization Object
  */
 
+// sample public org id
+// e8gGAYmR5kxEFApE
+
 // Added Value to Organiztions:
 // Cleaned Org description ✓
 // Org snippet ✓
@@ -22,16 +25,21 @@ var sanitizeHtml = require('sanitize-html')
   // homePageFeaturedContentCount ✓
 
 let getOrganization = (orgId = 'self') => {
-  return ago.request(`portals/${orgId}`)
+  if (orgId != 'self') {
+    var options = {
+      public: true
+    }
+  }
+  console.log(options)
+  return ago.request(`portals/${orgId}`, options)
   // Clean Org Description
   .then(function (org) {
-    console.log(org)
     org.description = sanitizeHtml(org.description)
     return org
   })
   // Get Org Summary
   .then(function (org) {
-    return ago.getOrganizationSummary(orgId)
+    return ago.organization.getSummary(orgId)
     .then(function (results){
       org.summary = results
       return org
@@ -39,25 +47,26 @@ let getOrganization = (orgId = 'self') => {
   })
   // Get Org uses by lastLogin
   .then(function (org) {
-    return ago.getOrganizationUsers(orgId, 100)
+    return ago.organization.getUsers(orgId, 100)
     .then(function (results){
-      console.log(results)
-      // Set the number of users
-      org.subscriptionInfo.numUsers = results.total
-      org.users = results.users.sort(function(a,b){
-        var x = a.lastLogin > b.lastLogin? -1:1;
-        return x;
-      });
-      // Set the number of active users
-      org.subscriptionInfo.activeUsers = org.users.filter(function (user){
-        return !user.disabled
-      }).length
+      if( org.subscriptionInfo) {
+        // Set the number of users
+        org.subscriptionInfo.numUsers = results.total
+        org.users = results.users.sort(function(a,b){
+          var x = a.lastLogin > b.lastLogin? -1:1;
+          return x;
+        });
+        // Set the number of active users
+        org.subscriptionInfo.activeUsers = org.users.filter(function (user){
+          return !user.disabled
+        }).length
+      }
       return org
     })
   })
   // Get featured item group
   .then(function (org) {
-    return ago.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group){
+    return ago.group.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group){
       group.description = sanitizeHtml(group.description)
       org.featuredContent = group
       return org
@@ -65,7 +74,7 @@ let getOrganization = (orgId = 'self') => {
   })
   // Get Featured item group content
   .then(function (org) {
-    return ago.getGroupContent(org.featuredContent.id).then(function (results){
+    return ago.group.getContent(org.featuredContent.id).then(function (results){
       org.featuredContent.items = results.results
       return org
     })
@@ -75,6 +84,7 @@ let getOrganization = (orgId = 'self') => {
     delete org.rotatorPanels
     delete org.homePageFeaturedContent
     delete org.homePageFeaturedContentCount
+    console.log(org)
     return org
   })
 }

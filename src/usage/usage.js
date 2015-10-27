@@ -13,7 +13,6 @@ let getUsage = (options = {}) => {
   options.period = options.period || '1d'
   options.vars = 'credits,num,cost,bw,stg'
   options.groupby = 'etype,stype,task'
-
   return ago.request(`portals/self/usage`, options)
 }
 

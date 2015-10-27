@@ -58,5 +58,13 @@ Returns a small, plain text summary of the organization. If no OrgId is passed, 
 
 ## Usage
 
-### usage.getSummary()
+### `usage.getSummary()`
 
+Returns graph data and usage summary for the organization the token is valid for.
+
+#### Parameters
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Start          | Date         | One month ago           |
+| End            | Date         | Now                     |
+| Period         | String       | '1d'                    |
