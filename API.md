@@ -49,6 +49,35 @@ Returns a small, plain text summary of the organization you are a part of.
 
 ## Content
 
+### `items.getItem()`
+
+Gets an item by item id.
+
+#### Parameters
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| ItemId         | String       | none                    |
+
+## User
+
+### `user.getUser()`
+
+Gets a user object by username.
+
+#### Parameters
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Username       | String       | none                    |
+
+### `user.getItems()`
+
+Gets all the items owned by a user by username. Results are not paginated.
+
+#### Parameters
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Username       | String       | none                    |
+
 ## Groups
 
 ## Usage

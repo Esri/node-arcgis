@@ -26,6 +26,7 @@ let client = token => {
       return rq.get(`${rootUrl}${url}`, form)
     },
     user: {
+      getUser: require('./user/get-user'),
       getContent: require('./user/get-user-content')
     },
     organization: {
