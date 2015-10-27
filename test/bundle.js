@@ -8586,10 +8586,11 @@ module.exports = getOrganizationSummary;
  * @returns {Promise} On resolution will return paginated users object.
  */
 
-'use strict';
+"use strict";
 
-var getOrganizationUsers = function getOrganizationUsers(orgId, num) {
-  return ago.request('portals/' + orgId + '/users', { 'num': num || 100 });
+var getOrganizationUsers = function getOrganizationUsers(orgId) {
+  var options = arguments.length <= 1 || arguments[1] === undefined ? { num: 100 } : arguments[1];
+  return ago.request("portals/" + orgId + "/users", options);
 };
 
 module.exports = getOrganizationUsers;
@@ -8626,10 +8627,9 @@ var sanitizeHtml = require('sanitize-html');
 var getOrganization = function getOrganization() {
   var orgId = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
 
+  var options = {};
   if (orgId != 'self') {
-    var options = {
-      'public': true
-    };
+    options['public'] = true;
   }
   console.log(options);
   return ago.request('portals/' + orgId, options)
@@ -8647,8 +8647,10 @@ var getOrganization = function getOrganization() {
   })
   // Get Org uses by lastLogin
   .then(function (org) {
-    return ago.organization.getUsers(orgId, 100).then(function (results) {
-      if (org.subscriptionInfo) {
+    if (options['public']) {
+      return org;
+    } else {
+      return ago.organization.getUsers(orgId, options).then(function (results) {
         // Set the number of users
         org.subscriptionInfo.numUsers = results.total;
         org.users = results.users.sort(function (a, b) {
@@ -8659,9 +8661,9 @@ var getOrganization = function getOrganization() {
         org.subscriptionInfo.activeUsers = org.users.filter(function (user) {
           return !user.disabled;
         }).length;
-      }
-      return org;
-    });
+        return org;
+      });
+    }
   })
   // Get featured item group
   .then(function (org) {

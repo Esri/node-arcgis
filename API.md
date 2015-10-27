@@ -25,12 +25,11 @@ If no OrgId is passed, the method returns the object representing the organizati
 
 ### `organization.getUsers()`
 
-Gets a paginated list of an organizations members, with `num` users per page. If no OrgId is passed, the method returns the object representing the organization you are a part of.
+Gets a paginated list of an organizations members that the current token is valid for, with `num` users per page.
 
 #### Parameters
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| OrgId          | String       | none                    |
 | Num            | Number       | 100                     |
 
 ### `organization.getContent()`

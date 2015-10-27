@@ -5,6 +5,6 @@
  * @returns {Promise} On resolution will return paginated users object.
  */
 
-let getOrganizationUsers = (orgId, num) => ago.request(`portals/${orgId}/users`, {'num': num || 100})
+let getOrganizationUsers = (orgId, options = {num: 100}) => ago.request(`portals/${orgId}/users`, options)
 
 module.exports = getOrganizationUsers

@@ -25,10 +25,9 @@ var sanitizeHtml = require('sanitize-html')
   // homePageFeaturedContentCount ✓
 
 let getOrganization = (orgId = 'self') => {
+  var options = {}
   if (orgId != 'self') {
-    var options = {
-      public: true
-    }
+    options.public = true
   }
   console.log(options)
   return ago.request(`portals/${orgId}`, options)
@@ -47,9 +46,11 @@ let getOrganization = (orgId = 'self') => {
   })
   // Get Org uses by lastLogin
   .then(function (org) {
-    return ago.organization.getUsers(orgId, 100)
-    .then(function (results){
-      if( org.subscriptionInfo) {
+    if (options.public) {
+      return org
+    } else {
+      return ago.organization.getUsers(orgId, options)
+      .then(function (results){
         // Set the number of users
         org.subscriptionInfo.numUsers = results.total
         org.users = results.users.sort(function(a,b){
@@ -60,9 +61,9 @@ let getOrganization = (orgId = 'self') => {
         org.subscriptionInfo.activeUsers = org.users.filter(function (user){
           return !user.disabled
         }).length
-      }
-      return org
-    })
+        return org
+      })
+    }
   })
   // Get featured item group
   .then(function (org) {
