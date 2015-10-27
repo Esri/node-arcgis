@@ -1,5 +1,5 @@
 {
-  "name": "node-arcgis",
+  "name": "arcgis",
   "description": "Node client library for ArcGIS",
   "version": "0.0.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
@@ -7,9 +7,17 @@
     "url": "https://github.com/nikolaswise/node-arcgis/issues"
   },
   "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.4.0",
+    "browserify": "^12.0.0",
     "faucet": "0.0.1",
+    "parallelshell": "^2.0.0",
+    "sanitize-html": "^1.11.1",
     "standard": "*",
-    "tape": "^4.0.0"
+    "tape": "^4.0.0",
+    "uglifyify": "^3.0.1",
+    "unique": "0.0.1",
+    "watchify": "^3.5.0"
   },
   "homepage": "https://github.com/nikolaswise/node-arcgis",
   "keywords": [
@@ -17,12 +25,13 @@
     "gis"
   ],
   "license": "ISC",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "scripts": {
-    "test": "standard && faucet"
+    "dev": "watchify test/index.js -t babelify --outfile test/bundle.js",
+    "test": "faucet"
   }
 }

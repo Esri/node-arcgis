@@ -20,6 +20,7 @@ npm install arcgis
 
 ```js
 var ArcGIS = require('arcgis')
+var ago = ArcGIS(token)
 ```
 
 ## Contributing
