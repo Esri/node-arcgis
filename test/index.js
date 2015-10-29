@@ -1,6 +1,6 @@
 var ArcGIS = require('../src/index')
 
-var token = '_yOcUXgK_iGrksN1j2OhXhoUhWn03VUzdZ6ymiAf3WLwmfJQ9hPI8X2gbdOZKXvNtPJ98n8mOyEpevVOq7QV-ywz8X5q_c3M7858PqKVyH56foSEJOlMmdgtIZ2o7vsxOMpVLSO-5lSM2OjwZb1Ruw..'
+var token = 'r4ckNoUtPoM8y52SjLzA-KkmYrxeKsNZ_K4dHYCmY-2h8B_oDtrBsdclYwem2rcQJk-c5Ipg92yRmJJtVXVVqWA5DYp6kHxdFXRI6x0CmRxVw-uyXBWpRWTlPsA_A3rEZ7PJscZ8yOxnQ_VhOb2_fg..'
 
 var ago = ArcGIS(token)
 window.ago = ago

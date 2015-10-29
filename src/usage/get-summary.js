@@ -14,6 +14,7 @@ var p2ms = require('./period-to-ms')
  let getSummary = (start, end, period) => {
     return getUsage({startTime: start, endTime: end, period: period})
     .then( function (response){
+
       let usage = flatten(response)
       usage.activeServices = usage.products.length
       let duration = (response.endTime - response.startTime )/ p2ms(usage.period)
