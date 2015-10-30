@@ -1,32 +1,3 @@
-<!doctype html lang="en">
-<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
-<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
-<!--[if !IE]><!--> <html> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Node ArcGIS Console</title>
-    <style>
-      body {
-        font-size: 18px;
-        line-height: 1.45rem;
-        letter-spacing: 0.02em;
-        color: #303030;
-        background-color: #f1f2f0;
-        font-family: 'Nitti', consolas, monospace;
-      }
-      pre {
-        max-width: 48rem;
-        padding: 1rem;
-        word-wrap: normal;
-        margin: auto;
-      }
-    </style>
-  </head>
-  <body>
-    <pre><code>
-
 # ArcGIS
 
 **Params**
@@ -41,7 +12,7 @@ JSON Object with ArcGIS methods.
 
 ```
 {
-  auth: function(options)
+  auth: function(options),
   request: function(url, form, rootURL),
   user: function(options),
   organization: function(options),
@@ -101,8 +72,3 @@ JSON User object with User management methods.
 ```
 
 ```
-
-    </code></pre>
-    <script src="/test/bundle.js"></script>
-  </body>
-</html>

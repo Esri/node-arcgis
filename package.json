@@ -11,9 +11,12 @@
     "babelify": "^6.4.0",
     "browserify": "^12.0.0",
     "faucet": "0.0.1",
+    "gfm.css": "^1.1.1",
     "parallelshell": "^2.0.0",
+    "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
     "standard": "*",
+    "static-site": "^1.0.2",
     "tape": "^4.0.0",
     "uglifyify": "^3.0.1",
     "unique": "0.0.1",
@@ -30,9 +33,15 @@
     "type": "git",
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
+  "watches": {
+    "doc": [ "*.md", "_layout.html"]
+  },
   "scripts": {
-    "dev": "parallelshell 'npm run server' 'npm run js'",
-    "server": "http-server",
+    "start": "npm run dev",
+    "predev": "npm run doc",
+    "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
+    "doc": "static-site -s ./ -b ./docs -i node_modules/ --template _layout.html",
+    "server": "http-server docs/",
     "js": "watchify test/index.js -t babelify --outfile test/bundle.js",
     "test": "faucet"
   }
