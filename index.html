@@ -7,8 +7,60 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Node ArcGIS Console</title>
+    <style>
+      body {
+        font-size: 18px;
+        line-height: 1.45rem;
+        letter-spacing: 0.02em;
+        color: #303030;
+        background-color: #f1f2f0;
+        font-family: 'Nitti', consolas, monospace;
+      }
+      pre {
+        max-width: 48rem;
+        padding: 1rem;
+        margin: auto;
+      }
+    </style>
   </head>
   <body>
+    <pre><code>
+
+# ArcGIS
+
+**Params**
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Token          | String       | none                    |
+
+**Returns**
+
+Object with ArcGIS methods.
+
+```
+{
+  request: function(url, form, rootURL),
+  user: function(options),
+  organization: function(options),
+  group: function(options),
+  item: function(options),
+  items: function(options),
+  favorites: function(options),
+  usage: function(options),
+  billing: function(options),
+  search: function(options)
+}
+```
+
+**Example**
+
+```
+var ArcGIS = require('arcgis')
+var ago = ArcGIS('token')
+```
+
+    </code></pre>
     <script src="/test/bundle.js"></script>
   </body>
 </html>
