@@ -55,7 +55,6 @@ JSON User object with User management methods.
   "lastName": String    // recorded last name of the user
   "provider": String    // ???
   "username": String    // hard username for the user. Never changes.
-
   "culture": String     // Private. two letter lang code ex: 'en'
   "description": String // Private. text description set by the user
   "modified": Date      // Private. date when the user
