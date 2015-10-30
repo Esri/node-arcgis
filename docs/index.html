@@ -20,6 +20,7 @@
       <a href="/LICENSE">License</a>
       <a href="https://github.com/esripdx/node-arcgis/">Github</a>
       <h1>ArcGIS</h1>
+<p>Client library for interfacing with ArcGIS, either a Server installation of ArcGIS online. All methods return Promises, which on resolution return JSON.</p>
 <p><strong>Params</strong></p>
 <table>
 <thead>
@@ -31,9 +32,30 @@
 </thead>
 <tbody>
 <tr>
+<td>Options</td>
+<td>Object</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>Token</td>
 <td>String</td>
 <td>none</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>url</td>
+<td>www.arcgis.com/</td>
 </tr>
 </tbody>
 </table>
@@ -75,28 +97,131 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Returns</strong></p>
+<p><strong>Returns Promise</strong></p>
 <p>JSON User object with User management methods.</p>
 <pre><code>{
-  <span class="hljs-string">"created"</span>: <span class="hljs-built_in">Date</span>       <span class="hljs-comment">// when this user was created</span>
-  <span class="hljs-string">"firstName"</span>: <span class="hljs-built_in">String</span>   <span class="hljs-comment">// recorded first name of the user</span>
-  <span class="hljs-string">"fullName"</span>: <span class="hljs-built_in">String</span>    <span class="hljs-comment">// recorded name of the user</span>
-  <span class="hljs-string">"lastName"</span>: <span class="hljs-built_in">String</span>    <span class="hljs-comment">// recorded last name of the user</span>
-  <span class="hljs-string">"provider"</span>: <span class="hljs-built_in">String</span>    <span class="hljs-comment">// ???</span>
-  <span class="hljs-string">"username"</span>: <span class="hljs-built_in">String</span>    <span class="hljs-comment">// hard username for the user. Never changes.</span>
-  <span class="hljs-string">"culture"</span>: <span class="hljs-built_in">String</span>     <span class="hljs-comment">// Private. two letter lang code ex: 'en'</span>
-  <span class="hljs-string">"description"</span>: <span class="hljs-built_in">String</span> <span class="hljs-comment">// Private. text description set by the user</span>
-  <span class="hljs-string">"modified"</span>: <span class="hljs-built_in">Date</span>      <span class="hljs-comment">// Private. date when the user</span>
-  <span class="hljs-string">"region"</span>: <span class="hljs-built_in">String</span>      <span class="hljs-comment">// Private. two letter country code ex: 'us'</span>
-  <span class="hljs-string">"tags"</span>: <span class="hljs-built_in">Array</span>         <span class="hljs-comment">// Private. array of tags that user has used maybe?</span>
-  <span class="hljs-string">"thumbnail"</span>: <span class="hljs-built_in">String</span>   <span class="hljs-comment">// Private. name of the users thumbnail image ex: 'coolguy.jpg'</span>
-  <span class="hljs-string">"units"</span>: <span class="hljs-built_in">String</span>       <span class="hljs-comment">// Private. 'imperial' or 'metric'</span>
+<span class="hljs-comment">// always returned on any user</span>
+  <span class="hljs-string">"created"</span>: <span class="hljs-built_in">Date</span>            <span class="hljs-comment">// when this user was created</span>
+  <span class="hljs-string">"firstName"</span>: <span class="hljs-built_in">String</span>        <span class="hljs-comment">// recorded first name of the user</span>
+  <span class="hljs-string">"fullName"</span>: <span class="hljs-built_in">String</span>         <span class="hljs-comment">// recorded name of the user</span>
+  <span class="hljs-string">"lastName"</span>: <span class="hljs-built_in">String</span>         <span class="hljs-comment">// recorded last name of the user</span>
+  <span class="hljs-string">"provider"</span>: <span class="hljs-built_in">String</span>         <span class="hljs-comment">// ???</span>
+  <span class="hljs-string">"username"</span>: <span class="hljs-built_in">String</span>         <span class="hljs-comment">// hard username for the user. Never changes.</span>
+<span class="hljs-comment">// the following are not returned if the user is private</span>
+  <span class="hljs-string">"culture"</span>: <span class="hljs-built_in">String</span>          <span class="hljs-comment">// two letter lang code ex: 'en'</span>
+  <span class="hljs-string">"description"</span>: <span class="hljs-built_in">String</span>      <span class="hljs-comment">// text description set by the user</span>
+  <span class="hljs-string">"modified"</span>: <span class="hljs-built_in">Date</span>           <span class="hljs-comment">// date when the user</span>
+  <span class="hljs-string">"region"</span>: <span class="hljs-built_in">String</span>           <span class="hljs-comment">// two letter country code ex: 'us'</span>
+  <span class="hljs-string">"tags"</span>: <span class="hljs-built_in">Array</span>              <span class="hljs-comment">// array of tags that user has used maybe?</span>
+  <span class="hljs-string">"thumbnail"</span>: <span class="hljs-built_in">String</span>        <span class="hljs-comment">// name of the users thumbnail image ex: 'coolguy.jpg'</span>
+  <span class="hljs-string">"units"</span>: <span class="hljs-built_in">String</span>,            <span class="hljs-comment">// 'imperial' or 'metric'</span>
+<span class="hljs-comment">// methods on the user</span>
+  update: function(options), <span class="hljs-comment">// updates the user information</span>
+  delete: function(),        <span class="hljs-comment">// deletes a user</span>
+  content: function(),       <span class="hljs-comment">// gets all content owned by a user</span>
+  tags: function(),          <span class="hljs-comment">// returns the users tags?</span>
+  enable: function(),        <span class="hljs-comment">// enables a disabled user</span>
+  disable: function(),       <span class="hljs-comment">// disables a user</span>
 }
 
 </code></pre>
 <p><strong>Example</strong></p>
-<pre><code>
+<pre><code><span class="hljs-tag">var</span> user = ago.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'someuser'</span>)</span></span>
+<span class="hljs-tag">var</span> userContent = user.<span class="hljs-function"><span class="hljs-title">content</span><span class="hljs-params">()</span></span>
+<span class="hljs-tag">var</span> userTags = user.<span class="hljs-function"><span class="hljs-title">tags</span><span class="hljs-params">()</span></span>
 </code></pre>
+<h3>user.update</h3>
+<p>Updates the users information and properties and things.</p>
+<h3>user.delete</h3>
+<p>Deletes the user.</p>
+<h3>user.content</h3>
+<p>Gets the users content.</p>
+<h3>user.favorites</h3>
+<p>Gets the items the user has favorited.</p>
+<h3>user.tags</h3>
+<p>Gets and sets the tags that a user uses I guess?</p>
+<h3>user.enabled</h3>
+<p>Enables and disables the user within the organization.</p>
+<h2>Organization</h2>
+<h3>organization.update</h3>
+<p>updates org information</p>
+<h3>organization.users</h3>
+<p>gets users in an org</p>
+<h3>organization.content</h3>
+<p>gets content in an org</p>
+<h3>organization.summary</h3>
+<p>gets and sets the short summary of an org</p>
+<h3>organization.addUsers</h3>
+<p>Invites users to an org.</p>
+<h3>organization.deleteUsers</h3>
+<p>deletes users from an org</p>
+<h2>Group</h2>
+<p>Gets a group?</p>
+<h3>group.new</h3>
+<p>creates a new group?</p>
+<h3>group.update</h3>
+<p>updates group information</p>
+<h3>group.delete</h3>
+<p>deletes a group</p>
+<h3>group.content</h3>
+<p>gets the content in a group</p>
+<h3>group.users</h3>
+<p>adds a user to a group, via invitation if needed. If options is null, returns users in a group</p>
+<h3>group.removeUser</h3>
+<p>kicks a user out of a group</p>
+<h3>group.join</h3>
+<p>request an invitation for a user to a group</p>
+<h3>group.leave</h3>
+<p>leave a group</p>
+<h3>group.changeOwner</h3>
+<p>changes the owner of a group</p>
+<h2>Item</h2>
+<p>returns an item by itemid.</p>
+<h3>item.new</h3>
+<p>creates a new item.</p>
+<h3>item.update</h3>
+<p>updates an items information.</p>
+<h3>item.delete</h3>
+<p>deletes an item.</p>
+<h3>item.createService</h3>
+<p>Creates a new feature service for hosted data?.</p>
+<h3>item.folder</h3>
+<p>Returns the folder of an item, or adds an item to a folder.</p>
+<h3>item.groups</h3>
+<p>Returns the groups an item is a part of, adds item to one or more groups.</p>
+<h3>item.owner</h3>
+<p>returns the items owner, changes the owner of an item.</p>
+<h3>item.favorite</h3>
+<p>adds item to favorites, removes item from favorites.</p>
+<h3>item.rating</h3>
+<p>Gets an item rating, rates an item, or removes a rating on an item.</p>
+<h3>item.publish</h3>
+<p>publishes a static data item to a usable layer.</p>
+<h3>item.export</h3>
+<p>exports item as selected data type.</p>
+<h3>item.data</h3>
+<p>gets the data behind an item, updates the data behind an item?</p>
+<h3>item.deleteProtected</h3>
+<p>sets delete protection status.</p>
+<h3>item.register</h3>
+<p>registers an item as an application.</p>
+<h3>item.oAuth</h3>
+<p>returns oauth information for an app.</p>
+<h3>item.relatedItems</h3>
+<p>returns items related to an item.</p>
+<h3>item.permissions</h3>
+<p>sets permissions on an item to self, org, or public. If options is null,
+returns current permissions.</p>
+<h3>item.comments</h3>
+<p>Gets all the comments on an item.</p>
+<h4>item.comments.add</h4>
+<p>adds a comment to the item, if possible</p>
+<h4>item.comments.comment</h4>
+<p>returns a particular comment on an item</p>
+<h5>item.comments.comment.edit</h5>
+<p>edit the content of a comment</p>
+<h5>item.comments.comment.delete</h5>
+<p>deletes a comment from the item</p>
 
     </main>
     <script src="/bundle.js"></script>
