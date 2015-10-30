@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
-    "url": "https://github.com/nikolaswise/node-arcgis/issues"
+    "url": "https://github.com/esripdx/node-arcgis/issues"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -42,7 +42,8 @@
     "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
     "doc": "static-site -s ./ -b ./docs -i node_modules/ docs/ --template _layout.html",
     "server": "http-server docs/",
-    "js": "watchify test/index.js -t babelify --outfile test/bundle.js",
+    "js": "watchify test/index.js -t babelify --outfile docs/bundle.js",
+    "predeploy": "browserify src/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
     "test": "faucet"
   }

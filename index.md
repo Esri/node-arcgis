@@ -12,17 +12,17 @@ JSON Object with ArcGIS methods.
 
 ```
 {
-  auth: function(options),
-  request: function(url, form, rootURL),
-  user: function(options),
-  organization: function(options),
-  group: function(options),
-  item: function(options),
-  items: function(options),
-  favorites: function(options),
-  usage: function(options),
-  billing: function(options),
-  search: function(options)
+  auth: function,
+  request: function,
+  user: function,
+  organization: function,
+  group: function,
+  item: function,
+  items: function,
+  favorites: function,
+  usage: function,
+  billing: function,
+  search: function
 }
 ```
 
