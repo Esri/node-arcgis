@@ -31,7 +31,9 @@
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "scripts": {
-    "dev": "watchify test/index.js -t babelify --outfile test/bundle.js",
+    "dev": "parallelshell 'npm run server' 'npm run js'",
+    "server": "http-server",
+    "js": "watchify test/index.js -t babelify --outfile test/bundle.js",
     "test": "faucet"
   }
 }
