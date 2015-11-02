@@ -8396,7 +8396,14 @@ var uniq = require('./lib/uniq');
  * @param {String} Valid Token
  * @returns {Object} Object with methods for necessary routes
  */
-var client = function client(token) {
+var client = function client() {
+  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+  var _ref$token = _ref.token;
+  var token = _ref$token === undefined ? "" : _ref$token;
+  var _ref$domain = _ref.domain;
+  var domain = _ref$domain === undefined ? "www.arcgis.com" : _ref$domain;
+
   var ago = {
     /* Automatically add client id, base url */
     /**
@@ -8405,9 +8412,10 @@ var client = function client(token) {
      * @param {Object} Options to pass as query parameters
      * @returns {Promise} On resolution will return results
      */
+
     request: function request(url) {
       var form = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-      var rootUrl = arguments.length <= 2 || arguments[2] === undefined ? 'http://www.arcgis.com/sharing/rest/' : arguments[2];
+      var rootUrl = arguments.length <= 2 || arguments[2] === undefined ? 'http://' + domain + '/sharing/rest/' : arguments[2];
 
       if (!form['public']) {
         form.token = token;
@@ -8415,10 +8423,7 @@ var client = function client(token) {
       form.f = 'pjson';
       return rq.get('' + rootUrl + url, form);
     },
-    getUser: require('./user/get-user'),
-    user: {
-      getContent: require('./user/get-user-content')
-    },
+    user: require('./user/user'),
     getOrganization: require('./org/get-organization'),
     organization: {
       getUsers: require('./org/get-organization-users'),
@@ -8467,7 +8472,7 @@ var client = function client(token) {
 
 module.exports = client;
 
-},{"./billing/billing":65,"./group/get-group":67,"./group/get-group-content":66,"./items/get-item":69,"./items/get-tags":70,"./lib/rq":71,"./lib/uniq":72,"./org/get-organization":76,"./org/get-organization-content":73,"./org/get-organization-summary":74,"./org/get-organization-users":75,"./usage/flatten-data":77,"./usage/get-summary":78,"./usage/parse-product":79,"./usage/period-to-ms":80,"./usage/stype-to-service":81,"./usage/usage":82,"./user/get-user":84,"./user/get-user-content":83}],69:[function(require,module,exports){
+},{"./billing/billing":65,"./group/get-group":67,"./group/get-group-content":66,"./items/get-item":69,"./items/get-tags":70,"./lib/rq":71,"./lib/uniq":72,"./org/get-organization":76,"./org/get-organization-content":73,"./org/get-organization-summary":74,"./org/get-organization-users":75,"./usage/flatten-data":77,"./usage/get-summary":78,"./usage/parse-product":79,"./usage/period-to-ms":80,"./usage/stype-to-service":81,"./usage/usage":82,"./user/user":91}],69:[function(require,module,exports){
 /**
  * Gets item by ID
  * @param {String} Item ID
@@ -9074,24 +9079,21 @@ var getUsage = function getUsage() {
 module.exports = getUsage;
 
 },{}],83:[function(require,module,exports){
-/**
- * Gets items owned by a user by username.
- * @param {String} Username who's content is desired
- * @returns {Promise} On resolution will return an object of all the users content.
- */
-
 "use strict";
-
-var getUserContent = function getUserContent(userName) {
-  return ago.request("content/users/" + userName).then(function (results) {
-    console.log(results);
-    return results;
-  });
-};
-
-module.exports = getUserContent;
 
 },{}],84:[function(require,module,exports){
+"use strict";
+
+},{}],85:[function(require,module,exports){
+"use strict";
+
+},{}],86:[function(require,module,exports){
+"use strict";
+
+},{}],87:[function(require,module,exports){
+"use strict";
+
+},{}],88:[function(require,module,exports){
 /**
  * Gets items owned by a user by username.
  * @param {String} Username who's content is desired
@@ -9100,21 +9102,72 @@ module.exports = getUserContent;
 
 "use strict";
 
-var getUser = function getUser(userName) {
-  return ago.request("community/users/" + userName).then(function (results) {
-    console.log(results);
+var getUser = function getUser() {
+  return ago.request("community/users/" + this.username).then(function (results) {
     return results;
   });
 };
 
 module.exports = getUser;
 
-},{}],85:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
+"use strict";
+
+},{}],90:[function(require,module,exports){
+/**
+ * Update the user object.
+ * @param {Object} Options to update on the user
+ * @returns {Promise} Updated user object.
+ */
+
+"use strict";
+
+var update = function update() {
+  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+  console.log(this);
+  return ago.request("content/users/" + this.username + "/update").then(function (results) {
+    console.log(results);
+    return results;
+  });
+};
+
+module.exports = update;
+
+},{}],91:[function(require,module,exports){
+'use strict';
+
+var User = {
+  get: require('./get'),
+  update: require('./update'),
+  'delete': require('./delete'),
+  content: require('./content'),
+  content: require('./favorites'),
+  tags: require('./tags'),
+  enable: require('./enable'),
+  disable: require('./disable')
+};
+
+module.exports = function () {
+  var username = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
+
+  console.log(User);
+  var user = Object.create(User);
+  console.log(user);
+  user.username = username;
+  return user;
+};
+
+},{"./content":83,"./delete":84,"./disable":85,"./enable":86,"./favorites":87,"./get":88,"./tags":89,"./update":90}],92:[function(require,module,exports){
 'use strict';
 
 var ArcGIS = require('../src/index');
 var token = '';
-var ago = ArcGIS(token);
+
+var ago = ArcGIS({
+  token: token
+});
+
 window.ago = ago;
 
-},{"../src/index":68}]},{},[85]);
+},{"../src/index":68}]},{},[92]);

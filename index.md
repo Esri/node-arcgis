@@ -37,7 +37,19 @@ JSON Object with ArcGIS methods.
 
 ```
 var ArcGIS = require('arcgis')
-var ago = ArcGIS('token')
+
+var anonAGO = ArcGIS()
+<!-- Creates an anonymous session with www.arcgis.com -->
+
+var authAGO = ArcGIS({
+	token: token
+})
+<!-- Creates an authenticated session with www.arcgis.com -->
+
+var serverGIS = ArcGIS({
+	domain: 'myGIS.myurl.com'
+})
+<!-- Creates an anonymous session with ArcGIS Server -->
 ```
 
 ## User
@@ -46,7 +58,7 @@ var ago = ArcGIS('token')
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| Username       | String       | 'Self'                  |
+| Username       | String       | 'self'                  |
 
 **Returns Promise**
 
@@ -54,6 +66,26 @@ JSON User object with User management methods.
 
 ```
 {
+  get: function(),           // gets user information
+  update: function(options), // updates the user information
+  delete: function(),        // deletes a user
+  content: function(),       // gets users content
+  tags: function(),          // returns the users tags?
+  enable: function(),        // enables a disabled user
+  disable: function(),       // disables a user
+}
+```
+
+**Example**
+
+```
+var user = ago.user('username')
+```
+
+### user.get
+
+**Returns**
+```
 // always returned on any user
   "created": Date            // when this user was created
   "firstName": String        // recorded first name of the user
@@ -69,28 +101,53 @@ JSON User object with User management methods.
   "tags": Array              // array of tags that user has used maybe?
   "thumbnail": String        // name of the users thumbnail image ex: 'coolguy.jpg'
   "units": String,            // 'imperial' or 'metric'
-// methods on the user
-  update: function(options), // updates the user information
-  delete: function(),        // deletes a user
-  content: function(),       // gets all content owned by a user
-  tags: function(),          // returns the users tags?
-  enable: function(),        // enables a disabled user
-  disable: function(),       // disables a user
-}
-
 ```
 
 **Example**
-
 ```
-var user = ago.user('someuser')
-var userContent = user.content()
-var userTags = user.tags()
+user.get()
+.then(function (profile){
+  console.log(profile)
+})
 ```
 
 ### user.update
 
-Updates the users information and properties and things.
+Takes an options object, and sets the users information to the options provided. Returns an error, or the updated user object.
+
+**Options**
+
+| Options        | Type         | Description             |
+| -------------- | ------------ | ----------------------- |
+| access         | 'public' / 'org' / 'private' | Visibillity of the user to searches. |
+| preferredView  | 'Web' / 'GIS' / 'null' | Something about ... something? |
+| description    | String | Plain text description of the user. |
+| tags           | Array | Tags for the user used for ... something? |
+| thumbnail      | Path | The file to be used as the users profile image. |
+| password       | String | Set the users password to the new string. |
+| fullname       | String | The full name of the user. |
+| email          | Email Address | Email address to contact the user at. |
+| securityQuestionIdx | Integer | Index of the security question in the Security Question Array. |
+| securityAnswer | String | Plain string of the answer to the security question. |
+| culture        | Culture Code | Culture code for the user. |
+| region         | Country Code |  Region code for the user. |
+
+**Returns**
+
+Success: Returns the updated user object.
+
+
+Error:
+```
+{
+	error: {
+		code: ???
+		message: '???'
+	}
+}
+```
+
+**Example**
 
 ### user.delete
 

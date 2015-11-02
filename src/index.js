@@ -9,7 +9,8 @@ var uniq = require('./lib/uniq')
  * @param {String} Valid Token
  * @returns {Object} Object with methods for necessary routes
  */
-let client = token => {
+let client = ({token = "", domain = "www.arcgis.com"} = {}) => {
+
   let ago = {
     /* Automatically add client id, base url */
     /**
@@ -18,17 +19,15 @@ let client = token => {
      * @param {Object} Options to pass as query parameters
      * @returns {Promise} On resolution will return results
      */
-    request: (url, form = {}, rootUrl = 'http://www.arcgis.com/sharing/rest/') => {
+
+    request: (url, form = {}, rootUrl = `http://${domain}/sharing/rest/`) => {
       if (!form.public){
         form.token = token
       }
       form.f     = 'pjson'
       return rq.get(`${rootUrl}${url}`, form)
     },
-    getUser: require('./user/get-user'),
-    user: {
-      getContent: require('./user/get-user-content')
-    },
+    user: require('./user/user'),
     getOrganization: require('./org/get-organization'),
     organization: {
       getUsers: require('./org/get-organization-users'),

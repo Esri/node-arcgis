@@ -4,10 +4,9 @@
  * @returns {Promise} On resolution will return an object of all the users content.
  */
 
-let getUser = userName => {
-  return ago.request(`community/users/${userName}`)
+let getUser = function () {
+  return ago.request(`community/users/${this.username}`)
   .then(function (results){
-    console.log(results)
     return results
   })
 }
