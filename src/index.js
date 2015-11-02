@@ -10,7 +10,8 @@ var uniq = require('./lib/uniq')
  * @returns {Object} Object with methods for necessary routes
  */
 let client = ({token = "", domain = "www.arcgis.com"} = {}) => {
-
+  console.log(token)
+  console.log(domain)
   let ago = {
     /* Automatically add client id, base url */
     /**

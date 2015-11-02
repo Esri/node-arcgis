@@ -1,14 +1,13 @@
 /**
- * Gets items owned by a user by username.
- * @param {String} Username who's content is desired
- * @returns {Promise} On resolution will return an object of all the users content.
+ * Gets user profile object
+ * @returns {Promise} User profile object.
  */
 
-let getUser = function () {
+let get = function () {
   return ago.request(`community/users/${this.username}`)
   .then(function (results){
     return results
   })
 }
 
-module.exports = getUser
+module.exports = get

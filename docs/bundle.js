@@ -8404,6 +8404,8 @@ var client = function client() {
   var _ref$domain = _ref.domain;
   var domain = _ref$domain === undefined ? "www.arcgis.com" : _ref$domain;
 
+  console.log(token);
+  console.log(domain);
   var ago = {
     /* Automatically add client id, base url */
     /**
@@ -9095,20 +9097,19 @@ module.exports = getUsage;
 
 },{}],88:[function(require,module,exports){
 /**
- * Gets items owned by a user by username.
- * @param {String} Username who's content is desired
- * @returns {Promise} On resolution will return an object of all the users content.
+ * Gets user profile object
+ * @returns {Promise} User profile object.
  */
 
 "use strict";
 
-var getUser = function getUser() {
+var get = function get() {
   return ago.request("community/users/" + this.username).then(function (results) {
     return results;
   });
 };
 
-module.exports = getUser;
+module.exports = get;
 
 },{}],89:[function(require,module,exports){
 "use strict";
@@ -9122,11 +9123,8 @@ module.exports = getUser;
 
 "use strict";
 
-var update = function update() {
-  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-  console.log(this);
-  return ago.request("content/users/" + this.username + "/update").then(function (results) {
+var update = function update(options) {
+  return ago.request("content/users/" + this.username + "/update", options).then(function (results) {
     console.log(results);
     return results;
   });
@@ -9151,9 +9149,7 @@ var User = {
 module.exports = function () {
   var username = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
 
-  console.log(User);
   var user = Object.create(User);
-  console.log(user);
   user.username = username;
   return user;
 };
@@ -9162,7 +9158,7 @@ module.exports = function () {
 'use strict';
 
 var ArcGIS = require('../src/index');
-var token = '';
+var token = 's55xIQ4vpqRiJQORR0k1uH5kvOMNMVE1D0b39vbTJFlICxGB57w6ijyFT4Us22HNfChBMpmppgP9Qmd0i4bqEB1fcUvZV5CF2OGYnboOFGU_KNWBIdkAG9PhmbNFWj7NztQLuBnQ6oIl3BmBHpOt4HPqT6jTCgYZNKMRls1dhbRwNsiNlCr0L9klsvWaQU9B';
 
 var ago = ArcGIS({
   token: token

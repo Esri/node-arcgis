@@ -4,9 +4,8 @@
  * @returns {Promise} Updated user object.
  */
 
- let update = function (options = {}) {
-  console.log(this)
-  return ago.request(`content/users/${this.username}/update`)
+let update = function (options) {
+  return ago.request(`content/users/${this.username}/update`, options)
   .then(function (results){
     console.log(results)
     return results

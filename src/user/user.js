@@ -10,9 +10,7 @@ var User = {
 }
 
 module.exports = (username = 'self') => {
-  console.log(User)
   var user = Object.create(User)
-  console.log(user)
   user.username = username
   return user
 }
