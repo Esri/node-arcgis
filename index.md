@@ -150,7 +150,13 @@ Deletes the user.
 
 ### user.content
 
-Gets the users content.
+Gets the users content by folder id. If no folder id is supplied, returns all the items at the users root folder.
+
+**Params**
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| FolderID       | String       | none                    |
 
 **Returns**
 

@@ -233,7 +233,24 @@ var serverGIS = ArcGIS({
 <h3>user.delete</h3>
 <p>Deletes the user.</p>
 <h3>user.content</h3>
-<p>Gets the users content.</p>
+<p>Gets the users content by folder id. If no folder id is supplied, returns all the items at the users root folder.</p>
+<p><strong>Params</strong></p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FolderID</td>
+<td>String</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Returns</strong></p>
 <pre><code>{
     <span class="hljs-attribute">currentFolder</span>: null, <span class="hljs-comment">// this is the root folder</span>

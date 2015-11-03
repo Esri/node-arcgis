@@ -9124,8 +9124,13 @@ module.exports = getUsage;
 
 "use strict";
 
-var content = function content() {
-  return ago.request("content/users/" + this.username).then(function (results) {
+var content = function content(folder) {
+  if (folder) {
+    var folderUrl = "/" + folder;
+  } else {
+    var folderUrl = "";
+  }
+  return ago.request("content/users/" + this.username + folderUrl).then(function (results) {
     console.log(results);
     return results;
   });
