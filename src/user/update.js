@@ -5,10 +5,14 @@
  */
 
 let update = function (options) {
-  return ago.request(`content/users/${this.username}/update`, options)
+  return ago.request(`community/users/${this.username}/update`, options, true)
   .then(function (results){
     console.log(results)
-    return results
+    if (results.success) {
+      return this.get()
+    } else {
+      return new Error(results.error)
+    }
   })
 }
 

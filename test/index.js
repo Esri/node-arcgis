@@ -1,5 +1,5 @@
 var ArcGIS = require('../src/index')
-var token = 's55xIQ4vpqRiJQORR0k1uH5kvOMNMVE1D0b39vbTJFlICxGB57w6ijyFT4Us22HNfChBMpmppgP9Qmd0i4bqEB1fcUvZV5CF2OGYnboOFGU_KNWBIdkAG9PhmbNFWj7NztQLuBnQ6oIl3BmBHpOt4HPqT6jTCgYZNKMRls1dhbRwNsiNlCr0L9klsvWaQU9B'
+var token = '6yqjCHohBynYILIa7hnNsx6zIYE6tbzsgz5HgZzxWB-dbbKqB8GhYxXEmO9pANnKAPjrR3kys-MAS18pJ6vjijFFZlSgKYHJ3cMSWQT-XYi-_lARC9sDua_MjaMY34zMTl95DIUnE1Y7e0EvAU3fHmqquZjdLbTnh4QZfcPWBVoa-aSfspu9pMvxQxSDU0IF'
 
 var ago = ArcGIS({
   token: token

@@ -8415,15 +8415,19 @@ var client = function client() {
      * @returns {Promise} On resolution will return results
      */
 
-    request: function request(url) {
-      var form = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-      var rootUrl = arguments.length <= 2 || arguments[2] === undefined ? 'http://' + domain + '/sharing/rest/' : arguments[2];
+    request: function request(url, form, post) {
+      if (form === undefined) form = {};
 
+      var rootUrl = 'http://' + domain + '/sharing/rest/';
       if (!form['public']) {
         form.token = token;
       }
       form.f = 'pjson';
-      return rq.get('' + rootUrl + url, form);
+      if (post) {
+        return rq.post('' + rootUrl + url, form);
+      } else {
+        return rq.get('' + rootUrl + url, form);
+      }
     },
     user: require('./user/user'),
     getOrganization: require('./org/get-organization'),
@@ -8541,6 +8545,36 @@ var rq = {
       form = rq.encodeForm(form);
       xhr.open('get', url + '?' + form, true);
       xhr.responseType = 'json';
+
+      xhr.onload = function () {
+        if (xhr.status === 200 || xhr.status === 304) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error(xhr.status));
+        }
+      };
+
+      xhr.onerror = function () {
+        return reject(new Error('XMLHttpRequest Error: ' + xhr.statusText));
+      };
+      xhr.send();
+    });
+  },
+  /**
+   * Simple POST request to url, returns a promise
+   * @param {String} url
+   * @param {Object} form Form data appended to url as form encoded query strings
+   * @returns {Promise} Response body (parsed as JSON if application/json content-type detected)
+   */
+  post: function post(url, form) {
+    return new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      form = rq.encodeForm(form);
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-length", form.length);
+      xhr.setRequestHeader("Connection", "close");
+
       xhr.onload = function () {
         if (xhr.status === 200 || xhr.status === 304) {
           resolve(xhr.response);
@@ -8551,7 +8585,8 @@ var rq = {
       xhr.onerror = function () {
         return reject(new Error('XMLHttpRequest Error: ' + xhr.statusText));
       };
-      xhr.send();
+
+      xhr.send(form);
     });
   }
 };
@@ -9124,9 +9159,13 @@ module.exports = get;
 "use strict";
 
 var update = function update(options) {
-  return ago.request("content/users/" + this.username + "/update", options).then(function (results) {
+  return ago.request("community/users/" + this.username + "/update", options, true).then(function (results) {
     console.log(results);
-    return results;
+    if (results.success) {
+      return this.get();
+    } else {
+      return new Error(results.error);
+    }
   });
 };
 
@@ -9158,7 +9197,7 @@ module.exports = function () {
 'use strict';
 
 var ArcGIS = require('../src/index');
-var token = 's55xIQ4vpqRiJQORR0k1uH5kvOMNMVE1D0b39vbTJFlICxGB57w6ijyFT4Us22HNfChBMpmppgP9Qmd0i4bqEB1fcUvZV5CF2OGYnboOFGU_KNWBIdkAG9PhmbNFWj7NztQLuBnQ6oIl3BmBHpOt4HPqT6jTCgYZNKMRls1dhbRwNsiNlCr0L9klsvWaQU9B';
+var token = '6yqjCHohBynYILIa7hnNsx6zIYE6tbzsgz5HgZzxWB-dbbKqB8GhYxXEmO9pANnKAPjrR3kys-MAS18pJ6vjijFFZlSgKYHJ3cMSWQT-XYi-_lARC9sDua_MjaMY34zMTl95DIUnE1Y7e0EvAU3fHmqquZjdLbTnh4QZfcPWBVoa-aSfspu9pMvxQxSDU0IF';
 
 var ago = ArcGIS({
   token: token

@@ -21,12 +21,17 @@ let client = ({token = "", domain = "www.arcgis.com"} = {}) => {
      * @returns {Promise} On resolution will return results
      */
 
-    request: (url, form = {}, rootUrl = `http://${domain}/sharing/rest/`) => {
+    request: (url, form = {}, post) => {
+      var rootUrl = `http://${domain}/sharing/rest/`
       if (!form.public){
         form.token = token
       }
       form.f     = 'pjson'
-      return rq.get(`${rootUrl}${url}`, form)
+      if (post) {
+        return rq.post(`${rootUrl}${url}`, form)
+      } else {
+        return rq.get(`${rootUrl}${url}`, form)
+      }
     },
     user: require('./user/user'),
     getOrganization: require('./org/get-organization'),
