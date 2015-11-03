@@ -223,20 +223,35 @@ var serverGIS = ArcGIS({
 </tbody>
 </table>
 <p><strong>Returns</strong></p>
-<p>Success: Returns the updated user object.</p>
-<p>Error:</p>
-<pre><code><span class="hljs-rules">{
-    <span class="hljs-rule"><span class="hljs-attribute">error</span>:<span class="hljs-value"> {
-        code: ???
-        message: <span class="hljs-string">'???'</span>
-    </span></span></span>}
-}
-</code></pre>
+<p>The updated user object.</p>
 <p><strong>Example</strong></p>
+<pre><code><span class="hljs-tag">user</span><span class="hljs-class">.update</span>(<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">preferredView</span>:<span class="hljs-value"> <span class="hljs-string">'GIS'</span>,
+    description: <span class="hljs-string">'I am a GIS analyst.'</span>
+</span></span></span>})
+</code></pre>
 <h3>user.delete</h3>
 <p>Deletes the user.</p>
 <h3>user.content</h3>
 <p>Gets the users content.</p>
+<p><strong>Returns</strong></p>
+<pre><code>{
+    <span class="hljs-attribute">currentFolder</span>: null, <span class="hljs-comment">// this is the root folder</span>
+    <span class="hljs-attribute">folders</span>: Array,      <span class="hljs-comment">// array of folders the user has created</span>
+    <span class="hljs-attribute">items</span>: Array,        <span class="hljs-comment">// array of items in the root folder</span>
+    <span class="hljs-attribute">num</span>: Number,        <span class="hljs-comment">// number of items returned</span>
+    <span class="hljs-attribute">total</span>: Number,      <span class="hljs-comment">// number of items owned by the user</span>
+    <span class="hljs-attribute">start</span>: Number,      <span class="hljs-comment">// item this page of results starts on</span>
+    <span class="hljs-attribute">nextStart</span>: Number,  <span class="hljs-comment">// -1 if one page, otherwise first item in next page</span>
+    <span class="hljs-attribute">username</span>: String     <span class="hljs-comment">// The users name.</span>
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<pre><code>user.content()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (userContent){
+  console.<span class="hljs-built_in">log</span>(userContent)
+})
+</code></pre>
 <h3>user.favorites</h3>
 <p>Gets the items the user has favorited.</p>
 <h3>user.tags</h3>

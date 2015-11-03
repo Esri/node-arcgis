@@ -8418,7 +8418,7 @@ var client = function client() {
     request: function request(url, form, post) {
       if (form === undefined) form = {};
 
-      var rootUrl = 'http://' + domain + '/sharing/rest/';
+      var rootUrl = 'https://' + domain + '/sharing/rest/';
       if (!form['public']) {
         form.token = token;
       }
@@ -9116,7 +9116,22 @@ var getUsage = function getUsage() {
 module.exports = getUsage;
 
 },{}],83:[function(require,module,exports){
+/**
+ * Gets items owned by a user by username.
+ * @param {String} Username who's content is desired
+ * @returns {Promise} On resolution will return an object of all the users content.
+ */
+
 "use strict";
+
+var content = function content() {
+  return ago.request("content/users/" + this.username).then(function (results) {
+    console.log(results);
+    return results;
+  });
+};
+
+module.exports = content;
 
 },{}],84:[function(require,module,exports){
 "use strict";
@@ -9179,7 +9194,7 @@ var User = {
   update: require('./update'),
   'delete': require('./delete'),
   content: require('./content'),
-  content: require('./favorites'),
+  favorites: require('./favorites'),
   tags: require('./tags'),
   enable: require('./enable'),
   disable: require('./disable')
@@ -9197,12 +9212,14 @@ module.exports = function () {
 'use strict';
 
 var ArcGIS = require('../src/index');
-var token = '6yqjCHohBynYILIa7hnNsx6zIYE6tbzsgz5HgZzxWB-dbbKqB8GhYxXEmO9pANnKAPjrR3kys-MAS18pJ6vjijFFZlSgKYHJ3cMSWQT-XYi-_lARC9sDua_MjaMY34zMTl95DIUnE1Y7e0EvAU3fHmqquZjdLbTnh4QZfcPWBVoa-aSfspu9pMvxQxSDU0IF';
+var token = 'm93E6-E0x5MoPTQyvhgG4FCeQKz8syPkT23dWiYaZQDO5YTQXcfN4T7Nj968VH20py8KzMNd3c5lfHmrLr-dVvaeDiehDz7LFOR7oq5no-gHGond8mtymIBErzHlqAXhDxA_E0vT0pkrb_pdZj-xiw3DqlgZVYJ4LNB4gUhegtXJs-DLKZR0BBxr0axaB9No';
 
 var ago = ArcGIS({
   token: token
 });
 
 window.ago = ago;
+
+window.nk = window.ago.user('nikolaswise');
 
 },{"../src/index":68}]},{},[92]);

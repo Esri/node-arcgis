@@ -134,20 +134,15 @@ Takes an options object, and sets the users information to the options provided.
 
 **Returns**
 
-Success: Returns the updated user object.
-
-
-Error:
-```
-{
-	error: {
-		code: ???
-		message: '???'
-	}
-}
-```
+The updated user object.
 
 **Example**
+```
+user.update({
+	preferredView: 'GIS',
+	description: 'I am a GIS analyst.'
+})
+```
 
 ### user.delete
 
@@ -156,6 +151,29 @@ Deletes the user.
 ### user.content
 
 Gets the users content.
+
+**Returns**
+
+```
+{
+	currentFolder: null, // this is the root folder
+	folders: Array,      // array of folders the user has created
+	items: Array,        // array of items in the root folder
+	num: Number,        // number of items returned
+	total: Number,      // number of items owned by the user
+	start: Number,      // item this page of results starts on
+	nextStart: Number,  // -1 if one page, otherwise first item in next page
+	username: String     // The users name.
+}
+```
+
+**Example**
+```
+user.content()
+.then(function (userContent){
+  console.log(userContent)
+})
+```
 
 ### user.favorites
 

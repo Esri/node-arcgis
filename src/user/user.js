@@ -3,7 +3,7 @@ var User = {
   update: require('./update'),
   delete: require('./delete'),
   content: require('./content'),
-  content: require('./favorites'),
+  favorites: require('./favorites'),
   tags: require('./tags'),
   enable: require('./enable'),
   disable: require('./disable')

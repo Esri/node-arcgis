@@ -22,7 +22,7 @@ let client = ({token = "", domain = "www.arcgis.com"} = {}) => {
      */
 
     request: (url, form = {}, post) => {
-      var rootUrl = `http://${domain}/sharing/rest/`
+      var rootUrl = `https://${domain}/sharing/rest/`
       if (!form.public){
         form.token = token
       }
