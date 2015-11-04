@@ -11,9 +11,14 @@ module.exports = function (groupId) {
     changeOwner: function() {console.log(`change owner of group ${groupId}`)},
     arcgis: this
   }
-
-  var group = Object.create(Group)
-  group.id = groupId
-
+  if (groupId) {
+    var group = Object.create(Group)
+    group.id = groupId
+  } else {
+    var group = Object.create({
+      create: require('./create'),
+      arcgis: this
+    })
+  }
   return group
 }

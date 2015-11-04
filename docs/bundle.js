@@ -8372,6 +8372,33 @@ module.exports = content;
 
 },{}],67:[function(require,module,exports){
 /**
+ * Creates a new group
+ * @param {String} Group ID
+ * @returns {Promise} On resolution will return the group object.
+ */
+'use strict';
+
+var create = function create(options) {
+  if (options.tags) {
+    options.tags = options.tags.join(', ');
+  }
+  if (!options.access) {
+    options.access = 'private';
+  }
+
+  console.log('create a new group called ' + options.title);
+  console.log(options);
+
+  return this.arcgis.request('community/createGroup', options, true).then(function (results) {
+    console.log(results.group.id);
+    return this.arcgis.group(results.group.id);
+  });
+};
+
+module.exports = create;
+
+},{}],68:[function(require,module,exports){
+/**
  * Gets group profile object
  * @returns {Promise} User profile object.
  */
@@ -8385,7 +8412,7 @@ var get = function get() {
 
 module.exports = get;
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 module.exports = function (groupId) {
@@ -8415,14 +8442,19 @@ module.exports = function (groupId) {
     },
     arcgis: this
   };
-
-  var group = Object.create(Group);
-  group.id = groupId;
-
+  if (groupId) {
+    var group = Object.create(Group);
+    group.id = groupId;
+  } else {
+    var group = Object.create({
+      create: require('./create'),
+      arcgis: this
+    });
+  }
   return group;
 };
 
-},{"./content":66,"./get":67}],69:[function(require,module,exports){
+},{"./content":66,"./create":67,"./get":68}],70:[function(require,module,exports){
 /**
  * Wrapper for arcgis api
  */
@@ -8511,7 +8543,7 @@ var client = function client() {
 
 module.exports = client;
 
-},{"./billing/billing":65,"./group/group":68,"./items/get-item":70,"./items/get-tags":71,"./lib/rq":72,"./lib/uniq":73,"./org/get-organization":77,"./org/get-organization-content":74,"./org/get-organization-summary":75,"./org/get-organization-users":76,"./usage/flatten-data":78,"./usage/get-summary":79,"./usage/parse-product":80,"./usage/period-to-ms":81,"./usage/stype-to-service":82,"./usage/usage":83,"./user/user":92}],70:[function(require,module,exports){
+},{"./billing/billing":65,"./group/group":69,"./items/get-item":71,"./items/get-tags":72,"./lib/rq":73,"./lib/uniq":74,"./org/get-organization":78,"./org/get-organization-content":75,"./org/get-organization-summary":76,"./org/get-organization-users":77,"./usage/flatten-data":79,"./usage/get-summary":80,"./usage/parse-product":81,"./usage/period-to-ms":82,"./usage/stype-to-service":83,"./usage/usage":84,"./user/user":93}],71:[function(require,module,exports){
 /**
  * Gets item by ID
  * @param {String} Item ID
@@ -8529,7 +8561,7 @@ var getItem = function getItem(itemId) {
 
 module.exports = getItem;
 
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 var uniq = require('../lib/uniq');
@@ -8547,7 +8579,7 @@ var getTags = function getTags(items) {
 
 module.exports = getTags;
 
-},{"../lib/uniq":73}],72:[function(require,module,exports){
+},{"../lib/uniq":74}],73:[function(require,module,exports){
 /**
  * Simple request module
  */
@@ -8626,7 +8658,7 @@ var rq = {
 
 module.exports = rq;
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 "use strict";
 
 var uniq = function uniq(a) {
@@ -8638,7 +8670,7 @@ var uniq = function uniq(a) {
 
 module.exports = uniq;
 
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 /**
  * Gets items owned by an organization by organization ID or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8657,7 +8689,7 @@ var getOrganizationContent = function getOrganizationContent(orgId, num) {
 
 module.exports = getOrganizationContent;
 
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 /**
  * Gets summary of an orgnaization by ID or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8675,7 +8707,7 @@ var getOrganizationSummary = function getOrganizationSummary() {
 
 module.exports = getOrganizationSummary;
 
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 /**
  * Gets users in an orgnaization by ID, or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8692,7 +8724,7 @@ var getOrganizationUsers = function getOrganizationUsers() {
 
 module.exports = getOrganizationUsers;
 
-},{}],77:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 var sanitizeHtml = require('sanitize-html');
@@ -8789,7 +8821,7 @@ var getOrganization = function getOrganization() {
 
 module.exports = getOrganization;
 
-},{"sanitize-html":1}],78:[function(require,module,exports){
+},{"sanitize-html":1}],79:[function(require,module,exports){
 'use strict';
 
 var stypeToService = require('./stype-to-service');
@@ -8850,7 +8882,7 @@ var flatten = function flatten(response) {
 
 module.exports = flatten;
 
-},{"./parse-product":80,"./stype-to-service":82}],79:[function(require,module,exports){
+},{"./parse-product":81,"./stype-to-service":83}],80:[function(require,module,exports){
 'use strict';
 
 var getUsage = require('./usage');
@@ -8889,7 +8921,7 @@ var getSummary = function getSummary(start, end, period) {
 
 module.exports = getSummary;
 
-},{"../billing/billing":65,"./flatten-data":78,"./period-to-ms":81,"./usage":83}],80:[function(require,module,exports){
+},{"../billing/billing":65,"./flatten-data":79,"./period-to-ms":82,"./usage":84}],81:[function(require,module,exports){
 /**
 * Convert bytes to the appropriate unit
 * param {Integer} integer representing bytes
@@ -9063,7 +9095,7 @@ var parseProduct = function parseProduct(data) {
 
 module.exports = parseProduct;
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * Takes a string designating an ArcGIS Usage Api Period and returns that number of milliseconds
  * @param {String} Period string (1d, 3d, 1w, 1m)
@@ -9090,7 +9122,7 @@ var periodToMs = function periodToMs(period) {
 
 module.exports = periodToMs;
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var stypes = {
@@ -9123,7 +9155,7 @@ var stypeToService = function stypeToService(stype) {
 
 module.exports = stypeToService;
 
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /**
  * Gets Usage
  * @param {Object} Usage options
@@ -9148,7 +9180,7 @@ var getUsage = function getUsage() {
 
 module.exports = getUsage;
 
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 /**
  * Gets items owned by a user.
  * @param {String} Folder id desired
@@ -9171,9 +9203,6 @@ var content = function content(folder) {
 
 module.exports = content;
 
-},{}],85:[function(require,module,exports){
-"use strict";
-
 },{}],86:[function(require,module,exports){
 "use strict";
 
@@ -9181,6 +9210,9 @@ module.exports = content;
 "use strict";
 
 },{}],88:[function(require,module,exports){
+"use strict";
+
+},{}],89:[function(require,module,exports){
 /**
  * Gets items a user has favorited.
  * @returns {Promise} On resolution will return an object of all the users favorite content.
@@ -9204,7 +9236,7 @@ var favorites = function favorites() {
 
 module.exports = favorites;
 
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 /**
  * Gets user profile object
  * @returns {Promise} User profile object.
@@ -9219,7 +9251,7 @@ var get = function get() {
 
 module.exports = get;
 
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 /**
  * Gets all tags and their counts that have been used by the user.
  * @returns {Promise} On resolution will return an object of the users tags.
@@ -9236,7 +9268,7 @@ var tags = function tags() {
 
 module.exports = tags;
 
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 /**
  * Update the user object.
  * @param {Object} Options to update on the user
@@ -9258,7 +9290,7 @@ var update = function update(options) {
 
 module.exports = update;
 
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 module.exports = function (username) {
@@ -9280,11 +9312,11 @@ module.exports = function (username) {
   return user;
 };
 
-},{"./content":84,"./delete":85,"./disable":86,"./enable":87,"./favorites":88,"./get":89,"./tags":90,"./update":91}],93:[function(require,module,exports){
+},{"./content":85,"./delete":86,"./disable":87,"./enable":88,"./favorites":89,"./get":90,"./tags":91,"./update":92}],94:[function(require,module,exports){
 'use strict';
 
 var ArcGIS = require('../src/index');
-var token = 'EWwXljfYEbNbGsjgd1k5MDxyEzIoIJSweRAllpLPyZBZ_lP9O2O91E9WaGqe8Xky_6tCl1dreuID1v9RSyPmFzvPafQlfAKAKfFIsf88p46AZ2dOw8gm0as_nJGe4bCK32_O7r4LUPRdeHQLhZt-fEc5oaCjY05ArCD9zbUE1cxKri7RSuxdkk56C7MmkAqT';
+var token = 'uWdEexAXtoVB6NA3c8DzpAc9uFksj_G7FOPTAQUNdUsVLv9S348hoQNool2lBa0z_bTZlqDSKZyg7JRkbfLZsIJlNfqFksX0MpOMTacW6UMzODKaYfDW-JXHhYHnbYT5xGB4TeJ4fDuCPz0u_K1P29yk01tMaCI1YAEmnV9opWeWUF1pmEPyBDH9f5-gv2Ka';
 
 var ago = ArcGIS({
   token: token
@@ -9294,4 +9326,4 @@ window.ago = ago;
 
 window.nk = window.ago.user('nikolaswise');
 
-},{"../src/index":69}]},{},[93]);
+},{"../src/index":70}]},{},[94]);

@@ -237,6 +237,10 @@ Enables and disables the user within the organization. Default returns the curre
 | -------------- | ------------ | ----------------------- |
 | User Enabled   | Boolean      | none                    |
 
+**Returns**
+
+
+
 ## Organization
 
 ### organization.update
@@ -265,9 +269,40 @@ deletes users from an org
 
 ## Group
 
-Gets a group?
+### group().create
 
-### group.new
+**Params**
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Options        | Object       | see below               |
+
+| Options        | Type         | Description             |
+| -------------- | ------------ | ----------------------- |
+| title            | String  | The group title must be unique for the username, and the character limit is 250. |
+| description      | String  | A description of the group that can be any length. |
+| snippet          | String  |  Snippet or summary of the group that has a character limit of 250 characters. |
+| tags             | Array   | Tags are words or short phrases that describe the group. |
+| phone            | String  | Phone is the group contact information. It can be a combination of letters and numbers. The character limit is 250. |
+| access           | String  | Sets the access level for the group. private is the default. Setting to org restricts group access to members of your organization. If public, all users can access the group. // 'org' / 'public' / 'private' |
+| sortField        | String  |  Sets sort field for group items.  // 'title' / 'owner' / 'avgrating' / 'numviews' / 'created' / 'modified'
+| sortOrder        | String  |  Sets sort order for group items. // 'asc' / 'desc' |
+| isViewOnly       | Boolean | Allows the group owner or admin to create view-only groups where members are not able to share items. |
+| isInvitationOnly | Boolean | If true, this group will not accept join requests. If false, this group does not require an invitation to join. |
+| thumbnail        | String  | Path to the thumbnail image to be used for the group. |
+
+
+**Returns**
+Newly created group object
+
+**Example**
+
+```
+ago.group().create(options)
+.then(function (group) {
+	console.log(group)
+})
+```
 
 creates a new group?
 

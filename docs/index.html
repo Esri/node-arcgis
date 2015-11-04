@@ -320,6 +320,7 @@ var serverGIS = ArcGIS({
 </tr>
 </tbody>
 </table>
+<p><strong>Returns</strong></p>
 <h2>Organization</h2>
 <h3>organization.update</h3>
 <p>updates org information</p>
@@ -334,8 +335,98 @@ var serverGIS = ArcGIS({
 <h3>organization.deleteUsers</h3>
 <p>deletes users from an org</p>
 <h2>Group</h2>
-<p>Gets a group?</p>
-<h3>group.new</h3>
+<h3>group().create</h3>
+<p><strong>Params</strong></p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Options</td>
+<td>Object</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>The group title must be unique for the username, and the character limit is 250.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>A description of the group that can be any length.</td>
+</tr>
+<tr>
+<td>snippet</td>
+<td>String</td>
+<td>Snippet or summary of the group that has a character limit of 250 characters.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>Array</td>
+<td>Tags are words or short phrases that describe the group.</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>Phone is the group contact information. It can be a combination of letters and numbers. The character limit is 250.</td>
+</tr>
+<tr>
+<td>access</td>
+<td>String</td>
+<td>Sets the access level for the group. private is the default. Setting to org restricts group access to members of your organization. If public, all users can access the group. // 'org' / 'public' / 'private'</td>
+</tr>
+<tr>
+<td>sortField</td>
+<td>String</td>
+<td>Sets sort field for group items.  // 'title' / 'owner' / 'avgrating' / 'numviews' / 'created' / 'modified'</td>
+</tr>
+<tr>
+<td>sortOrder</td>
+<td>String</td>
+<td>Sets sort order for group items. // 'asc' / 'desc'</td>
+</tr>
+<tr>
+<td>isViewOnly</td>
+<td>Boolean</td>
+<td>Allows the group owner or admin to create view-only groups where members are not able to share items.</td>
+</tr>
+<tr>
+<td>isInvitationOnly</td>
+<td>Boolean</td>
+<td>If true, this group will not accept join requests. If false, this group does not require an invitation to join.</td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td>String</td>
+<td>Path to the thumbnail image to be used for the group.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>
+Newly created group object</p>
+<p><strong>Example</strong></p>
+<pre><code>ago.<span class="hljs-keyword">group</span>().<span class="hljs-keyword">create</span>(options)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-keyword">group</span>)</span> <span class="hljs-comment">{
+    console.log(group)
+}</span>)
+</span></code></pre>
 <p>creates a new group?</p>
 <h3>group.update</h3>
 <p>updates group information</p>
