@@ -8353,36 +8353,76 @@ module.exports = getBilling;
 
 },{}],66:[function(require,module,exports){
 /**
- * Gets items owned by a group by group ID
- * @param {String} Group ID
- * @param {Number} Number of items to return per page. Max is 100. Defaults to 100.
- * @returns {Promise} On resolution will return paginated content object.
+ * Gets items contained in a group
+ * @returns {Promise} On resolution will return an object of the groups content.
  */
 
 'use strict';
 
-var getGroupContent = function getGroupContent(groupId, num) {
-  return ago.request('search', { 'q': '\"\" group:' + groupId, 'num': num || 100 });
+var content = function content() {
+  var num = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+  return this.arcgis.request('search', { 'q': '\"\" group:' + this.id, 'num': num }).then(function (results) {
+    console.log(results);
+    return results;
+  });
 };
 
-module.exports = getGroupContent;
+module.exports = content;
 
 },{}],67:[function(require,module,exports){
 /**
- * Gets group by ID.
- * @param {String} Organization ID or unique urlKey
- * @returns {Promise} On resolution will return Group Object
+ * Gets group profile object
+ * @returns {Promise} User profile object.
  */
-
 "use strict";
 
-var getGroup = function getGroup(groupId) {
-  return ago.request("community/groups/" + groupId);
+var get = function get() {
+  return this.arcgis.request("community/groups/" + this.id).then(function (results) {
+    return results;
+  });
 };
 
-module.exports = getGroup;
+module.exports = get;
 
 },{}],68:[function(require,module,exports){
+'use strict';
+
+module.exports = function (groupId) {
+  var Group = {
+    get: require('./get'),
+    content: require('./content'),
+    update: function update() {
+      console.log('update group ' + groupId + ' information');
+    },
+    'delete': function _delete() {
+      console.log('delete group ' + groupId);
+    },
+    users: function users() {
+      console.log('get users in group ' + groupId);
+    },
+    removeUser: function removeUser() {
+      console.log('kick user out of group ' + groupId);
+    },
+    join: function join() {
+      console.log('request to join group ' + groupId);
+    },
+    leave: function leave() {
+      console.log('leave group ' + groupId);
+    },
+    changeOwner: function changeOwner() {
+      console.log('change owner of group ' + groupId);
+    },
+    arcgis: this
+  };
+
+  var group = Object.create(Group);
+  group.id = groupId;
+
+  return group;
+};
+
+},{"./content":66,"./get":67}],69:[function(require,module,exports){
 /**
  * Wrapper for arcgis api
  */
@@ -8390,6 +8430,46 @@ module.exports = getGroup;
 
 var rq = require('./lib/rq');
 var uniq = require('./lib/uniq');
+
+var Client = {
+  user: require('./user/user'),
+  getOrganization: require('./org/get-organization'),
+  organization: {
+    getUsers: require('./org/get-organization-users'),
+    getContent: require('./org/get-organization-content'),
+    getSummary: require('./org/get-organization-summary')
+  },
+  group: require('./group/group'),
+  getItem: require('./items/get-item'),
+  item: {
+    favorite: function favorite() {
+      console.log('adds item to favorites');
+    },
+    rate: function rate() {
+      console.log('adds rating to item');
+    }
+  },
+  getFavorites: function getFavorites() {
+    console.log('get the current users favorites');
+  },
+  items: {
+    getTags: require('./items/get-tags')
+  },
+  getUsage: require('./usage/usage'),
+  usage: {
+    getSummary: require('./usage/get-summary'),
+    stypeToService: require('./usage/stype-to-service'),
+    parseProduct: require('./usage/parse-product'),
+    flatten: require('./usage/flatten-data'),
+    periodToMs: require('./usage/period-to-ms')
+  },
+  getBilling: require('./billing/billing'),
+  billing: {
+    status: function status() {
+      console.log('checks status of billing');
+    }
+  }
+};
 
 /**
  * Sets up a new arcgis client
@@ -8404,81 +8484,34 @@ var client = function client() {
   var _ref$domain = _ref.domain;
   var domain = _ref$domain === undefined ? "www.arcgis.com" : _ref$domain;
 
-  console.log(token);
-  console.log(domain);
-  var ago = {
-    /* Automatically add client id, base url */
-    /**
-     * Sets ups base request to ArcGIS
-     * @param {String} URL to append to root URL
-     * @param {Object} Options to pass as query parameters
-     * @returns {Promise} On resolution will return results
-     */
+  var arcgis = Object.create(Client);
+  /* Automatically add client id, base url */
+  /**
+   * Sets ups base request to ArcGIS
+   * @param {String} URL to append to root URL
+   * @param {Object} Options to pass as query parameters
+   * @returns {Promise} On resolution will return results
+   */
+  arcgis.request = function (url, form, post) {
+    if (form === undefined) form = {};
 
-    request: function request(url, form, post) {
-      if (form === undefined) form = {};
-
-      var rootUrl = 'https://' + domain + '/sharing/rest/';
-      if (!form['public']) {
-        form.token = token;
-      }
-      form.f = 'pjson';
-      if (post) {
-        return rq.post('' + rootUrl + url, form);
-      } else {
-        return rq.get('' + rootUrl + url, form);
-      }
-    },
-    user: require('./user/user'),
-    getOrganization: require('./org/get-organization'),
-    organization: {
-      getUsers: require('./org/get-organization-users'),
-      getContent: require('./org/get-organization-content'),
-      getSummary: require('./org/get-organization-summary')
-    },
-    getGroup: require('./group/get-group'),
-    group: {
-      getContent: require('./group/get-group-content'),
-      getUsers: function getUsers() {
-        console.log('returns users in a group');
-      }
-    },
-    getItem: require('./items/get-item'),
-    item: {
-      favorite: function favorite() {
-        console.log('adds item to favorites');
-      },
-      rate: function rate() {
-        console.log('adds rating to item');
-      }
-    },
-    getFavorites: function getFavorites() {
-      console.log('get the current users favorites');
-    },
-    items: {
-      getTags: require('./items/get-tags')
-    },
-    getUsage: require('./usage/usage'),
-    usage: {
-      getSummary: require('./usage/get-summary'),
-      stypeToService: require('./usage/stype-to-service'),
-      parseProduct: require('./usage/parse-product'),
-      flatten: require('./usage/flatten-data'),
-      periodToMs: require('./usage/period-to-ms')
-    },
-    getBilling: require('./billing/billing'),
-    billing: {
-      status: function status() {
-        console.log('checks status of billing');
-      }
+    var rootUrl = 'https://' + domain + '/sharing/rest/';
+    if (!form['public']) {
+      form.token = token;
+    }
+    form.f = 'pjson';
+    if (post) {
+      return rq.post('' + rootUrl + url, form);
+    } else {
+      return rq.get('' + rootUrl + url, form);
     }
   };
-  return ago;
+  return arcgis;
 };
 
 module.exports = client;
 
-},{"./billing/billing":65,"./group/get-group":67,"./group/get-group-content":66,"./items/get-item":69,"./items/get-tags":70,"./lib/rq":71,"./lib/uniq":72,"./org/get-organization":76,"./org/get-organization-content":73,"./org/get-organization-summary":74,"./org/get-organization-users":75,"./usage/flatten-data":77,"./usage/get-summary":78,"./usage/parse-product":79,"./usage/period-to-ms":80,"./usage/stype-to-service":81,"./usage/usage":82,"./user/user":91}],69:[function(require,module,exports){
+},{"./billing/billing":65,"./group/group":68,"./items/get-item":70,"./items/get-tags":71,"./lib/rq":72,"./lib/uniq":73,"./org/get-organization":77,"./org/get-organization-content":74,"./org/get-organization-summary":75,"./org/get-organization-users":76,"./usage/flatten-data":78,"./usage/get-summary":79,"./usage/parse-product":80,"./usage/period-to-ms":81,"./usage/stype-to-service":82,"./usage/usage":83,"./user/user":92}],70:[function(require,module,exports){
 /**
  * Gets item by ID
  * @param {String} Item ID
@@ -8496,7 +8529,7 @@ var getItem = function getItem(itemId) {
 
 module.exports = getItem;
 
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 var uniq = require('../lib/uniq');
@@ -8514,7 +8547,7 @@ var getTags = function getTags(items) {
 
 module.exports = getTags;
 
-},{"../lib/uniq":72}],71:[function(require,module,exports){
+},{"../lib/uniq":73}],72:[function(require,module,exports){
 /**
  * Simple request module
  */
@@ -8593,7 +8626,7 @@ var rq = {
 
 module.exports = rq;
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 "use strict";
 
 var uniq = function uniq(a) {
@@ -8605,7 +8638,7 @@ var uniq = function uniq(a) {
 
 module.exports = uniq;
 
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 /**
  * Gets items owned by an organization by organization ID or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8624,7 +8657,7 @@ var getOrganizationContent = function getOrganizationContent(orgId, num) {
 
 module.exports = getOrganizationContent;
 
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 /**
  * Gets summary of an orgnaization by ID or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8642,7 +8675,7 @@ var getOrganizationSummary = function getOrganizationSummary() {
 
 module.exports = getOrganizationSummary;
 
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 /**
  * Gets users in an orgnaization by ID, or urlKey.
  * @param {String} Organization ID or unique urlKey
@@ -8659,7 +8692,7 @@ var getOrganizationUsers = function getOrganizationUsers() {
 
 module.exports = getOrganizationUsers;
 
-},{}],76:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 var sanitizeHtml = require('sanitize-html');
@@ -8756,7 +8789,7 @@ var getOrganization = function getOrganization() {
 
 module.exports = getOrganization;
 
-},{"sanitize-html":1}],77:[function(require,module,exports){
+},{"sanitize-html":1}],78:[function(require,module,exports){
 'use strict';
 
 var stypeToService = require('./stype-to-service');
@@ -8817,7 +8850,7 @@ var flatten = function flatten(response) {
 
 module.exports = flatten;
 
-},{"./parse-product":79,"./stype-to-service":81}],78:[function(require,module,exports){
+},{"./parse-product":80,"./stype-to-service":82}],79:[function(require,module,exports){
 'use strict';
 
 var getUsage = require('./usage');
@@ -8856,7 +8889,7 @@ var getSummary = function getSummary(start, end, period) {
 
 module.exports = getSummary;
 
-},{"../billing/billing":65,"./flatten-data":77,"./period-to-ms":80,"./usage":82}],79:[function(require,module,exports){
+},{"../billing/billing":65,"./flatten-data":78,"./period-to-ms":81,"./usage":83}],80:[function(require,module,exports){
 /**
 * Convert bytes to the appropriate unit
 * param {Integer} integer representing bytes
@@ -9030,7 +9063,7 @@ var parseProduct = function parseProduct(data) {
 
 module.exports = parseProduct;
 
-},{}],80:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 /**
  * Takes a string designating an ArcGIS Usage Api Period and returns that number of milliseconds
  * @param {String} Period string (1d, 3d, 1w, 1m)
@@ -9057,7 +9090,7 @@ var periodToMs = function periodToMs(period) {
 
 module.exports = periodToMs;
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var stypes = {
@@ -9090,7 +9123,7 @@ var stypeToService = function stypeToService(stype) {
 
 module.exports = stypeToService;
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 /**
  * Gets Usage
  * @param {Object} Usage options
@@ -9115,11 +9148,11 @@ var getUsage = function getUsage() {
 
 module.exports = getUsage;
 
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /**
- * Gets items owned by a user by username.
- * @param {String} Username who's content is desired
- * @returns {Promise} On resolution will return an object of all the users content.
+ * Gets items owned by a user.
+ * @param {String} Folder id desired
+ * @returns {Promise} On resolution will return an object of the users content.
  */
 
 "use strict";
@@ -9130,16 +9163,13 @@ var content = function content(folder) {
   } else {
     var folderUrl = "";
   }
-  return ago.request("content/users/" + this.username + folderUrl).then(function (results) {
+  return this.arcgis.request("content/users/" + this.username + folderUrl).then(function (results) {
     console.log(results);
     return results;
   });
 };
 
 module.exports = content;
-
-},{}],84:[function(require,module,exports){
-"use strict";
 
 },{}],85:[function(require,module,exports){
 "use strict";
@@ -9152,24 +9182,47 @@ module.exports = content;
 
 },{}],88:[function(require,module,exports){
 /**
- * Gets user profile object
- * @returns {Promise} User profile object.
+ * Gets items a user has favorited.
+ * @returns {Promise} On resolution will return an object of all the users favorite content.
  */
 
 "use strict";
 
+var favorites = function favorites() {
+  var _this = this;
+
+  console.log(this);
+  return this.get().then(function (user) {
+    console.log(user.favGroupId);
+    var favGroup = _this.arcgis.group(user.favGroupId);
+    return favGroup.content();
+  }).then(function (results) {
+    console.log(results);
+    return results;
+  });
+};
+
+module.exports = favorites;
+
+},{}],89:[function(require,module,exports){
+/**
+ * Gets user profile object
+ * @returns {Promise} User profile object.
+ */
+"use strict";
+
 var get = function get() {
-  return ago.request("community/users/" + this.username).then(function (results) {
+  return this.arcgis.request("community/users/" + this.username).then(function (results) {
     return results;
   });
 };
 
 module.exports = get;
 
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 "use strict";
 
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 /**
  * Update the user object.
  * @param {Object} Options to update on the user
@@ -9179,7 +9232,7 @@ module.exports = get;
 "use strict";
 
 var update = function update(options) {
-  return ago.request("community/users/" + this.username + "/update", options, true).then(function (results) {
+  return this.arcgis.request("community/users/" + this.username + "/update", options, true).then(function (results) {
     console.log(results);
     if (results.success) {
       return this.get();
@@ -9191,33 +9244,33 @@ var update = function update(options) {
 
 module.exports = update;
 
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
-var User = {
-  get: require('./get'),
-  update: require('./update'),
-  'delete': require('./delete'),
-  content: require('./content'),
-  favorites: require('./favorites'),
-  tags: require('./tags'),
-  enable: require('./enable'),
-  disable: require('./disable')
-};
-
-module.exports = function () {
-  var username = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
+module.exports = function (username) {
+  var User = {
+    get: require('./get'),
+    update: require('./update'),
+    'delete': require('./delete'),
+    content: require('./content'),
+    favorites: require('./favorites'),
+    tags: require('./tags'),
+    enable: require('./enable'),
+    disable: require('./disable'),
+    arcgis: this
+  };
 
   var user = Object.create(User);
   user.username = username;
+
   return user;
 };
 
-},{"./content":83,"./delete":84,"./disable":85,"./enable":86,"./favorites":87,"./get":88,"./tags":89,"./update":90}],92:[function(require,module,exports){
+},{"./content":84,"./delete":85,"./disable":86,"./enable":87,"./favorites":88,"./get":89,"./tags":90,"./update":91}],93:[function(require,module,exports){
 'use strict';
 
 var ArcGIS = require('../src/index');
-var token = 'm93E6-E0x5MoPTQyvhgG4FCeQKz8syPkT23dWiYaZQDO5YTQXcfN4T7Nj968VH20py8KzMNd3c5lfHmrLr-dVvaeDiehDz7LFOR7oq5no-gHGond8mtymIBErzHlqAXhDxA_E0vT0pkrb_pdZj-xiw3DqlgZVYJ4LNB4gUhegtXJs-DLKZR0BBxr0axaB9No';
+var token = 'EWwXljfYEbNbGsjgd1k5MDxyEzIoIJSweRAllpLPyZBZ_lP9O2O91E9WaGqe8Xky_6tCl1dreuID1v9RSyPmFzvPafQlfAKAKfFIsf88p46AZ2dOw8gm0as_nJGe4bCK32_O7r4LUPRdeHQLhZt-fEc5oaCjY05ArCD9zbUE1cxKri7RSuxdkk56C7MmkAqT';
 
 var ago = ArcGIS({
   token: token
@@ -9227,4 +9280,4 @@ window.ago = ago;
 
 window.nk = window.ago.user('nikolaswise');
 
-},{"../src/index":68}]},{},[92]);
+},{"../src/index":69}]},{},[93]);

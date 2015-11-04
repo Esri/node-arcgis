@@ -1,7 +1,7 @@
 /**
- * Gets items owned by a user by username.
- * @param {String} Username who's content is desired
- * @returns {Promise} On resolution will return an object of all the users content.
+ * Gets items owned by a user.
+ * @param {String} Folder id desired
+ * @returns {Promise} On resolution will return an object of the users content.
  */
 
 let content = function (folder) {
@@ -10,7 +10,7 @@ let content = function (folder) {
   } else {
     var folderUrl = ``
   }
-  return ago.request(`content/users/${this.username}${folderUrl}`)
+  return this.arcgis.request(`content/users/${this.username}${folderUrl}`)
   .then(function (results){
     console.log(results)
     return results

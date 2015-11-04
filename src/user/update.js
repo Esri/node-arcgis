@@ -5,7 +5,7 @@
  */
 
 let update = function (options) {
-  return ago.request(`community/users/${this.username}/update`, options, true)
+  return this.arcgis.request(`community/users/${this.username}/update`, options, true)
   .then(function (results){
     console.log(results)
     if (results.success) {

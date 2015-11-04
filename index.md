@@ -58,7 +58,7 @@ var serverGIS = ArcGIS({
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| Username       | String       | 'self'                  |
+| Username       | String       | none                    |
 
 **Returns Promise**
 
@@ -156,7 +156,7 @@ Gets the users content by folder id. If no folder id is supplied, returns all th
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| FolderID       | String       | none                    |
+| Folder ID      | String       | none                    |
 
 **Returns**
 
