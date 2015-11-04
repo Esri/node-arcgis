@@ -1,5 +1,5 @@
 
-# API Reference
+#Cool API Reference
 
 ## ArcGIS()
 
