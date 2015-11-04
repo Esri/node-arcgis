@@ -9220,7 +9220,21 @@ var get = function get() {
 module.exports = get;
 
 },{}],90:[function(require,module,exports){
+/**
+ * Gets all tags and their counts that have been used by the user.
+ * @returns {Promise} On resolution will return an object of the users tags.
+ */
+
 "use strict";
+
+var tags = function tags() {
+  return this.arcgis.request("community/users/" + this.username + "/tags").then(function (results) {
+    console.log(results);
+    return results;
+  });
+};
+
+module.exports = tags;
 
 },{}],91:[function(require,module,exports){
 /**

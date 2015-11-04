@@ -185,9 +185,47 @@ user.content()
 
 Gets the items the user has favorited.
 
+**Returns**
+
+Paginated search results object.
+
+```
+{
+	num: Number,       // Total number of items that could be returned
+	total: Number,     // Total numnber of items in favorites
+	query: String,     // Search string used to get these
+	start: Number,     // Which item this page starts with
+	nextStart: Number, // Which item next page starts with.
+	results: Array     // Item objects
+}
+```
+
+**Example**
+```
+user.favorites()
+.then(function (userFavorites){
+  console.log(userFavorites)
+})
+```
+
 ### user.tags
 
-Gets and sets the tags that a user uses I guess?
+Gets all the tags that a user has used, along with counts of hoy many times that tag has appeared.
+
+**Returns**
+```
+{
+	tags: Array // array of tag objects
+}
+```
+
+Tag Object
+```
+{
+	count: Number, // Number of times the tag appears
+	tag: String    // String of the tag itself
+}
+```
 
 ### user.enabled
 

@@ -271,8 +271,36 @@ var serverGIS = ArcGIS({
 </code></pre>
 <h3>user.favorites</h3>
 <p>Gets the items the user has favorited.</p>
+<p><strong>Returns</strong></p>
+<p>Paginated search results object.</p>
+<pre><code>{
+    <span class="hljs-attribute">num</span>: Number,       <span class="hljs-comment">// Total number of items that could be returned</span>
+    <span class="hljs-attribute">total</span>: Number,     <span class="hljs-comment">// Total numnber of items in favorites</span>
+    <span class="hljs-attribute">query</span>: String,     <span class="hljs-comment">// Search string used to get these</span>
+    <span class="hljs-attribute">start</span>: Number,     <span class="hljs-comment">// Which item this page starts with</span>
+    <span class="hljs-attribute">nextStart</span>: Number, <span class="hljs-comment">// Which item next page starts with.</span>
+    <span class="hljs-attribute">results</span>: Array     <span class="hljs-comment">// Item objects</span>
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<pre><code>user.favorites()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (userFavorites){
+  console.<span class="hljs-built_in">log</span>(userFavorites)
+})
+</code></pre>
 <h3>user.tags</h3>
-<p>Gets and sets the tags that a user uses I guess?</p>
+<p>Gets all the tags that a user has used, along with counts of hoy many times that tag has appeared.</p>
+<p><strong>Returns</strong></p>
+<pre><code>{
+    tags: Array //<span class="hljs-instruction"> array </span>of tag objects
+}
+</code></pre>
+<p>Tag Object</p>
+<pre><code>{
+    count: <span class="hljs-type">Number</span>, // <span class="hljs-type">Number</span> of times the <span class="hljs-keyword">tag</span> <span class="hljs-title">appears</span>
+    <span class="hljs-operator">tag</span>: <span class="hljs-type">String</span>    // <span class="hljs-type">String</span> of the <span class="hljs-keyword">tag</span> <span class="hljs-title">itself</span>
+}
+</code></pre>
 <h3>user.enabled</h3>
 <p>Enables and disables the user within the organization.</p>
 <h2>Organization</h2>
