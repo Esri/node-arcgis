@@ -229,7 +229,13 @@ Tag Object
 
 ### user.enabled
 
-Enables and disables the user within the organization.
+Enables and disables the user within the organization. Default returns the current status of the user.
+
+**Params**
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| User Enabled   | Boolean      | none                    |
 
 ## Organization
 
