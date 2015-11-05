@@ -24,6 +24,34 @@ let rq = {
       form = rq.encodeForm(form)
       xhr.open('get', `${url}?${form}`, true)
       xhr.responseType = 'json'
+
+      xhr.onload = () => {
+        if (xhr.status === 200 || xhr.status === 304) {
+          resolve(xhr.response)
+        } else {
+          reject(new Error(xhr.status))
+        }
+      }
+
+      xhr.onerror = () => reject(new Error('XMLHttpRequest Error: ' + xhr.statusText))
+      xhr.send()
+    })
+  },
+  /**
+   * Simple POST request to url, returns a promise
+   * @param {String} url
+   * @param {Object} form Form data appended to url as form encoded query strings
+   * @returns {Promise} Response body (parsed as JSON if application/json content-type detected)
+   */
+  post: (url, form) => {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest()
+      form = rq.encodeForm(form)
+      xhr.open('POST', url, true)
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-length", form.length);
+      xhr.setRequestHeader("Connection", "close");
+
       xhr.onload = () => {
         if (xhr.status === 200 || xhr.status === 304) {
           resolve(xhr.response)
@@ -32,7 +60,8 @@ let rq = {
         }
       }
       xhr.onerror = () => reject(new Error('XMLHttpRequest Error: ' + xhr.statusText))
-      xhr.send()
+
+      xhr.send(form);
     })
   }
 }
