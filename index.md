@@ -82,6 +82,41 @@ JSON User object with User management methods.
 var user = ago.user('username')
 ```
 
+### user.create()
+
+Invites users to join a group.
+
+**Options**
+
+| Options        | Type         | Description             |
+| -------------- | ------------ | ----------------------- |
+| subject        | String       | Subject of invitation email |
+| html           | String       | HTML string of message body |
+| invitations    | Array | Invitation Objects to create invitations from |
+
+**Invitation Object**
+| Param | Type | Description |
+| - | - | - |
+| username  | The username for the new user
+| password  | The password for the new user. If blank, the new user will set it themselves.
+| firstname | The users first name
+| lastname  | The users last name
+| fullname  | The users full name
+| email     | The email address to send the invitation, and link to the users account.
+| role      | The role of the user. Editor / User.
+
+**Returns**
+Newly created user invitation
+
+**Example**
+
+```
+ago.user().create(options)
+.then(function (invitation) {
+	console.log(invitation)
+})
+```
+
 ### user.get
 
 **Returns**
