@@ -275,7 +275,6 @@ Enables and disables the user within the organization. Default returns the curre
 **Returns**
 
 
-
 ## Organization
 
 ### organization.update
@@ -290,17 +289,17 @@ gets users in an org
 
 gets content in an org
 
+### organization.featured
+
+gets the orgs featured content
+
 ### organization.summary
 
 gets and sets the short summary of an org
 
-### organization.addUsers
+### organization.language
 
-Invites users to an org.
-
-### organization.deleteUsers
-
-deletes users from an org
+gets and sets the organizations language settings
 
 ## Group
 
