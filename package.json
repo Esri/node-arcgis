@@ -6,6 +6,7 @@
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
   },
+  "main": "src/index.js",
   "devDependencies": {
     "babel": "^5.8.23",
     "babelify": "^6.4.0",
