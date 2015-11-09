@@ -12,6 +12,7 @@
     "browserify": "^12.0.0",
     "faucet": "0.0.1",
     "gfm.css": "^1.1.1",
+    "http-server": "^0.8.5",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
@@ -25,7 +26,9 @@
   "homepage": "https://github.com/nikolaswise/node-arcgis",
   "keywords": [
     "arcgis",
-    "gis"
+    "gis",
+    "ArcGIS Online",
+    "Portal for ArcGIS"
   ],
   "license": "ISC",
   "main": "dist/index.js",
@@ -34,7 +37,7 @@
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "watches": {
-    "doc": [ "*.md", "_layout.html"]
+    "doc": ["*.md", "_layout.html"]
   },
   "scripts": {
     "start": "npm run dev",
