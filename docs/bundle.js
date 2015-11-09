@@ -8465,12 +8465,7 @@ var uniq = require('./lib/uniq');
 
 var Client = {
   user: require('./user/user'),
-  getOrganization: require('./org/get-organization'),
-  organization: {
-    getUsers: require('./org/get-organization-users'),
-    getContent: require('./org/get-organization-content'),
-    getSummary: require('./org/get-organization-summary')
-  },
+  organization: require('./org/org'),
   group: require('./group/group'),
   getItem: require('./items/get-item'),
   item: {
@@ -8543,7 +8538,7 @@ var client = function client() {
 
 module.exports = client;
 
-},{"./billing/billing":65,"./group/group":69,"./items/get-item":71,"./items/get-tags":72,"./lib/rq":73,"./lib/uniq":74,"./org/get-organization":78,"./org/get-organization-content":75,"./org/get-organization-summary":76,"./org/get-organization-users":77,"./usage/flatten-data":79,"./usage/get-summary":80,"./usage/parse-product":81,"./usage/period-to-ms":82,"./usage/stype-to-service":83,"./usage/usage":84,"./user/user":93}],71:[function(require,module,exports){
+},{"./billing/billing":65,"./group/group":69,"./items/get-item":71,"./items/get-tags":72,"./lib/rq":73,"./lib/uniq":74,"./org/org":80,"./usage/flatten-data":83,"./usage/get-summary":84,"./usage/parse-product":85,"./usage/period-to-ms":86,"./usage/stype-to-service":87,"./usage/usage":88,"./user/user":97}],71:[function(require,module,exports){
 /**
  * Gets item by ID
  * @param {String} Item ID
@@ -8680,148 +8675,106 @@ module.exports = uniq;
 
 'use strict';
 
-var getOrganizationContent = function getOrganizationContent(orgId, num) {
-  return ago.request('search', { 'q': '\"\" accountid:' + orgId, 'num': num || 100 }).then(function (results) {
+var content = function content() {
+  var num = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+  return this.arcgis.request('search', { 'q': '"" accountid:' + this.id, 'num': num }).then(function (results) {
     console.log(results);
     return results;
   });
 };
 
-module.exports = getOrganizationContent;
+module.exports = content;
 
 },{}],76:[function(require,module,exports){
-/**
- * Gets summary of an orgnaization by ID or urlKey.
- * @param {String} Organization ID or unique urlKey
- * @returns {Promise} On resolution will return a string of the Organization summary.
- */
-
 "use strict";
-
-var getOrganizationSummary = function getOrganizationSummary() {
-  return ago.request("portals/self/resources/localizedOrgProperties").then(function (results) {
-    console.log(results);
-    if (results["default"]) return results["default"].description;
-  });
-};
-
-module.exports = getOrganizationSummary;
 
 },{}],77:[function(require,module,exports){
 /**
- * Gets users in an orgnaization by ID, or urlKey.
- * @param {String} Organization ID or unique urlKey
+ * Gets organization by ID, or urlKey.
+ * @returns {Promise} On resolution will return Organization Object
+ */
+
+'use strict';
+
+var sanitizeHtml = require('sanitize-html');
+
+var get = function get() {
+  var getSummary = this.summary;
+  return this.arcgis.request('portals/' + this.id)
+  // Clean Org Description
+  .then(function (org) {
+    org.description = sanitizeHtml(org.description);
+    console.log(org);
+    return org;
+  });
+};
+
+module.exports = get;
+
+},{"sanitize-html":1}],78:[function(require,module,exports){
+"use strict";
+
+},{}],79:[function(require,module,exports){
+/**
+ * Gets users in an orgnaization
  * @param {Number} Number of users to return per page. Max is 100. Default is 100.
  * @returns {Promise} On resolution will return paginated users object.
  */
 
 "use strict";
 
-var getOrganizationUsers = function getOrganizationUsers() {
-  var options = arguments.length <= 0 || arguments[0] === undefined ? { num: 100 } : arguments[0];
-  return ago.request("portals/self/users", options);
-};
+var members = function members() {
+  var num = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
 
-module.exports = getOrganizationUsers;
-
-},{}],78:[function(require,module,exports){
-'use strict';
-
-var sanitizeHtml = require('sanitize-html');
-
-/**
- * Gets organization by ID, or urlKey.
- * @param {String} Organization ID or unique urlKey
- * @returns {Promise} On resolution will return Organization Object
- */
-
-// sample public org id
-// e8gGAYmR5kxEFApE
-
-// Added Value to Organiztions:
-// Cleaned Org description ✓
-// Org snippet ✓
-// Number of Users ✓
-// Number of Active Users ✓
-// Number of Liscences Total
-// Number of Liscenses in Use
-// Usage Summary
-// Latest Active Users (100) ✓
-// Featured content as items (100) ✓
-// Destroy a ton of weird garbage
-// Rotator Panels ✓
-// homePageFeaturedContent (this gets replaced by items, cleans up after itself) ✓
-// homePageFeaturedContentCount ✓
-
-var getOrganization = function getOrganization() {
-  var orgId = arguments.length <= 0 || arguments[0] === undefined ? 'self' : arguments[0];
-
-  var options = {};
-  if (orgId != 'self') {
-    options['public'] = true;
-  }
-  console.log(options);
-  return ago.request('portals/' + orgId, options)
-  // Clean Org Description
-  .then(function (org) {
-    org.description = sanitizeHtml(org.description);
-    return org;
-  })
-  // Get Org Summary
-  .then(function (org) {
-    return ago.organization.getSummary(orgId, options).then(function (results) {
-      org.summary = results;
-      return org;
-    });
-  })
-  // Get Org uses by lastLogin
-  .then(function (org) {
-    if (options['public']) {
-      return org;
-    } else {
-      return ago.organization.getUsers(options).then(function (results) {
-        // Set the number of users
-        org.subscriptionInfo.numUsers = results.total;
-        org.users = results.users.sort(function (a, b) {
-          var x = a.lastLogin > b.lastLogin ? -1 : 1;
-          return x;
-        });
-        // Set the number of active users
-        org.subscriptionInfo.activeUsers = org.users.filter(function (user) {
-          return !user.disabled;
-        }).length;
-        return org;
-      });
-    }
-  })
-  // Get featured item group
-  .then(function (org) {
-    return ago.group.getGroup(org.homePageFeaturedContent.split(':')[1]).then(function (group) {
-      group.description = sanitizeHtml(group.description);
-      org.featuredContent = group;
-      return org;
-    });
-  })
-  // Get Featured item group content
-  .then(function (org) {
-    return ago.group.getContent(org.featuredContent.id).then(function (results) {
-      org.featuredContent.items = results.results;
-      return org;
-    });
-  })
-  // Clean up org content object a little
-  .then(function (org) {
-    delete org.rotatorPanels;
-    delete org.homePageFeaturedContent;
-    delete org.homePageFeaturedContentCount;
-    console.log(org);
-    return org;
+  return this.arcgis.request("portals/self/users", { "num": num }).then(function (results) {
+    console.log(results);
+    return results["default"].description;
   });
 };
 
-module.exports = getOrganization;
+module.exports = members;
 
-},{"sanitize-html":1}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
+'use strict';
+
+module.exports = function (orgId) {
+  var Org = {
+    get: require('./get'),
+    summary: require('./summary'),
+    update: require('./update'),
+    content: require('./content'),
+    members: require('./members'),
+    featured: require('./featured'),
+    language: require('./language'),
+    arcgis: this
+  };
+  var org = Object.create(Org);
+  org.id = orgId;
+  return org;
+};
+
+},{"./content":75,"./featured":76,"./get":77,"./language":78,"./members":79,"./summary":81,"./update":82}],81:[function(require,module,exports){
+/**
+ * Gets summary of an orgnaization by ID or urlKey.
+ * @returns {Promise} On resolution will return a string of the Organization summary.
+ */
+
+"use strict";
+
+var summary = function summary() {
+  return this.arcgis.request("portals/self/resources/localizedOrgProperties").then(function (results) {
+    console.log(results);
+    return results["default"].description;
+  });
+};
+
+module.exports = summary;
+
+},{}],82:[function(require,module,exports){
+"use strict";
+
+},{}],83:[function(require,module,exports){
 'use strict';
 
 var stypeToService = require('./stype-to-service');
@@ -8882,7 +8835,7 @@ var flatten = function flatten(response) {
 
 module.exports = flatten;
 
-},{"./parse-product":81,"./stype-to-service":83}],80:[function(require,module,exports){
+},{"./parse-product":85,"./stype-to-service":87}],84:[function(require,module,exports){
 'use strict';
 
 var getUsage = require('./usage');
@@ -8921,7 +8874,7 @@ var getSummary = function getSummary(start, end, period) {
 
 module.exports = getSummary;
 
-},{"../billing/billing":65,"./flatten-data":79,"./period-to-ms":82,"./usage":84}],81:[function(require,module,exports){
+},{"../billing/billing":65,"./flatten-data":83,"./period-to-ms":86,"./usage":88}],85:[function(require,module,exports){
 /**
 * Convert bytes to the appropriate unit
 * param {Integer} integer representing bytes
@@ -9095,7 +9048,7 @@ var parseProduct = function parseProduct(data) {
 
 module.exports = parseProduct;
 
-},{}],82:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 /**
  * Takes a string designating an ArcGIS Usage Api Period and returns that number of milliseconds
  * @param {String} Period string (1d, 3d, 1w, 1m)
@@ -9122,7 +9075,7 @@ var periodToMs = function periodToMs(period) {
 
 module.exports = periodToMs;
 
-},{}],83:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 var stypes = {
@@ -9155,7 +9108,7 @@ var stypeToService = function stypeToService(stype) {
 
 module.exports = stypeToService;
 
-},{}],84:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /**
  * Gets Usage
  * @param {Object} Usage options
@@ -9180,7 +9133,7 @@ var getUsage = function getUsage() {
 
 module.exports = getUsage;
 
-},{}],85:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 /**
  * Gets items owned by a user.
  * @param {String} Folder id desired
@@ -9203,7 +9156,7 @@ var content = function content(folder) {
 
 module.exports = content;
 
-},{}],86:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 /**
  * Creates a new invitation, which is emailed to a user.
  * @param {Object} New User options
@@ -9234,13 +9187,13 @@ var create = function create(options) {
 
 module.exports = create;
 
-},{}],87:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 "use strict";
 
-},{}],88:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 "use strict";
 
-},{}],89:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 /**
  * Gets items a user has favorited.
  * @returns {Promise} On resolution will return an object of all the users favorite content.
@@ -9264,7 +9217,7 @@ var favorites = function favorites() {
 
 module.exports = favorites;
 
-},{}],90:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 /**
  * Gets user profile object
  * @returns {Promise} User profile object.
@@ -9279,7 +9232,7 @@ var get = function get() {
 
 module.exports = get;
 
-},{}],91:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 /**
  * Gets all tags and their counts that have been used by the user.
  * @returns {Promise} On resolution will return an object of the users tags.
@@ -9296,7 +9249,7 @@ var tags = function tags() {
 
 module.exports = tags;
 
-},{}],92:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 /**
  * Update the user object.
  * @param {Object} Options to update on the user
@@ -9318,7 +9271,7 @@ var update = function update(options) {
 
 module.exports = update;
 
-},{}],93:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 module.exports = function (username) {
@@ -9344,12 +9297,12 @@ module.exports = function (username) {
   return user;
 };
 
-},{"./content":85,"./create":86,"./delete":87,"./enabled":88,"./favorites":89,"./get":90,"./tags":91,"./update":92}],94:[function(require,module,exports){
+},{"./content":89,"./create":90,"./delete":91,"./enabled":92,"./favorites":93,"./get":94,"./tags":95,"./update":96}],98:[function(require,module,exports){
 'use strict';
 
 var ArcGIS = require('../src/index');
 // user token
-var token = '4b0sz7_Nchirm6344UbJrFnEj8ky7hs8O42XLYCdIpi0bya91EgHWzt55ZL-Dag6-VLNrZeit0Vpm8mPBppAWc4etkQQYoZTb1NlQeFaLxBgjD8m7yGGam-0g72fEPoz-wONVr1GfRvhc9loTvWWpKc_4d-XCephzOKN6M-wQEkoKcBURQV90BPx3VJlHljR';
+var token = 'PjUeEPktOJF_afY_K5W7yPYZhsil5fOyKWtaJY0ZDPPHgX2w6eO4gJZD1VMC4Y7luCWOBG5uP8lH7bCHd4KxR2biKT8spU6xIH7ihePqiX8pTBGVpBgedjv-oYe42GQhVaVxeRftHn6uAyvFmjma2Xc9fTJJ_1Cylk_TUNyDxrIST0NzGLhQmVf0osz12aH6';
 
 var ago = ArcGIS({
   token: token
@@ -9359,4 +9312,4 @@ window.ago = ago;
 
 window.nk = window.ago.user('nikolaswise');
 
-},{"../src/index":70}]},{},[94]);
+},{"../src/index":70}]},{},[98]);

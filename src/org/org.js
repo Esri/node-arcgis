@@ -6,11 +6,10 @@ module.exports = function (orgId) {
     content: require('./content'),
     members: require('./members'),
     featured: require('./featured'),
-    favorites: require('./favorites'),
     language: require('./language'),
     arcgis: this
   }
   var org = Object.create(Org)
-  var org.id = orgId
+  org.id = orgId
   return org
 }
