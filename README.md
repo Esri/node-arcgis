@@ -54,6 +54,10 @@ For example, getting an orgs name, description, and summary is 2 calls to the RE
 
 This should run in node land on the server and client side in the browser. The same code should in both places, and work the same way. This will expand out to cover instances of on-prem server as well as ArcGIS Online.
 
+### Revolutionary Framework, Vanilla.js
+
+This is framework agnostic. No depencies, should work anywhere and everywhere. No dojo, no angular, no jquery, no lodash, no nothin'.
+
 ### Simple Simple Simple
 
 The end goal is for everything to be as simple as possible. Simple code, simple structures, simple responses, simple docs. If things get complicated we're doing something wrong.
