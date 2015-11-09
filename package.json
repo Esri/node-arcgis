@@ -30,7 +30,7 @@
     "ArcGIS Online",
     "Portal for ArcGIS"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
