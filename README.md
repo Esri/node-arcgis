@@ -48,7 +48,7 @@ Practically all of these methods require making calls to ArcGIS servers. These c
 
 This project should work to simplify and unify the conceptual model for the ease of the programmer. This library is a UI in the most basic sense of the term — we're providing an interface between the developer and the API, and that interface needs to be well designed and thought through to make the process and smooth, intuitive, and pleasurable as possible.
 
-For example, getting an orgs name, description, and summary is 2 calls to the REST API. In this library, that should be one call.
+For example, getting an org's name, description, and summary is 2 calls to the REST API. In this library, that should be one call.
 
 ### Universal Iso-PolyMetric Server Client JS
 
