@@ -124,6 +124,90 @@ var serverGIS = ArcGIS({
 <p><strong>Example</strong></p>
 <pre><code><span class="hljs-tag">var</span> user = ago.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'username'</span>)</span></span>
 </code></pre>
+<h3>user.create()</h3>
+<p>Invites users to join a group.</p>
+<p><strong>Options</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subject</td>
+<td>String</td>
+<td>Subject of invitation email</td>
+</tr>
+<tr>
+<td>html</td>
+<td>String</td>
+<td>HTML string of message body</td>
+</tr>
+<tr>
+<td>invitations</td>
+<td>Array</td>
+<td>Invitation Objects to create invitations from</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Invitation Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>The username for the new user</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>The password for the new user. If blank, the new user will set it themselves.</td>
+<td></td>
+</tr>
+<tr>
+<td>firstname</td>
+<td>The users first name</td>
+<td></td>
+</tr>
+<tr>
+<td>lastname</td>
+<td>The users last name</td>
+<td></td>
+</tr>
+<tr>
+<td>fullname</td>
+<td>The users full name</td>
+<td></td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email address to send the invitation, and link to the users account.</td>
+<td></td>
+</tr>
+<tr>
+<td>role</td>
+<td>The role of the user. Editor / User.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong>
+Newly created user invitation</p>
+<p><strong>Example</strong></p>
+<pre><code>ago.user().<span class="hljs-built_in">create</span>(options)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">invitation</span>) {</span>
+    console.<span class="hljs-built_in">log</span>(invitation)
+})
+</code></pre>
 <h3>user.get</h3>
 <p><strong>Returns</strong></p>
 <pre><code><span class="hljs-comment">// always returned on any user</span>

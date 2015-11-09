@@ -10,9 +10,14 @@ module.exports = function (username) {
     disable: require('./disable'),
     arcgis: this
   }
-
-  var user = Object.create(User)
-  user.username = username
-
+  if (username) {
+    var user = Object.create(User)
+    user.username = username
+  } else {
+    var user = Object.create({
+      create: require('./create'),
+      arcgis: this
+    })
+  }
   return user
 }
