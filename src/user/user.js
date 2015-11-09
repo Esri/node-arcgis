@@ -6,8 +6,7 @@ module.exports = function (username) {
     content: require('./content'),
     favorites: require('./favorites'),
     tags: require('./tags'),
-    enable: require('./enable'),
-    disable: require('./disable'),
+    enabled: require('./enabled'),
     arcgis: this
   }
   if (username) {
