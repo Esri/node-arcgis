@@ -6,13 +6,14 @@
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
   },
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "devDependencies": {
     "babel": "^5.8.23",
     "babelify": "^6.4.0",
     "browserify": "^12.0.0",
     "faucet": "0.0.1",
     "gfm.css": "^1.1.1",
+    "mkdirp": "^0.5.1",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
@@ -29,20 +30,24 @@
     "gis"
   ],
   "license": "ISC",
-  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "watches": {
-    "doc": [ "*.md", "_layout.html"]
+    "doc": [
+      "*.md",
+      "_layout.html"
+    ]
   },
   "scripts": {
     "start": "npm run dev",
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
     "doc": "static-site -s ./ -b ./docs -i node_modules/ docs/ --template _layout.html",
-    "dist": "browserify src/index.js -t babelify --outfile dist/index.js",
+    "predist": "mkdirp dist/node dist/browser",
+    "dist": "browserify src/index.js -t babelify --outfile dist/browser/index.js",
+    "postdist": "babel src --out-dir dist/node",
     "build": "parallelshell 'npm run dist' 'npm run docs'",
     "server": "http-server docs/",
     "js": "watchify test/index.js -t babelify --outfile docs/bundle.js",
