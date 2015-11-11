@@ -5,14 +5,12 @@ var rq = require('./lib/rq')
 var uniq = require('./lib/uniq')
 
 var Client = {
+  search: function () {console.log('searches for stuff')},
   user: require('./user/user'),
   organization: require('./org/org'),
   group: require('./group/group'),
   getItem: require('./items/get-item'),
-  item: {
-    favorite: function () {console.log('adds item to favorites')},
-    rate: function () {console.log('adds rating to item')}
-  },
+  item: require('./item/item'),
   getFavorites: function () {console.log('get the current users favorites')},
   items: {
     getTags: require('./items/get-tags')
