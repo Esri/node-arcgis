@@ -15,6 +15,7 @@
     "gfm.css": "^1.1.1",
     "http-server": "^0.8.5",
     "parallelshell": "^2.0.0",
+    "mkdirp": "^0.5.1",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
     "standard": "*",
