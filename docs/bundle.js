@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module './create' from '/Users/nwiselocal/Projects/node-arcgis/src/user'");

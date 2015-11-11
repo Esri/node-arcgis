@@ -6,12 +6,7 @@ var uniq = require('./lib/uniq')
 
 var Client = {
   user: require('./user/user'),
-  getOrganization: require('./org/get-organization'),
-  organization: {
-    getUsers: require('./org/get-organization-users'),
-    getContent: require('./org/get-organization-content'),
-    getSummary: require('./org/get-organization-summary')
-  },
+  organization: require('./org/org'),
   group: require('./group/group'),
   getItem: require('./items/get-item'),
   item: {

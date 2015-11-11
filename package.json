@@ -6,6 +6,7 @@
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
   },
+  "main": "dist/index.js",
   "devDependencies": {
     "babel": "^5.8.23",
     "babelify": "^6.4.0",
@@ -38,12 +39,17 @@
   },
   "watches": {
     "doc": ["*.md", "_layout.html"]
+
   },
   "scripts": {
     "start": "npm run dev",
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
     "doc": "static-site -s ./ -b ./docs -i node_modules/ docs/ --template _layout.html",
+    "predist": "mkdirp dist/node dist/browser",
+    "dist": "browserify src/index.js -t babelify --outfile dist/browser/index.js",
+    "postdist": "babel src --out-dir dist/node",
+    "build": "parallelshell 'npm run dist' 'npm run docs'",
     "server": "http-server docs/",
     "js": "watchify test/index.js -t babelify --outfile docs/bundle.js",
     "predeploy": "browserify src/index.js -t babelify --outfile docs/arcgis.js",
