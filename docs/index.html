@@ -419,7 +419,7 @@ Newly created user invitation</p>
 <tr>
 <td>Org Id</td>
 <td>String</td>
-<td>none</td>
+<td>self</td>
 </tr>
 </tbody>
 </table>
@@ -434,20 +434,59 @@ Newly created user invitation</p>
 }
 </code></pre>
 <p><strong>Example</strong></p>
-<pre><code><span class="hljs-tag">var</span> user = ago.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'username'</span>)</span></span>
-</code></pre>
+<pre><code><span class="hljs-keyword">var</span> myOrg = arcgis.organization()
+&lt;!-- <span class="hljs-type">Creates</span> an <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> <span class="hljs-title">methods</span> <span class="hljs-title">for</span> <span class="hljs-title">interacting</span> <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> <span class="hljs-title">the</span> <span class="hljs-title">org</span> <span class="hljs-title">associated</span> <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> <span class="hljs-title">the</span> <span class="hljs-title">current</span> <span class="hljs-title">authorized</span> <span class="hljs-title">session</span> <span class="hljs-title">--&gt;</span>
+</span>
+<span class="hljs-keyword">var</span> otherOrg = arcgis.organization(<span class="hljs-symbol">'orgI</span>d')
+&lt;!-- <span class="hljs-type">Creates</span> an <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> <span class="hljs-title">methods</span> <span class="hljs-title">for</span> <span class="hljs-title">interacting</span> <span class="hljs-keyword"><span class="hljs-keyword">with</span></span> <span class="hljs-title">a</span> <span class="hljs-title">given</span> <span class="hljs-title">org</span> <span class="hljs-title">--&gt;</span>
+</span></code></pre>
 <h3>organization.update</h3>
 <p>updates org information</p>
 <h3>organization.users</h3>
-<p>gets users in an org</p>
+<p>gets users in an org as a paginated object.</p>
+<p><strong>Example</strong></p>
+<pre><code>var myOrg = arcgis.organization()
+myOrg.users()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(results)</span></span> {
+    console.<span class="hljs-built_in">log</span>(results)
+})
+</code></pre>
 <h3>organization.content</h3>
-<p>gets content in an org</p>
+<p>gets content in an org as a paginated object</p>
+<p><strong>Example</strong></p>
+<pre><code>var myOrg = arcgis.organization()
+myOrg.content()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(results)</span></span> {
+    console.<span class="hljs-built_in">log</span>(results)
+})
+</code></pre>
 <h3>organization.featured</h3>
 <p>gets the orgs featured content</p>
+<p><strong>Example</strong></p>
+<pre><code>var myOrg = arcgis.organization()
+myOrg.content()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(results)</span></span> {
+    console.<span class="hljs-built_in">log</span>(results)
+})
+</code></pre>
 <h3>organization.summary</h3>
 <p>gets and sets the short summary of an org</p>
+<p><strong>Example</strong></p>
+<pre><code>var myOrg = arcgis.organization()
+myOrg.summary()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(results)</span></span> {
+    console.<span class="hljs-built_in">log</span>(results)
+})
+</code></pre>
 <h3>organization.language</h3>
-<p>gets and sets the organizations language settings</p>
+<p>gets the organizations language settings</p>
+<p><strong>Examples</strong></p>
+<pre><code>var myOrg = arcgis.organization()
+myOrg.language()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(results)</span></span> {
+    console.<span class="hljs-built_in">log</span>(results)
+})
+</code></pre>
 <h2>Group</h2>
 <h3>group().create</h3>
 <p><strong>Params</strong></p>

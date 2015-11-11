@@ -281,7 +281,7 @@ Enables and disables the user within the organization. Default returns the curre
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| Org Id         | String       | none                    |
+| Org Id         | String       | self                    |
 
 ```
 {
@@ -294,35 +294,91 @@ Enables and disables the user within the organization. Default returns the curre
   disable: function(),       // disables a user
 }
 ```
+
 **Example**
 
 ```
-var user = ago.user('username')
+var myOrg = arcgis.organization()
+<!-- Creates an object with methods for interacting with the org associated with the current authorized session -->
+
+var otherOrg = arcgis.organization('orgId')
+<!-- Creates an object with methods for interacting with a given org -->
 ```
 
 ### organization.update
 
 updates org information
 
+
 ### organization.users
 
-gets users in an org
+gets users in an org as a paginated object.
+
+**Example**
+
+```
+var myOrg = arcgis.organization()
+myOrg.users()
+.then(function(results) {
+	console.log(results)
+})
+```
 
 ### organization.content
 
-gets content in an org
+gets content in an org as a paginated object
+
+**Example**
+
+```
+var myOrg = arcgis.organization()
+myOrg.content()
+.then(function(results) {
+	console.log(results)
+})
+```
 
 ### organization.featured
 
 gets the orgs featured content
 
+**Example**
+
+```
+var myOrg = arcgis.organization()
+myOrg.content()
+.then(function(results) {
+	console.log(results)
+})
+```
+
 ### organization.summary
 
 gets and sets the short summary of an org
 
+**Example**
+
+```
+var myOrg = arcgis.organization()
+myOrg.summary()
+.then(function(results) {
+	console.log(results)
+})
+```
+
 ### organization.language
 
-gets and sets the organizations language settings
+gets the organizations language settings
+
+**Examples**
+
+```
+var myOrg = arcgis.organization()
+myOrg.language()
+.then(function(results) {
+	console.log(results)
+})
+```
 
 ## Group
 
