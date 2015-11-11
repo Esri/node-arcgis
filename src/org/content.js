@@ -5,12 +5,12 @@
  * @returns {Promise} On resolution will return paginated users object.
  */
 
-let getOrganizationContent = function (orgId, num) {
-  return ago.request(`search`, {'q': '\"\" accountid:' + orgId, 'num': num || 100})
+let content = function (num = 100) {
+  return this.arcgis.request(`search`, {'q': `\"\" accountid:${this.id}`, 'num': num} )
   .then(function (results){
     console.log(results)
     return results
   })
 }
 
-module.exports = getOrganizationContent
+module.exports = content
