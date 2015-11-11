@@ -406,6 +406,36 @@ Newly created user invitation</p>
 </table>
 <p><strong>Returns</strong></p>
 <h2>Organization</h2>
+<p><strong>Params</strong></p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Org Id</td>
+<td>String</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<pre><code>{
+  get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,           // gets user information
+  update: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span></span>, // updates the user information
+  delete: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,        // deletes a user
+  content: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,       // gets users content
+  tags: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // returns the users tags?
+  enable: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,        // enables a disabled user
+  disable: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,       // disables a user
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<pre><code><span class="hljs-tag">var</span> user = ago.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'username'</span>)</span></span>
+</code></pre>
 <h3>organization.update</h3>
 <p>updates org information</p>
 <h3>organization.users</h3>

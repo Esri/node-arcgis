@@ -277,6 +277,29 @@ Enables and disables the user within the organization. Default returns the curre
 
 ## Organization
 
+**Params**
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| Org Id         | String       | none                    |
+
+```
+{
+  get: function(),           // gets user information
+  update: function(options), // updates the user information
+  delete: function(),        // deletes a user
+  content: function(),       // gets users content
+  tags: function(),          // returns the users tags?
+  enable: function(),        // enables a disabled user
+  disable: function(),       // disables a user
+}
+```
+**Example**
+
+```
+var user = ago.user('username')
+```
+
 ### organization.update
 
 updates org information
