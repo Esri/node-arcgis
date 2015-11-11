@@ -79,7 +79,7 @@ JSON User object with User management methods.
 **Example**
 
 ```
-var user = ago.user('username')
+var user = arcgis.user('username')
 ```
 
 ### user.create()
@@ -111,7 +111,7 @@ Newly created user invitation
 **Example**
 
 ```
-ago.user().create(options)
+arcgis.user().create(options)
 .then(function (invitation) {
 	console.log(invitation)
 })
@@ -172,6 +172,7 @@ Takes an options object, and sets the users information to the options provided.
 The updated user object.
 
 **Example**
+
 ```
 user.update({
 	preferredView: 'GIS',
@@ -411,7 +412,7 @@ Newly created group object
 **Example**
 
 ```
-ago.group().create(options)
+arcgis.group().create(options)
 .then(function (group) {
 	console.log(group)
 })
@@ -453,11 +454,59 @@ changes the owner of a group
 
 ## Item
 
-returns an item by itemid.
+Creates an object with methods for interacting with items.
+
+**Params***
+
+**Returns**
+
+Not all methods are returned on all items. Items will only return methods that are applicable to the item itself. For example, only items designated as Apps with have oAuth methods, and only items containing geographic data will have publishing methods.
+
+```
+{
+	get: function(),             // Gets the item
+	new: function(),             // Creates a new item
+	update: function(),          // Updates the item
+	delete: function(),          // Deletes the item
+	createService: function(),   // Publishes the item to a service
+	folder: function(),          // Returns the items folder, or moves it to a folder
+	groups: function(),          // Returns the items groups, or adds it to groups
+	owner: function(),           // Returns the items owner, or changes the owner
+	favorite: function(),        // Favorites or defavorites the item.
+	rating: function(),          // Returns the items rating and rates the item.
+	publish: function(),         // Publishes the item—what does that mean? Tiles? should be tiles: function()
+	export: function(),          // Downloads the data for an item
+	data: function(),            // Gets the data table for an item
+	deleteProtected: function(), // Gets delete protection status, sets delete protection status
+	register: function(),        // Registers an item with oAuth
+	oAuth: function(),           // Returns oAuth information for the item
+	relatedItems: function(),    // Gets related items
+	permissions: function(),     // Gets and sets permissions for the item
+	comments: {
+		get: function(),         // Gets all the comments on the item
+		add: function(),         // Adds a comment to the item
+		comment: function(),     // Gets a specific comments methods
+			get: function(),     // Gets the comment
+			edit: function(),    // Edits the comment
+			delete: function(),  // Deletes the comment
+		enabled: function()      // Returns if comments are enables, enables and disables comments
+	}
+}
+```
+
+**Example**
+
+```
+var item = arcgis.item('itemId')
+```
+
+### item.get
+
+Returns an items JSON
 
 ### item.new
 
-creates a new item.
+creates a new item
 
 ### item.update
 

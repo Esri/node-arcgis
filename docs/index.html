@@ -122,7 +122,7 @@ var serverGIS = ArcGIS({
 }
 </code></pre>
 <p><strong>Example</strong></p>
-<pre><code><span class="hljs-tag">var</span> user = ago.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'username'</span>)</span></span>
+<pre><code><span class="hljs-tag">var</span> user = arcgis.<span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(<span class="hljs-string">'username'</span>)</span></span>
 </code></pre>
 <h3>user.create()</h3>
 <p>Invites users to join a group.</p>
@@ -203,7 +203,7 @@ var serverGIS = ArcGIS({
 <p><strong>Returns</strong>
 Newly created user invitation</p>
 <p><strong>Example</strong></p>
-<pre><code>ago.user().<span class="hljs-built_in">create</span>(options)
+<pre><code>arcgis.user().<span class="hljs-built_in">create</span>(options)
 .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">invitation</span>) {</span>
     console.<span class="hljs-built_in">log</span>(invitation)
 })
@@ -575,7 +575,7 @@ myOrg.language()
 <p><strong>Returns</strong>
 Newly created group object</p>
 <p><strong>Example</strong></p>
-<pre><code>ago.<span class="hljs-keyword">group</span>().<span class="hljs-keyword">create</span>(options)
+<pre><code>arcgis.<span class="hljs-keyword">group</span>().<span class="hljs-keyword">create</span>(options)
 .<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(<span class="hljs-keyword">group</span>)</span> <span class="hljs-comment">{
     console.log(group)
 }</span>)
@@ -598,9 +598,47 @@ Newly created group object</p>
 <h3>group.changeOwner</h3>
 <p>changes the owner of a group</p>
 <h2>Item</h2>
-<p>returns an item by itemid.</p>
+<p>Creates an object with methods for interacting with items.</p>
+<p><strong>Params</strong>*</p>
+<p><strong>Returns</strong></p>
+<p>Not all methods are returned on all items. Items will only return methods that are applicable to the item itself. For example, only items designated as Apps with have oAuth methods, and only items containing geographic data will have publishing methods.</p>
+<pre><code>{
+    get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,             // Gets the item
+    new: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,             // Creates a new item
+    update: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Updates the item
+    delete: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Deletes the item
+    createService: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,   // Publishes the item to a service
+    folder: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Returns the items folder, <span class="hljs-keyword">or</span> moves it to a folder
+    groups: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Returns the items groups, <span class="hljs-keyword">or</span> adds it to groups
+    owner: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,           // Returns the items owner, <span class="hljs-keyword">or</span> changes the owner
+    favorite: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,        // Favorites <span class="hljs-keyword">or</span> defavorites the item.
+    rating: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Returns the items rating <span class="hljs-keyword">and</span> rates the item.
+    publish: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,         // Publishes the item—what does that mean? Tiles? should be tiles: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>
+    export: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,          // Downloads the data <span class="hljs-keyword">for</span> an item
+    data: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,            // Gets the data <span class="hljs-built_in">table</span> <span class="hljs-keyword">for</span> an item
+    deleteProtected: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>, // Gets delete protection status, sets delete protection status
+    register: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,        // Registers an item with oAuth
+    oAuth: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,           // Returns oAuth information <span class="hljs-keyword">for</span> the item
+    relatedItems: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,    // Gets related items
+    permissions: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,     // Gets <span class="hljs-keyword">and</span> sets permissions <span class="hljs-keyword">for</span> the item
+    comments: {
+        get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,         // Gets all the comments on the item
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,         // Adds a comment to the item
+        comment: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,     // Gets a specific comments methods
+            get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,     // Gets the comment
+            edit: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,    // Edits the comment
+            delete: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>,  // Deletes the comment
+        enabled: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>      // Returns <span class="hljs-keyword">if</span> comments are enables, enables <span class="hljs-keyword">and</span> disables comments
+    }
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<pre><code><span class="hljs-tag">var</span> item = arcgis.<span class="hljs-function"><span class="hljs-title">item</span><span class="hljs-params">(<span class="hljs-string">'itemId'</span>)</span></span>
+</code></pre>
+<h3>item.get</h3>
+<p>Returns an items JSON</p>
 <h3>item.new</h3>
-<p>creates a new item.</p>
+<p>creates a new item</p>
 <h3>item.update</h3>
 <p>updates an items information.</p>
 <h3>item.delete</h3>
