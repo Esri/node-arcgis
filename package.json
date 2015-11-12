@@ -45,13 +45,14 @@
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
     "doc": "static-site -s ./ -b ./docs -i node_modules/ docs/ --template _layout.html",
+    "postdoc": "cp ./node_modules/gfm.css/gfm.css ./docs",
     "predist": "mkdirp dist/node dist/browser",
-    "dist": "browserify src/index.js -t babelify --outfile dist/browser/index.js",
-    "postdist": "babel src --out-dir dist/node",
+    "dist": "browserify lib/index.js -t babelify --outfile dist/browser/index.js",
+    "postdist": "babel lib --out-dir dist/node",
     "build": "parallelshell 'npm run dist' 'npm run docs'",
     "server": "http-server docs/",
     "js": "watchify test/index.js -t babelify --outfile docs/bundle.js",
-    "predeploy": "browserify src/index.js -t babelify --outfile docs/arcgis.js",
+    "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
     "test": "faucet"
   }
