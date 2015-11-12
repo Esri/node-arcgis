@@ -1,4 +1,4 @@
-var ArcGIS = require('../src/index')
+var ArcGIS = require('../lib/index')
 // user token
 var token = ''
 
