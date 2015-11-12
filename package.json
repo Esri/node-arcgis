@@ -44,7 +44,7 @@
     "start": "npm run dev",
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
-    "doc": "static-site -s ./ -b ./docs -i node_modules/ docs/ --template _layout.html",
+    "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html",
     "postdoc": "cp ./node_modules/gfm.css/gfm.css ./docs",
     "predist": "mkdirp dist/node dist/browser",
     "dist": "browserify lib/index.js -t babelify --outfile dist/browser/index.js",
