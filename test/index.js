@@ -8,4 +8,3 @@ var ago = ArcGIS({
 
 window.ago = ago
 
-window.nk = window.ago.user('nikolaswise')
