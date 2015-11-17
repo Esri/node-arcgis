@@ -8,15 +8,17 @@
   },
   "main": "dist/index.js",
   "devDependencies": {
-    "babel": "^5.8.23",
+    "babel": "^6.1.18",
+    "babel-cli": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
-    "babelify": "^6.4.0",
+    "babelify": "^7.2.0",
     "browserify": "^12.0.0",
     "faucet": "0.0.1",
     "gfm.css": "^1.1.1",
     "http-server": "^0.8.5",
-    "parallelshell": "^2.0.0",
+    "isomorphic-fetch": "^2.2.0",
     "mkdirp": "^0.5.1",
+    "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
     "standard": "*",
@@ -34,14 +36,15 @@
     "Portal for ArcGIS"
   ],
   "license": "Apache-2.0",
-  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikolaswise/node-arcgis.git"
   },
   "watches": {
-    "doc": ["*.md", "_layout.html"]
-
+    "doc": [
+      "*.md",
+      "_layout.html"
+    ]
   },
   "scripts": {
     "start": "npm run dev",
@@ -50,11 +53,11 @@
     "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html",
     "postdoc": "cp ./node_modules/gfm.css/gfm.css ./docs",
     "predist": "mkdirp dist/node dist/browser",
-    "dist": "browserify lib/index.js -t babelify --outfile dist/browser/index.js",
+    "dist": "browserify lib/index.js -t babelify --presets es2015 --outfile dist/browser/index.js",
     "postdist": "babel lib --out-dir dist/node",
     "build": "parallelshell 'npm run dist' 'npm run docs'",
     "server": "http-server docs/",
-    "js": "watchify test/index.js -t babelify --outfile docs/bundle.js",
+    "js": "watchify test/index.js -t babelify --presets es2015 --outfile docs/bundle.js",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
     "test": "faucet"
