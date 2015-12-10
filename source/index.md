@@ -1,21 +1,21 @@
-# ArcGIS
+***
 
-Client library for interfacing with ArcGIS, either a Server installation of ArcGIS online. All methods return Promises, which on resolution return JSON.
+# `ArcGIS`
 
-**Params**
+Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization.
 
-| Params         | Type         | Default                 |
-| -------------- | ------------ | ----------------------- |
-| Options        | Object       | see below               |
+**Params:** JSON Object with the following options;
 
 | Options        | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| Token          | String       | none                    |
-| Domain         | url          | www.arcgis.com/         |
+| token          | String       | none                    |
+| domain         | URL          | www.arcgis.com/         |
+| username		 | String       | none   				  |
+| password       | String		| none. Careful with this |
+| withCreditential | Boolean    | false. For federated accounts. |
 
-**Returns**
 
-JSON Object with ArcGIS methods.
+**Returns:** JSON Object with ArcGIS methods.
 
 ```
 {
@@ -37,20 +37,19 @@ JSON Object with ArcGIS methods.
 
 ```
 var ArcGIS = require('arcgis')
-
+<!-- Create an anonymous session with www.arcgis.com -->
 var anonAGO = ArcGIS()
-<!-- Creates an anonymous session with www.arcgis.com -->
-
+<!-- Create an authenticated session with www.arcgis.com -->
 var authAGO = ArcGIS({
 	token: token
 })
-<!-- Creates an authenticated session with www.arcgis.com -->
-
+<!-- Creat an anonymous session with ArcGIS Server -->
 var serverGIS = ArcGIS({
 	domain: 'myGIS.myurl.com'
 })
-<!-- Creates an anonymous session with ArcGIS Server -->
 ```
+
+---
 
 ## User
 
