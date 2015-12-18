@@ -19,6 +19,7 @@
     "http-server": "^0.8.5",
     "isomorphic-fetch": "^2.2.0",
     "mkdirp": "^0.5.1",
+    "node-sass": "^3.4.2",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
