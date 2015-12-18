@@ -2,6 +2,8 @@
 
 # `ArcGIS`
 
+> This is a cool note about the below text
+
 Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization.
 
 **Params:** JSON Object with the following options;
@@ -34,6 +36,8 @@ Initialize the client library session to access the API either as an anonymous u
 ```
 
 **Example**
+
+> You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time. How neat!
 
 ```
 var ArcGIS = require('arcgis')

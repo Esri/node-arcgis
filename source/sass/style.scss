@@ -1,0 +1,17 @@
+$include-content-family:   true;
+$include-secondary-family: true;
+@import 'calcite-web';
+
+blockquote {
+  @extend .column-6;
+  @extend .tablet-column-12;
+  @extend .pre-12;
+  @extend .text-gray;
+  @include avenir-italic();
+  margin: 0;
+  border: 0;
+  height: 0;
+  p {
+    @include font-size(-1);
+  }
+}

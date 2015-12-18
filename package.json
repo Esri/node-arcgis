@@ -19,7 +19,6 @@
     "http-server": "^0.8.5",
     "isomorphic-fetch": "^2.2.0",
     "mkdirp": "^0.5.1",
-    "node-sass": "^3.4.2",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "sanitize-html": "^1.11.1",
@@ -51,8 +50,8 @@
   "scripts": {
     "start": "npm run dev",
     "predev": "npm run doc",
-    "dev": "parallelshell 'npm run server' 'npm run js' 'rerun-script'",
-    "predoc": "cp -R ./node_modules/calcite-web/dist/ ./docs",
+    "dev": "parallelshell 'npm run server' 'npm run js' 'npm run sass -- -w' 'rerun-script'",
+    "predoc": "cp -R ./node_modules/calcite-web/dist/fonts ./docs && cp -R ./node_modules/calcite-web/dist/img ./docs",
     "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html",
     "predist": "mkdirp dist/node dist/browser",
     "dist": "browserify lib/index.js -t babelify --presets es2015 --outfile dist/browser/index.js",
@@ -60,6 +59,7 @@
     "build": "parallelshell 'npm run dist' 'npm run docs'",
     "server": "http-server docs/",
     "js": "watchify test/index.js -t babelify --presets es2015 --outfile docs/bundle.js",
+    "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
     "test": "faucet"

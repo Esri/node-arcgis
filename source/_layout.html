@@ -7,7 +7,8 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Node ArcGIS</title>
-    <link rel="stylesheet" href="/css/calcite-web.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -18,7 +19,8 @@
       <!--   room on either side of text block  -->
       <!--   left side could be for sticky navigation -->
       <!--   right side could be for notations -->
-      <main class="markdown-body column-12 pre-6">
+
+      <section class="markdown-body column-12 pre-6 post-6">
         <nav class="trailer-2 leader-half">
           <a href="https://github.com/esripdx/node-arcgis/">Github</a>
         </nav>
@@ -77,10 +79,26 @@
             </div>
           </nav>
         </aside>
+      </section>
 
+      <aside class="side-nav column-5 post-1 js-sticky scroll-show leader-1" data-top=12 aria-role="complementary">
+        <h4 class="side-nav-title">Sidenav Group</h4>
+        <nav role="navigation" aria-labelledby="sidenav">
+          <a href="#" class="side-nav-link">Agricultural</a>
+          <a href="#" class="side-nav-link">Transition</a>
+          <a href="#" class="side-nav-link">Perpetual</a>
+          <a href="#" class="side-nav-link">Cultural</a>
+        </nav>
+      </aside>
+
+      <main class="column-12">
         {% block content %}{% endblock %}
       </main>
     </div>
     <script src="/bundle.js"></script>
+    <script src="/js/calcite-web.js"></script>
+    <script>
+      calcite.init()
+    </script>
   </body>
 </html>
