@@ -51,7 +51,7 @@
     "start": "npm run dev",
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'npm run sass -- -w' 'rerun-script'",
-    "predoc": "cp -R ./node_modules/calcite-web/dist/fonts ./docs && cp -R ./node_modules/calcite-web/dist/img ./docs",
+    "predoc": "cp -R ./node_modules/calcite-web/dist/fonts ./docs && cp -R ./node_modules/calcite-web/dist/img ./docs && cp -R ./node_modules/calcite-web/dist/js ./docs",
     "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html",
     "predist": "mkdirp dist/node dist/browser",
     "dist": "browserify lib/index.js -t babelify --presets es2015 --outfile dist/browser/index.js",
