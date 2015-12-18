@@ -6,17 +6,81 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Node ArcGIS Console</title>
-    <link rel="stylesheet" href="/gfm.css">
+    <title>Node ArcGIS</title>
+    <link rel="stylesheet" href="/css/calcite-web.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
-  <body >
-    <main class="markdown-body">
-      <a href="https://github.com/esripdx/node-arcgis/">Github</a>
-      {% block content %}{% endblock %}
-    </main>
+  <body>
+    <div class="grid-container">
+      <!-- aside.column6 -->
+      <!--   room on either side of text block  -->
+      <!--   left side could be for sticky navigation -->
+      <!--   right side could be for notations -->
+      <main class="markdown-body column-12 pre-6">
+        <nav class="trailer-2 leader-half">
+          <a href="https://github.com/esripdx/node-arcgis/">Github</a>
+        </nav>
+
+        <aside>
+          <h1 class="trailer-half">Node ArcGIS</h1>
+          <pre class="trailer-1"><code>$ npm install arcgis</code></pre>
+
+          <p class="font-size-0 trailer-1">Client library for interfacing with ArcGIS, either a Server installation or ArcGIS Online. Works in server-side Node environments as well as the browser. Provides a set of convience methods, and structures the underlying REST API concepts and behaviors to align closer with the expectations of an API in the node environment.</p>
+
+          <nav>
+            <h2>Reference</h2>
+            <div class="block-group block-group-4-up tablet-block-group-2-up phone-block-group-1-up">
+              <div class="block">
+                <h5 class="trailer-0">Client</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+              <div class="block">
+                <h5 class="trailer-0">Request</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+              <div class="block">
+                <h5 class="trailer-0">User</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+              <div class="block">
+                <h5 class="trailer-0">Organization</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+              <div class="block">
+                <h5 class="trailer-0">Group</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+              <div class="block">
+                <h5 class="trailer-0">Item</h5>
+                <ul class="list-plain trailer-1">
+                  <li><a href="#">Overview</a></li>
+                  <li><a href="#">Example</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </aside>
+
+        {% block content %}{% endblock %}
+      </main>
+    </div>
     <script src="/bundle.js"></script>
   </body>
 </html>
