@@ -15,3 +15,7 @@ blockquote {
     @include font-size(-1);
   }
 }
+
+h3 {
+  @include leader(2);
+}

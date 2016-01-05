@@ -43,8 +43,8 @@
   },
   "watches": {
     "doc": [
-      "*.md",
-      "_layout.html"
+      "source/*.md",
+      "source/_layout.html"
     ]
   },
   "scripts": {
