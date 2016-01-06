@@ -32,99 +32,34 @@
           <p class="font-size-0 trailer-1">Client library for interfacing with ArcGIS, either a Server installation or ArcGIS Online. Works in server-side Node environments as well as the browser. Provides a set of convience methods, and structures the underlying REST API concepts and behaviors to align closer with the expectations of an API in the node environment.</p>
 
           <nav>
-            <h2 class="trailer-01">Reference</h2>
-
-            <h3 class="leader-half font-size-2">Library Methods</h3>
-            <div class="block-group block-group-4-up tablet-block-group-2-up phone-block-group-1-up">
-              <div class="block">
-                <h5 class="trailer-0">Client</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
+            <h2 class="trailer-1">Reference</h2>
+            {% for group in reference %}
+              <h3 class="leader-half font-size-2">{{ group.title }}</h3>
+              <div class="block-group block-group-4-up tablet-block-group-2-up phone-block-group-1-up">
+                {% for section in group.sections %}
+                  <div class="block">
+                    <h5 class="trailer-0">{{ section.title }}</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#{{ section.title | lower }}">Overview</a></li>
+                      {% for method in section.methods %}
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#{{section.title | lower}}{{ method | lower }}">{{ method }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endfor %}
               </div>
-              <div class="block">
-                <h5 class="trailer-0">Request</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 class="leader-half font-size-2">Platform Management</h3>
-            <div class="block-group block-group-4-up tablet-block-group-2-up phone-block-group-1-up">
-              <div class="block">
-                <h5 class="trailer-0">User</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-              <div class="block">
-                <h5 class="trailer-0">Organization</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-              <div class="block">
-                <h5 class="trailer-0">Group</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-              <div class="block">
-                <h5 class="trailer-0">Item</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 class="leader-half font-size-2">Services</h3>
-
-            <div class="block-group block-group-4-up tablet-block-group-2-up phone-block-group-1-up">
-              <div class="block">
-                <h5 class="trailer-0">Geocoding</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-              <div class="block">
-                <h5 class="trailer-0">Routing</h5>
-                <ul class="list-plain trailer-1">
-                  <li><a href="#">Overview</a></li>
-                  <li><a href="#">Example</a></li>
-                </ul>
-              </div>
-            </div>
-
+            {% endfor %}
           </nav>
         </aside>
       </section>
 
       <aside class="side-nav column-5 post-1 js-sticky scroll-show leader-1" data-top=12 aria-role="complementary">
-        <h4 class="side-nav-title">Library</h4>
-        <nav role="navigation" aria-labelledby="sidenav">
-          <a href="#" class="side-nav-link">Client</a>
-          <a href="#" class="side-nav-link">Request</a>
-        </nav>
-        <h4 class="side-nav-title">Platform</h4>
-        <div class="nav">
-          <a href="#" class="side-nav-link">User</a>
-          <a href="#" class="side-nav-link">Organization</a>
-          <a href="#" class="side-nav-link">Group</a>
-          <a href="#" class="side-nav-link">Item</a>
-        </div>
-        <h4 class="side-nav-title">Services</h4>
-        <div class="nav">
-          <a href="#" class="side-nav-link">Geocoding</a>
-          <a href="#" class="side-nav-link">Routing</a>
-        </div>
+        {% for group in reference %}
+          <h4 class="side-nav-title">{{ group.title }}</h4>
+          {% for section in group.sections %}
+            <a href="#{{ section.title | lower }}" class="side-nav-link">{{ section.title }}</a>
+          {% endfor %}
+        {% endfor %}
       </aside>
 
       <main class="column-12">

@@ -1,3 +1,74 @@
+---
+reference:
+  - title: "Library Methods"
+    sections:
+       - title: ArcGIS
+       - title: Request
+  - title: "Platform Management"
+    sections:
+      - title: User
+        methods:
+          - Create
+          - Get
+          - Update
+          - Content
+          - Favorites
+          - Tags
+          - Enabled
+          - Delete
+      - title: Organization
+        methods:
+          - Get
+          - Summary
+          - Update
+          - Content
+          - Members
+          - Featured
+      - title: Group
+        methods:
+          - Create
+          - Get
+          - Content
+          - Update
+          - Users
+          - RemoveUsers
+          - AddUsers
+          - Join
+          - Leave
+          - ChangeOwner
+          - Delete
+      - title: Item
+        methods:
+          - New
+          - Get
+          - Update
+          - Rate
+          - Favorite
+          - Duplicate
+          - CreateService
+          - Folder
+          - Groups
+          - ChangeOwner
+          - Publish
+          - Export
+          - Download
+          - DeleteProtected
+          - Register
+          - GetOAuth
+          - GetToken
+          - RelatedItems
+          - Permissions
+          - Delete
+      - title: Search
+      - title: Billing
+
+  - title: "Services"
+    sections:
+      - title: Geocoding
+      - title: Routing
+---
+
+
 ***
 
 # `ArcGIS`
@@ -33,7 +104,7 @@ Initialize the client library session to access the API either as an anonymous u
 }
 ```
 
-**Example**
+###### **Example**
 
 > You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time.
 
@@ -55,7 +126,7 @@ var serverGIS = ArcGIS({
 
 ## `request`
 
-
+###### **Example**
 
 ---
 
