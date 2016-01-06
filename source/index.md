@@ -53,6 +53,12 @@ var serverGIS = ArcGIS({
 
 ---
 
+## `request`
+
+
+
+---
+
 ## `user`
 
 > Almost all the methods off `ArcGIS()` return an object immediately, which sets up the methods for interacting with the platform. These methods almost always return promises, and involve making requests to the domain.
@@ -284,26 +290,43 @@ user.favorites()
 
 ### `user.tags`
 
-Gets all the tags that a user has used, along with counts of hoy many times that tag has appeared.
+Gets all the tags that a user has used, along with counts of how many times that tag has appeared.
 
-**Returns**
+**Params:**
+None.
+
+**Returns:**
+Promise that resolves to a JSON Object
+
 ```
 {
-	tags: Array // array of tag objects
+	tags: [
+		{
+			count: Number, // Number of times the tag appears
+			tag: String    // String of the tag itself
+		},
+		{
+			count: Number, // Number of times the tag appears
+			tag: String    // String of the tag itself
+		}
+	]
 }
 ```
 
-Tag Object
+**Example**
+
 ```
-{
-	count: Number, // Number of times the tag appears
-	tag: String    // String of the tag itself
-}
+user.tags()
+.then(function(userTags){
+  console.log(userTags)
+})
 ```
 
 ### `user.enabled`
 
-Enables and disables the user within the organization. Default returns the current status of the user.
+Enables and disables the user within the organization. Passing no boolean to the method will return the current state of the user.
+
+If a user is disabled, that means that their account is not active, but has not been deleted. A disabled user still counts towards yours organizations maximum number of users.
 
 **Params**
 
@@ -311,16 +334,28 @@ Enables and disables the user within the organization. Default returns the curre
 | -------------- | ------------ | ----------------------- |
 | User Enabled   | Boolean      | none                    |
 
-**Returns**
+**Returns:**
+Promise, if no params passed resolves to a string.
 
+---
 
 ## `organization`
 
-**Params**
+> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization.
+
+This object us used to interact with an Organization within the domains Portal - ArcGIS Online for example has many organizations that can be interacted with. An on-premises version of Portal or Server may have fewer, if not just one.
+
+Calling the function without any parameters will create an object that interacts with the organization that is currently authenticated. Calling the function with an organizations ID will interact with that organization from the perspective of a public user.
+
+**Params:**
+String of an Org Id.
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | Org Id         | String       | self                    |
+
+**Returns:**
+JSON Object. (Not a promise!)
 
 ```
 {
@@ -630,5 +665,3 @@ edit the content of a comment
 ##### item.comments.comment.delete
 
 deletes a comment from the item
-
-
