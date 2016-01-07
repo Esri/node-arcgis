@@ -167,7 +167,7 @@ var user = arcgis.user('username')
 
 ### `user.create`
 
-> Several function return differnet sets of methods depending on the params passed. `user()`, `group()`, and `item()` all return a single `create()` function if no params are passed.
+> Several function return different sets of methods depending on the params passed. `user()`, `group()`, and `item()` all return a single `create()` function if no params are passed.
 
 Users must be invited to an organization, they cannot be added. To add a user, you must generate an invitation in the platform, which will send an e-mail with instructions for joining a group.
 
