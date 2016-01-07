@@ -12,19 +12,17 @@
     "babel-cli": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
     "babelify": "^7.2.0",
+    "blue-tape": "^0.1.11",
     "browserify": "^12.0.0",
     "calcite-web": "git+ssh://git@github.com/esri/calcite-web.git#v0.15.1",
     "faucet": "0.0.1",
     "gfm.css": "^1.1.1",
     "http-server": "^0.8.5",
     "isomorphic-fetch": "^2.2.0",
-    "jsonmark": "0.0.1",
     "markdown-it": "^5.0.3",
     "markdown-it-anchor": "^2.3.3",
-    "markdown-it-contents": "0.0.1",
     "markdown-it-emoji": "^1.1.0",
     "markdown-it-highlightjs": "^2.0.0",
-    "markdown-it-table-of-contents": "^0.1.2",
     "mkdirp": "^0.5.1",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
@@ -71,6 +69,6 @@
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
-    "test": "faucet"
+    "test": "node test/authentication.js | faucet"
   }
 }
