@@ -64,8 +64,8 @@ reference:
 
   - title: "Services"
     sections:
-      - title: Geocoding
-      - title: Routing
+      - title: Geocode
+      - title: Route
 ---
 
 
@@ -450,12 +450,68 @@ var otherOrg = arcgis.organization('orgId')
 <!-- Creates an object with methods for interacting with a given org -->
 ```
 
+### `organization.get`
+
+All the in­for­ma­tion as­so­ci­ated with an organization that the current session has access too.
+
+> This is only a small sample of the returned properties. The actual returned object is very large, and I'm not sure what most of it is for.
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  access: String,
+  availableCredits: Number,
+  backgroundImage: String,
+  created: Date,
+  culture: String,
+  defaultBasemap: Object,
+  defaultExtent: Object,
+  description: String,
+  featuredGroups: Array,
+  featuredGroupsId: String,
+  helpBase: String,
+  homePageFeaturedContent: String,
+  homePageFeaturedContentCount: Number,
+  id: String,
+  ipCntryCode: String,
+  modified: Date,
+  name: String,
+  region: String,
+  staticImagesUrl: String,
+  subscriptionInfo: Object,
+  supportsHostedServices: Boolean,
+  supportsOAuth: Boolean,
+  thumbnail: String,
+  units: String,
+  urlKey: String,
+  user: Object
+}
+```
+
 ### `organization.update`
 
-updates org information
+Takes an op­tions ob­ject, and sets the organizations in­for­ma­tion to the op­tions pro­vided. Re­turns an er­ror, or the up­dated organization ob­ject.
 
+**Params:**
+JSON Object
 
-### organization.users
+```
+{
+  name: String,              // The character limit is 250.
+  access: String,            // Setting to public allows anonymous users to access your organization's custom URL. Setting to private restricts access to only members of your organization.
+  description: String,
+  canSharePublic: Boolean,   // Allows members of the organization to share outside the organizatio
+  canSearchPublic: Boolean,  // Allows members of the organization to search outside the organization.
+  thumbnail: String,         // Acceptable image formats are PNG, GIF, and JPEG.
+  urlKey: String,            // The prefix that will be used in the URL for this portal, for example, <urlkey>.maps.arcgis.com.
+  urlHostname: String,       // A custom URL for this portal.
+  culture: String            // The default locale (language and country) information.
+}
+```
+
+### `organization.members`
 
 gets users in an org as a paginated object.
 
