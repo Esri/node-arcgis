@@ -19,10 +19,9 @@ reference:
       - title: Organization
         methods:
           - Get
-          - Summary
           - Update
-          - Content
           - Members
+          - Content
           - Featured
       - title: Group
         methods:
@@ -513,21 +512,58 @@ JSON Object
 
 ### `organization.members`
 
-gets users in an org as a paginated object.
+Gets the members within an organization. Takes a number, and returns as a paginated list with that number of members per page. Returns 100 members per page by default.
+
+**Params:**
+Number
+
+> If the `nextStart` value is -1, that means your on the last page of the results. The objects returned in the `users` array are the same as in [`user.get()`](#userget)
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  nextStart: Number,
+  num: Number,
+  start: Number,
+  total: Number,
+  users: Array
+}
+```
 
 **Example**
 
 ```
 var myOrg = arcgis.organization()
-myOrg.users()
+myOrg.users(10)
 .then(function(results) {
 	console.log(results)
 })
 ```
 
-### organization.content
+### `organization.content`
 
-gets content in an org as a paginated object
+Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
+
+> This is a shortcut helper for the `search` method with the query needed to target an org predefined.
+
+**Params:**
+Number
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  nextStart: Number,
+  num: Number,
+  query: String
+  results: Array,
+  start: Number,
+  total: Number
+}
+```
 
 **Example**
 
@@ -539,43 +575,35 @@ myOrg.content()
 })
 ```
 
-### organization.featured
+### `organization.featured`
 
-gets the orgs featured content
+Organizations can add items to a group that is for specially 'featured content', items that may be common or high-traffic within the organization. This group is displayed on the orgs home page.
+
+Takes a number, and returns a paginated list of items within the organizations featured group.
+
+> This method is the same as [`group.content()`](#groupcontent), but with the group id prefilled from the organizations profile.
+
+**Params:**
+Number
+
+**Returns:**
+Promise that resolves to a JSON Object
+```
+{
+  nextStart: Number,
+  num: Number,
+  query: String
+  results: Array,
+  start: Number,
+  total: Number
+}
+```
 
 **Example**
 
 ```
 var myOrg = arcgis.organization()
-myOrg.content()
-.then(function(results) {
-	console.log(results)
-})
-```
-
-### organization.summary
-
-gets and sets the short summary of an org
-
-**Example**
-
-```
-var myOrg = arcgis.organization()
-myOrg.summary()
-.then(function(results) {
-	console.log(results)
-})
-```
-
-### organization.language
-
-gets the organizations language settings
-
-**Examples**
-
-```
-var myOrg = arcgis.organization()
-myOrg.language()
+myOrg.featured()
 .then(function(results) {
 	console.log(results)
 })
