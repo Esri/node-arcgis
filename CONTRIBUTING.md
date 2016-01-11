@@ -24,6 +24,15 @@ $ npm run docs
 $ npm run build
 ```
 
+### Test the Thing
+
+Copy the `test/credentials.sample.json` to `test/credentials.json`. Put some valid user credentials in there.
+
+```
+$ npm run test
+```
+
+
 ## What?
 
 Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.

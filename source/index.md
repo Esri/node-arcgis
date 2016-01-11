@@ -1,10 +1,80 @@
+---
+reference:
+  - title: "Library Methods"
+    sections:
+       - title: ArcGIS
+       - title: Request
+  - title: "Platform Management"
+    sections:
+      - title: User
+        methods:
+          - Create
+          - Get
+          - Update
+          - Content
+          - Favorites
+          - Tags
+          - Enabled
+          - Delete
+      - title: Organization
+        methods:
+          - Get
+          - Update
+          - Members
+          - Content
+          - Featured
+      - title: Group
+        methods:
+          - Create
+          - Get
+          - Content
+          - Update
+          - Users
+          - RemoveUsers
+          - AddUsers
+          - Join
+          - Leave
+          - ChangeOwner
+          - Delete
+      - title: Item
+        methods:
+          - New
+          - Get
+          - Update
+          - Rate
+          - Favorite
+          - Duplicate
+          - CreateService
+          - Folder
+          - Groups
+          - ChangeOwner
+          - Publish
+          - Export
+          - Download
+          - DeleteProtected
+          - Register
+          - GetOAuth
+          - GetToken
+          - RelatedItems
+          - Permissions
+          - Delete
+      - title: Search
+      - title: Billing
+
+  - title: "Services"
+    sections:
+      - title: Geocode
+      - title: Route
+---
+
+
 ***
 
 # `ArcGIS`
 
-> This is a cool note about the below text
+> There are a number of ways to authenticate with the platform - either passing in a token when the function is called, or a username and password. As the project grows, we will add more auth methods.
 
-Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization.
+Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization. Calling `ArcGIS()` with no parameters will set up an instance of the platform that talks to ArcGIS Online as a public, anonymous user.
 
 **Params:** JSON Object with the following options;
 
@@ -21,23 +91,21 @@ Initialize the client library session to access the API either as an anonymous u
 
 ```
 {
-  auth: function,
-  request: function,
-  user: function,
-  organization: function,
-  group: function,
-  item: function,
-  items: function,
-  favorites: function,
-  usage: function,
-  billing: function,
-  search: function
+  auth: function(),         // Authenticates the session
+  request: function(),      // Makes requests to the domain
+  user: function(),         // Sets up methods for a user
+  organization: function(), // Sets up methods for an org
+  group: function(),        // Sets up methods for a group
+  item: function(),         // Sets up methods for an item
+  usage: function(),        // Sets up methods for usage
+  billing: function(),      // Sets up methods for billing
+  search: function()        // Searches the platform
 }
 ```
 
-**Example**
+###### **Example**
 
-> You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time. How neat!
+> You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time.
 
 ```
 var ArcGIS = require('arcgis')
@@ -55,17 +123,27 @@ var serverGIS = ArcGIS({
 
 ---
 
-## User
+## `request`
 
-**Params**
+###### **Example**
+
+---
+
+## `user`
+
+> Almost all the methods off `ArcGIS()` return an object immediately, which sets up the methods for interacting with the platform. These methods almost always return promises, and involve making requests to the domain.
+
+This object us used to interact with a user - your own user account, other users in your organization, or publicly available users that are not associated with your organization. This method is also used to create new users by inviting them to your organization.
+
+**Params:**
+A username string
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | Username       | String       | none                    |
 
-**Returns Promise**
-
-JSON User object with User management methods.
+**Returns:**
+JSON user object with management methods.
 
 ```
 {
@@ -85,19 +163,25 @@ JSON User object with User management methods.
 var user = arcgis.user('username')
 ```
 
-### user.create()
 
-Invites users to join a group.
+### `user.create`
 
-**Options**
+> Several function return different sets of methods depending on the params passed. `user()`, `group()`, and `item()` all return a single `create()` function if no params are passed.
+
+Users must be invited to an organization, they cannot be added. To add a user, you must generate an invitation in the platform, which will send an e-mail with instructions for joining a group.
+
+**Params:**
+JSON Object
 
 | Options        | Type         | Description             |
 | -------------- | ------------ | ----------------------- |
 | subject        | String       | Subject of invitation email |
 | html           | String       | HTML string of message body |
-| invitations    | Array | Invitation Objects to create invitations from |
+| invitations    | Array | Invitations to create invitations from |
 
-**Invitation Object**
+**Invitation:**
+JSON Object
+
 | Param | Type | Description |
 | - | - | - |
 | username  | The username for the new user
@@ -108,21 +192,37 @@ Invites users to join a group.
 | email     | The email address to send the invitation, and link to the users account.
 | role      | The role of the user. Editor / User.
 
-**Returns**
-Newly created user invitation
+**Returns:**
+Promise that resolves to the newly created user invitation object.
 
 **Example**
 
 ```
+var options = {
+	subject: "Welcome to the Team",
+	html: "<h1>It's gonna be great!</h1>",
+	invitations: {
+		username: 'pat',
+		email: 'pat@email.com'
+	}
+}
+
 arcgis.user().create(options)
 .then(function (invitation) {
 	console.log(invitation)
 })
 ```
 
-### user.get
+### `user.get`
 
-**Returns**
+All the information associated with a user that the current session has access too.
+
+**Params:**
+None.
+
+**Returns:**
+Promise that resolves to JSON Object
+
 ```
 // always returned on any user
   "created": Date            // when this user was created
@@ -131,14 +231,20 @@ arcgis.user().create(options)
   "lastName": String         // recorded last name of the user
   "provider": String         // ???
   "username": String         // hard username for the user. Never changes.
+
 // the following are not returned if the user is private
+  "email": String            // email address of user
   "culture": String          // two letter lang code ex: 'en'
   "description": String      // text description set by the user
+  "privileges": Array 		 // Array of strings that denote actions
+  "favGroupId": String       // ID of user favorites group
+  "groups": Array            // Array of group objects associated with the user
+  "orgId": String            // ID of the org the user belongs too
   "modified": Date           // date when the user
   "region": String           // two letter country code ex: 'us'
   "tags": Array              // array of tags that user has used maybe?
   "thumbnail": String        // name of the users thumbnail image ex: 'coolguy.jpg'
-  "units": String,            // 'imperial' or 'metric'
+  "units": String            // 'imperial' or 'metric'
 ```
 
 **Example**
@@ -149,11 +255,12 @@ user.get()
 })
 ```
 
-### user.update
+### `user.update`
 
 Takes an options object, and sets the users information to the options provided. Returns an error, or the updated user object.
 
-**Options**
+**Params:**
+Options JSON Object
 
 | Options        | Type         | Description             |
 | -------------- | ------------ | ----------------------- |
@@ -170,9 +277,8 @@ Takes an options object, and sets the users information to the options provided.
 | culture        | Culture Code | Culture code for the user. |
 | region         | Country Code |  Region code for the user. |
 
-**Returns**
-
-The updated user object.
+**Returns:**
+Promise that resolves to the updated user JSON Object.
 
 **Example**
 
@@ -183,21 +289,27 @@ user.update({
 })
 ```
 
-### user.delete
+### `user.delete`
+
+> This is a Future Feature, all delete methods will come in one swoop I hope.
 
 Deletes the user.
 
-### user.content
+### `user.content`
 
-Gets the users content by folder id. If no folder id is supplied, returns all the items at the users root folder.
+> Note that this is the only instance where content is returned un-paginated. If a user has lots and lots of content, this call may take some time to resolve.
 
-**Params**
+Returns an array of all of the users items and folders. If passed a folder id, will return an array of the items in that folder. Each item returns the same results as the `item.get()` call.
+
+**Params:**
+String.
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | Folder ID      | String       | none                    |
 
-**Returns**
+**Returns:**
+Promise that resolves to a JSON Object.
 
 ```
 {
@@ -220,18 +332,17 @@ user.content()
 })
 ```
 
-### user.favorites
+### `user.favorites`
 
-Gets the items the user has favorited.
+Users store their their favorite items in a group associated with their account. Getting a users favorites is similar to getting any other groups content.
 
-**Returns**
-
+**Returns:**
 Paginated search results object.
 
 ```
 {
 	num: Number,       // Total number of items that could be returned
-	total: Number,     // Total numnber of items in favorites
+	total: Number,     // Total number of items in favorites
 	query: String,     // Search string used to get these
 	start: Number,     // Which item this page starts with
 	nextStart: Number, // Which item next page starts with.
@@ -247,28 +358,45 @@ user.favorites()
 })
 ```
 
-### user.tags
+### `user.tags`
 
-Gets all the tags that a user has used, along with counts of hoy many times that tag has appeared.
+Gets all the tags that a user has used, along with counts of how many times that tag has appeared.
 
-**Returns**
+**Params:**
+None.
+
+**Returns:**
+Promise that resolves to a JSON Object
+
 ```
 {
-	tags: Array // array of tag objects
+	tags: [
+		{
+			count: Number, // Number of times the tag appears
+			tag: String    // String of the tag itself
+		},
+		{
+			count: Number, // Number of times the tag appears
+			tag: String    // String of the tag itself
+		}
+	]
 }
 ```
 
-Tag Object
+**Example**
+
 ```
-{
-	count: Number, // Number of times the tag appears
-	tag: String    // String of the tag itself
-}
+user.tags()
+.then(function(userTags){
+  console.log(userTags)
+})
 ```
 
-### user.enabled
+### `user.enabled`
 
-Enables and disables the user within the organization. Default returns the current status of the user.
+Enables and disables the user within the organization. Passing no boolean to the method will return the current state of the user.
+
+If a user is disabled, that means that their account is not active, but has not been deleted. A disabled user still counts towards yours organizations maximum number of users.
 
 **Params**
 
@@ -276,16 +404,28 @@ Enables and disables the user within the organization. Default returns the curre
 | -------------- | ------------ | ----------------------- |
 | User Enabled   | Boolean      | none                    |
 
-**Returns**
+**Returns:**
+Promise, if no params passed resolves to a string.
 
+---
 
-## Organization
+## `organization`
 
-**Params**
+> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization.
+
+This object us used to interact with an Organization within the domains Portal - ArcGIS Online for example has many organizations that can be interacted with. An on-premises version of Portal or Server may have fewer, if not just one.
+
+Calling the function without any parameters will create an object that interacts with the organization that is currently authenticated. Calling the function with an organizations ID will interact with that organization from the perspective of a public user.
+
+**Params:**
+String of an Org Id.
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | Org Id         | String       | self                    |
+
+**Returns:**
+JSON Object. (Not a promise!)
 
 ```
 {
@@ -309,28 +449,121 @@ var otherOrg = arcgis.organization('orgId')
 <!-- Creates an object with methods for interacting with a given org -->
 ```
 
-### organization.update
+### `organization.get`
 
-updates org information
+All the in­for­ma­tion as­so­ci­ated with an organization that the current session has access too.
 
+> This is only a small sample of the returned properties. The actual returned object is very large, and I'm not sure what most of it is for.
 
-### organization.users
+**Returns:**
+Promise that resolves to JSON Object
 
-gets users in an org as a paginated object.
+```
+{
+  access: String,
+  availableCredits: Number,
+  backgroundImage: String,
+  created: Date,
+  culture: String,
+  defaultBasemap: Object,
+  defaultExtent: Object,
+  description: String,
+  featuredGroups: Array,
+  featuredGroupsId: String,
+  helpBase: String,
+  homePageFeaturedContent: String,
+  homePageFeaturedContentCount: Number,
+  id: String,
+  ipCntryCode: String,
+  modified: Date,
+  name: String,
+  region: String,
+  staticImagesUrl: String,
+  subscriptionInfo: Object,
+  supportsHostedServices: Boolean,
+  supportsOAuth: Boolean,
+  thumbnail: String,
+  units: String,
+  urlKey: String,
+  user: Object
+}
+```
+
+### `organization.update`
+
+Takes an op­tions ob­ject, and sets the organizations in­for­ma­tion to the op­tions pro­vided. Re­turns an er­ror, or the up­dated organization ob­ject.
+
+**Params:**
+JSON Object
+
+```
+{
+  name: String,              // The character limit is 250.
+  access: String,            // Setting to public allows anonymous users to access your organization's custom URL. Setting to private restricts access to only members of your organization.
+  description: String,
+  canSharePublic: Boolean,   // Allows members of the organization to share outside the organizatio
+  canSearchPublic: Boolean,  // Allows members of the organization to search outside the organization.
+  thumbnail: String,         // Acceptable image formats are PNG, GIF, and JPEG.
+  urlKey: String,            // The prefix that will be used in the URL for this portal, for example, <urlkey>.maps.arcgis.com.
+  urlHostname: String,       // A custom URL for this portal.
+  culture: String            // The default locale (language and country) information.
+}
+```
+
+### `organization.members`
+
+Gets the members within an organization. Takes a number, and returns as a paginated list with that number of members per page. Returns 100 members per page by default.
+
+**Params:**
+Number
+
+> If the `nextStart` value is -1, that means your on the last page of the results. The objects returned in the `users` array are the same as in [`user.get()`](#userget)
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  nextStart: Number,
+  num: Number,
+  start: Number,
+  total: Number,
+  users: Array
+}
+```
 
 **Example**
 
 ```
 var myOrg = arcgis.organization()
-myOrg.users()
+myOrg.users(10)
 .then(function(results) {
 	console.log(results)
 })
 ```
 
-### organization.content
+### `organization.content`
 
-gets content in an org as a paginated object
+Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
+
+> This is a shortcut helper for the `search` method with the query needed to target an org predefined.
+
+**Params:**
+Number
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  nextStart: Number,
+  num: Number,
+  query: String
+  results: Array,
+  start: Number,
+  total: Number
+}
+```
 
 **Example**
 
@@ -342,43 +575,35 @@ myOrg.content()
 })
 ```
 
-### organization.featured
+### `organization.featured`
 
-gets the orgs featured content
+Organizations can add items to a group that is for specially 'featured content', items that may be common or high-traffic within the organization. This group is displayed on the orgs home page.
+
+Takes a number, and returns a paginated list of items within the organizations featured group.
+
+> This method is the same as [`group.content()`](#groupcontent), but with the group id prefilled from the organizations profile.
+
+**Params:**
+Number
+
+**Returns:**
+Promise that resolves to a JSON Object
+```
+{
+  nextStart: Number,
+  num: Number,
+  query: String
+  results: Array,
+  start: Number,
+  total: Number
+}
+```
 
 **Example**
 
 ```
 var myOrg = arcgis.organization()
-myOrg.content()
-.then(function(results) {
-	console.log(results)
-})
-```
-
-### organization.summary
-
-gets and sets the short summary of an org
-
-**Example**
-
-```
-var myOrg = arcgis.organization()
-myOrg.summary()
-.then(function(results) {
-	console.log(results)
-})
-```
-
-### organization.language
-
-gets the organizations language settings
-
-**Examples**
-
-```
-var myOrg = arcgis.organization()
-myOrg.language()
+myOrg.featured()
 .then(function(results) {
 	console.log(results)
 })
@@ -595,5 +820,3 @@ edit the content of a comment
 ##### item.comments.comment.delete
 
 deletes a comment from the item
-
-

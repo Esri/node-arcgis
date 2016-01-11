@@ -12,12 +12,17 @@
     "babel-cli": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
     "babelify": "^7.2.0",
+    "blue-tape": "^0.1.11",
     "browserify": "^12.0.0",
     "calcite-web": "git+ssh://git@github.com/esri/calcite-web.git#v0.15.1",
     "faucet": "0.0.1",
     "gfm.css": "^1.1.1",
     "http-server": "^0.8.5",
     "isomorphic-fetch": "^2.2.0",
+    "markdown-it": "^5.0.3",
+    "markdown-it-anchor": "^2.3.3",
+    "markdown-it-emoji": "^1.1.0",
+    "markdown-it-highlightjs": "^2.0.0",
     "mkdirp": "^0.5.1",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
@@ -25,6 +30,8 @@
     "standard": "*",
     "static-site": "^1.0.2",
     "tape": "^4.0.0",
+    "typeset": "^0.1.6",
+    "typogr": "^0.6.6",
     "uglifyify": "^3.0.1",
     "unique": "0.0.1",
     "watchify": "^3.5.0"
@@ -43,8 +50,8 @@
   },
   "watches": {
     "doc": [
-      "*.md",
-      "_layout.html"
+      "source/*.md",
+      "source/_layout.html"
     ]
   },
   "scripts": {
@@ -52,16 +59,16 @@
     "predev": "npm run doc",
     "dev": "parallelshell 'npm run server' 'npm run js' 'npm run sass -- -w' 'rerun-script'",
     "predoc": "cp -R ./node_modules/calcite-web/dist/fonts ./docs && cp -R ./node_modules/calcite-web/dist/img ./docs && cp -R ./node_modules/calcite-web/dist/js ./docs",
-    "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html",
+    "doc": "static-site -s ./source -b ./docs -i node_modules/ docs/ --template _layout.html --helpers source/helpers/*.js",
     "predist": "mkdirp dist/node dist/browser",
     "dist": "browserify lib/index.js -t babelify --presets es2015 --outfile dist/browser/index.js",
     "postdist": "babel lib --out-dir dist/node",
-    "build": "parallelshell 'npm run dist' 'npm run docs'",
+    "build": "parallelshell 'npm run dist' 'npm run doc'",
     "server": "http-server docs/",
-    "js": "watchify test/index.js -t babelify --presets es2015 --outfile docs/bundle.js",
+    "js": "watchify source/browser.js -t babelify --presets es2015 --outfile docs/bundle.js",
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
-    "test": "faucet"
+    "test": "faucet test/**.js"
   }
 }
