@@ -1,8 +1,11 @@
 var test = require('blue-tape');
 var ArcGIS = require('../dist/node/index')
 var credentials = require('./credentials')
+
 var arcgis = ArcGIS({
-  token: credentials.token
+  username: credentials.username,
+  password: credentials.password,
+  referer: 'http://localhost:8080'
 })
 
 var org = arcgis.organization()
