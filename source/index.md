@@ -2,8 +2,10 @@
 reference:
   - title: "Library Methods"
     sections:
-       - title: ArcGIS
-       - title: Request
+      - title: ArcGIS
+        methods:
+          - generateToken
+      - title: Request
   - title: "Platform Management"
     sections:
       - title: User
