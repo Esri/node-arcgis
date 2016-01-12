@@ -9,34 +9,32 @@ var arcgis = ArcGIS({
 })
 
 var org = arcgis.organization()
-var orgDescription;
 
 test('Instantiate an organization object', function (assert) {
-  if (org.id) {
-    assert.pass('Org object has id property')
-  } else {
-    assert.fail('Org object missing id property')
-  }
+  assert.ok(org.id, 'Org object has id property')
   assert.end()
 })
 
 test('Get the organization information', function (assert) {
   return org.get()
   .then(function (results) {
-    if (results.error) throw new Error(results.error.message)
-    orgDescription = results.description
-    if (results.id) assert.pass('API returning organization information.')
+    assert.error(results.error)
+    assert.ok(results.id, 'API returning organization information.')
   })
 })
 
 test('Update the organization information', function (assert) {
-  return org.update({description: orgDescription})
+  var orgDescription
+  return org.get()
   .then(function (results) {
-    if (results.error) throw new Error(results.error.message)
+    orgDescription = results.description
+    return org.update({description: orgDescription})
+  }
+  .then(function (results) {
+    assert.error(results.error)
     assert.equal(results.description, orgDescription, 'Description mismatch')
   })
 })
-
 
 // test('Get organization content')
 // test('Get organization members')

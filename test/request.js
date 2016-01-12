@@ -10,8 +10,8 @@ var arcgis = ArcGIS({
 test('The ArcGIS client makes a request to the root', function (assert) {
   return arcgis.request('/')
   .then(function (results) {
-    if (results.error) throw new Error(results.error.message)
-    if (results.currentVersion) assert.pass('Requesting from REST API v' + results.currentVersion)
+    assert.error(results.error)
+    assert.ok(results.currentVersion, 'Requesting from REST API v' + results.currentVersion)
   })
 })
 
