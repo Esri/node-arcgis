@@ -17,7 +17,7 @@ test('Instantiate a user object', function (assert) {
 })
 
 
-test('Get user information from API', function(assert) {
+test('Get user information from API', function (assert) {
   return user.get()
   .then(function (results) {
     if (results.error) throw new Error(results.error.message)
@@ -25,7 +25,7 @@ test('Get user information from API', function(assert) {
   })
 })
 
-test('Post the existing user desription to the update endpoint', function(assert) {
+test('Post the existing user desription to the update endpoint', function (assert) {
   var description
   return user.get()
   .then(function (results) {
@@ -41,7 +41,7 @@ test('Post the existing user desription to the update endpoint', function(assert
   })
 })
 
-test('Get user content from API', function(assert) {
+test('Get user content from API', function (assert) {
   return user.content()
   .then(function (results) {
     if (results.error) throw new Error(results.error.message)
@@ -49,7 +49,7 @@ test('Get user content from API', function(assert) {
   })
 })
 
-test('Get the users favorite items from the API', function(assert) {
+test('Get the users favorite items from the API', function (assert) {
   return user.favorites()
   .then(function(results) {
     if (results.error) throw new Error(results.error.message)
@@ -57,7 +57,7 @@ test('Get the users favorite items from the API', function(assert) {
   })
 })
 
-test('Get the users tags from the API', function(assert) {
+test('Get the users tags from the API', function (assert) {
   return user.tags()
   .then(function(results) {
     if (results.error) throw new Error(results.error.message)
