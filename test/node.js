@@ -1,6 +1,6 @@
 console.log('ping')
 
-var token = "Ih-VSTe01oOvwZqb2lCGvphHw8WMet0WtPMHFtiRgpvtTBTsghKQsSbeulv3j_3CCxSW1A8MXfQpw4VIZ8KEo1ZtWNdqxSSwhgwzSHTRaPgNWXi0NOjtrWRsw3CNkElj9dNJSnFhar3P_YPPvMVxH-vQUW7g9QDQxbeOE7kK42Y5Yo1XSSgENWcJxr3NTQKp"
+var token = "NyxlTE4AUBGKKHVhneph0W697Iv6Z8f9MgGv1W6NugrSR_pIij5vHdZvcm_45PE2GOqLwmC0x7pkRcQ5ySW0x8XRh5IXnJNAbwnQgUgTo-AEZzkDAlkMOjB1wB5ZseeugzkDO4btlBxa-HHUj1wyrk7pjIAOrQn54inBntL4DUI1oWEIa1w5gfTjAq_pI-0j"
 
 var Arcgis = require('../dist/node/index')
 
