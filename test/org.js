@@ -26,7 +26,7 @@ test('Update the organization information', function (assert) {
   .then(function (results) {
     orgDescription = results.description
     return org.update({description: orgDescription})
-  }
+  })
   .then(function (results) {
     assert.error(results.error)
     assert.equal(results.description, orgDescription, 'Description mismatch')
