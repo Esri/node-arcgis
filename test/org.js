@@ -2,17 +2,17 @@ var test = require('blue-tape');
 var ArcGIS = require('../dist/node/index')
 var credentials = require('./credentials')
 var arcgis = ArcGIS({
-  token: credentials.token
+  token: credentials.userToken
 })
 
-var org = arcgis.organization()
-
 test('Instantiate an organization object', function (assert) {
+  var org = arcgis.organization()
   assert.ok(org.id, 'Org object has id property')
   assert.end()
 })
 
 test('Get the organization information', function (assert) {
+  var org = arcgis.organization()
   return org.get()
   .then(function (results) {
     assert.error(results.error)
@@ -22,6 +22,7 @@ test('Get the organization information', function (assert) {
 
 test('Update the organization information', function (assert) {
   var orgDescription
+  var org = arcgis.organization()
   return org.get()
   .then(function (results) {
     orgDescription = results.description
