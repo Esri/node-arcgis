@@ -8,7 +8,7 @@
 [travis-image]: https://img.shields.io/travis/nikolaswise/node-arcgis.svg?style=flat-square
 [travis-url]: https://travis-ci.org/nikolaswise/node-arcgis
 
-Node client library for ArcGIS
+Node/Browser Javascript library for ArcGIS
 
 ## Install
 
@@ -36,13 +36,17 @@ var ago = ArcGIS(token)
 
 This project should be more than just a wrapper around our current REST API, but an aspirational and forward looking attempt to create what the REST API _could_ be. Some of the primary targets are below:
 
-### Modulated
+### Simple Simple Simple
 
-Every method and function should be it's own modular deal - both for ease of comprehension (one file does one thing) but also for consumabillity. Ideally, each module could be required independently for it's singular purpose and work great. This means we're using ES6!
+The end goal is for everything to be as simple as possible. Simple code, simple structures, simple responses, simple docs. If things get complicated we're doing something wrong.
+
+### Modular
+
+Every method and function should be it's own self sufficient deal - both for ease of comprehension (one file does one thing) but also for consumption. Ideally, each module could be required independently and work great. This means we're using ES6!
 
 ### Promises
 
-Practically all of these methods require making calls to ArcGIS servers. These calls can be slow. Mostly everything is Async and returns a promise.
+Practically all of these methods require making calls to ArcGIS servers. Since we can't control the time required to receive a response, most everything is Async and returns a promise.
 
 ### Value Added
 
@@ -52,12 +56,8 @@ For example, getting an org's name, description, and summary is 2 calls to the R
 
 ### Universal Iso-PolyMetric Server Client JS
 
-This should run in node land on the server and client side in the browser. The same code should in both places, and work the same way. This will expand out to cover instances of on-prem server as well as ArcGIS Online.
+This should run in node land on the server and in the browser as well. The same code should work the same way in both places. This will expand out to cover instances of on-premise server as well as ArcGIS Online.
 
-### Revolutionary Framework, Vanilla.js
+### Revolutionary Framework: Vanilla JS
 
-This is framework agnostic. No depencies, should work anywhere and everywhere. No dojo, no angular, no jquery, no lodash, no nothin'.
-
-### Simple Simple Simple
-
-The end goal is for everything to be as simple as possible. Simple code, simple structures, simple responses, simple docs. If things get complicated we're doing something wrong.
+This is framework agnostic. No dependencies, should work anywhere and everywhere. No dojo, no angular, no jquery, no lodash, no nothin'.
