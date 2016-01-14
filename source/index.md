@@ -65,6 +65,11 @@ reference:
     sections:
       - title: Geocode
       - title: Route
+      - title: Geoenrichment
+  - title: "Analysis"
+    sections:
+      - title: Elevation
+      - title: Spatial Analysis
 ---
 
 
@@ -609,9 +614,48 @@ myOrg.featured()
 })
 ```
 
-## Group
+---
 
-### group().create
+## `group`
+
+> In the ArcGIS platform, groups are used to aggregate users and content together. They can contain items and users from outside organizations, be authorized to access applictions and content purchased from [the marketplace](https://marketplace.arcgis.com/), and are used to manage things like user favorites and featured content.
+
+This object us used to interact with a group. Any group that your user has permissions to access can be interacted with via this method. As with the [`user`](#user) object, calling this method with no parameters allows you to create a new group.
+
+**Params:**
+A group id string
+
+| Params         | Type         | Default                 |
+| -------------- | ------------ | ----------------------- |
+| GroupID        | String       | none                    |
+
+**Returns:**
+JSON user object with management methods.
+
+```
+{
+  get: function (),         // Gets the group information
+  update: function (),      // Updates the group information
+  content: function (),     // Gets the content in the group
+  members: function (),     // Gets the members in the group
+  removeUsers: function (), // Remove a member from the group
+  addUsers: function (),    // Add a member to the group
+  join: function (),        // Submit a request to join the group
+  leave: function (),       // Leave the group
+  changeOwner: function (), // Reassign the owner of the group
+  delete: function ()       // Delete the group
+}
+```
+
+**Example**
+
+```
+var group = arcgis.group('groupID')
+```
+
+### `group.create`
+
+Creating a group is not too much trouble.
 
 **Params**
 
@@ -635,38 +679,181 @@ myOrg.featured()
 
 
 **Returns**
-Newly created group object
+Newly created group object, as per [`group.get`](#groupget)
 
 **Example**
 
 ```
+var options = {
+  title: 'My pretty cool group',
+  description: 'Its not a huge deal, but this group is pretty cool',
+  snippet: 'For cool people, for cool content.',
+  tags: ['cool', 'rad'],
+  access: 'Public',
+  isViewOnly: false,
+  isInvitationOnly: true
+}
 arcgis.group().create(options)
 .then(function (group) {
 	console.log(group)
 })
 ```
 
-creates a new group?
+### `group.get`
 
-### group.update
+All the in­for­ma­tion as­so­ci­ated with a group that the cur­rent ses­sion has ac­cess too.
 
-updates group information
+**Returns:**
+Promise that resolves to JSON Object
 
-### group.delete
+**Example**
 
-deletes a group
+```
+{
+  access: String
+  capabilities: Array
+  created: Date
+  description: String
+  id: String
+  isFav: Boolean
+  isInvitationOnly: true
+  isReadOnly: Boolean
+  isViewOnly: Boolean
+  modified: Date
+  owner: String
+  phone: String
+  provider: String
+  providerGroupName: String
+  snippet: String
+  sortField: String
+  sortOrder: String
+  tags: Array
+  thumbnail: String
+  title: String
+  userMembership: {
+  	applications: Number
+  	memberType: String
+  	username: String
+   }
+}
+```
 
-### group.content
+### `group.update`
 
-gets the content in a group
+Updates the information for a group.
 
-### group.users
+**Parameters:**
+JSON Object identical to [`group.create`](#groupcreate)
 
-adds a user to a group, via invitation if needed. If options is null, returns users in a group
+**Returns:**
+Promise that resolves to updated group information object
 
-### group.removeUser
+**Example**
+```
+arcgis.group('groupId')
+group.update({
+  title: "My New Group Name"
+})
+```
 
-kicks a user out of a group
+### `group.delete`
+
+Deletes the group. This does not delete content or users, just the group that aggregates them. This is permanent.
+
+**Returns**
+Promise that resolves to a JSON Object
+
+```
+{
+  success: Boolean,
+  groupId: String
+}
+```
+
+**Example**
+```
+arcgis.group('groupId')
+group.delete()
+```
+
+### `group.content`
+
+Gets the group in a content as a paginated object. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
+Number
+
+**Returns:**
+Promise that resolves to JSON Object
+
+```
+{
+  nextStart: Number,
+  num: Number,
+  query: String
+  results: Array,
+  start: Number,
+  total: Number
+}
+```
+
+**Example**
+```
+arcgis.group('groupId')
+group.content()
+.then(function (results) {
+  console.log(results)
+})
+```
+
+### `group.members`
+
+Gets the users within a group, along with the groups owner and an array of group admins.
+
+**Returns:**
+Promise that resolves to a JSON Object
+
+```
+{
+  admins: Array
+  owner: String
+  users: Array
+  length: Number
+}
+```
+
+**Example**
+
+```
+arcgis.group('groupId')
+group.members()
+.then(function (results) {
+  console.log(results)
+})
+```
+
+### `group.removeUser`
+
+Removes one or more users from the group.
+
+**Params:**
+Array of username strings
+
+**Returns:**
+Promise that resolves to a JSON Object
+```
+{
+}
+```
+
+**Example**
+```
+var group = arcgis.group('groupId')
+group.removeUsers(['userOne', 'userTwo'])
+.then(function (results) {
+  console.log(results)
+})
+```
+
+
 
 ### group.join
 
