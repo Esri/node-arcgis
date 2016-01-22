@@ -36,7 +36,7 @@
     "uglifyify": "^3.0.1",
     "watchify": "^3.5.0"
   },
-  "homepage": "https://github.com/nikolaswise/node-arcgis",
+  "homepage": "http://node-arcgis.surge.sh/",
   "keywords": [
     "arcgis",
     "gis",
@@ -46,7 +46,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikolaswise/node-arcgis.git"
+    "url": "https://github.com/esripdx/node-arcgis.git"
   },
   "watches": {
     "doc": [
