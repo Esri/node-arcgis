@@ -1,7 +1,7 @@
 {
   "name": "arcgis",
   "description": "Node client library for ArcGIS",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
@@ -20,6 +20,7 @@
     "browserify": "^12.0.0",
     "calcite-web": "git+ssh://git@github.com/esri/calcite-web.git#v0.15.1",
     "faucet": "0.0.1",
+    "gh-release": "^2.0.2",
     "http-server": "^0.8.5",
     "markdown-it": "^5.0.3",
     "markdown-it-anchor": "^2.3.3",
@@ -45,7 +46,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikolaswise/node-arcgis.git"
+    "url": "https://github.com/esripdx/node-arcgis.git"
   },
   "watches": {
     "doc": [

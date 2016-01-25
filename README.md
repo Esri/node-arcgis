@@ -3,10 +3,10 @@
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
 
-[npm-image]: https://img.shields.io/npm/v/node-arcgis.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/arcgis.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/arcgis
-[travis-image]: https://img.shields.io/travis/nikolaswise/node-arcgis.svg?style=flat-square
-[travis-url]: https://travis-ci.org/nikolaswise/node-arcgis
+[travis-image]: https://img.shields.io/travis/esripdx/node-arcgis.svg?style=flat-square
+[travis-url]: https://travis-ci.org/esripdx/node-arcgis
 
 Node/Browser Javascript library for ArcGIS
 
