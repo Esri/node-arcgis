@@ -55,9 +55,13 @@ reference:
           - GetToken
           - RelatedItems
           - Permissions
+          - Usage
           - Delete
       - title: Search
-      - title: Billing
+      - title: Usage
+        methods:
+          - get
+          - billing
 
   - title: "Services"
     sections:
@@ -1410,6 +1414,42 @@ item.()
 })
 ```
 
+### `item.usage`
+
+> This is a convience method for the as-yet-undocced `arcgis.billing()` deal
+
+Reports credit usage for the item over a defined time, with a variable period.
+
+**Params:**
+JSON Options Object
+
+| Options        | Type         | Default             |
+| -------------- | ------------ | ----------------------- |
+| startTime | Date | Now |
+| endTime | Date | 1 month ago |
+| period | String | '1d'. Takes the form 'Nd', 'Nw', or 'Nm' |
+
+**Returns:**
+Promise that resolves to a JSON Object
+
+```
+{
+  billingCycleStart: Date,
+  billingCycleEnd: Date,
+  subscriptionId: String,
+  creditsRemaining: Number,
+  others: ???
+}
+```
+
+**Example**
+```
+var item = arcgis.item('itemId')
+item.usage()
+.then(function (results) {
+  console.log(results)
+})
+```
 
 ### `item.delete`
 
@@ -1432,3 +1472,36 @@ item.delete()
   console.log(results)
 })
 ```
+
+## `usage`
+
+```
+var orgUsage = arcgis.usage()
+var itemUsage = arcgis.usage(itemId)
+orgUsage.get()  // returns Promise
+itemusage.get() // returns Promise
+
+<!-- or -->
+
+var orgUsage = arcgis.org(orgId).usage(options)    // returns Promise
+var itemUsage = arcgis.item(itemId).usage(options) // returns Promise
+```
+
+```
+var usage = arcgis.usage()
+usage.items(options)
+usage.users(options)
+usage.org(options)
+
+var org = arcgis.org(orgId)
+org.usage(options)
+
+var item = arcgis.item(itemId)
+item.usage(options)
+
+var user = arcgis.user(username)
+user.usage(options)
+```
+
+
+### `usage.get`
