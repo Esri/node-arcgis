@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
   },
-  "main": "dist/index.js",
+  "main": "dist/node/index.js",
   "dependencies": {
     "isomorphic-fetch": "^2.2.0",
     "sanitize-html": "^1.11.1"
@@ -36,7 +36,7 @@
     "uglifyify": "^3.0.1",
     "watchify": "^3.5.0"
   },
-  "homepage": "http://node-arcgis.surge.sh/",
+  "homepage": "https://node-arcgis.surge.sh/",
   "keywords": [
     "arcgis",
     "gis",
