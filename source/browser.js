@@ -1,6 +1,6 @@
 var ArcGIS = require('../lib/index')
 // user token
-var token = '-HDXrp4JmHLm2VmJfixmZCOAJGzvICx4QB_OWNUKS_7LrJ2my8dDydgUrrsJ2fND2z1ZQhLmkPxARO1NqX00qfvKyAbBfFqIsLglS5X1d8NlEBpT7fFUmlpmqsb7w6hpu6pW09oYVH37qWBPDtrMb_cIohFI5Hfpnb-K9EdWiWb_jsYNUQVSNIESXXMA-zdA'
+var token = '1faN7XUGnO9aMSOBxCFOLjQa3OVR5um9lsbscnbr2RD80-56HKhtotwzu3rz7s13Y3RJlZeLV0E7S2bjm2FLL3KeMyBQMrGluzCcGS45dE7U91woOAb4bIbNUnxR5EOvnPQNxIs8ELijj6XhgMmJGelPXxjZoh0YRLpxnup-8lUsilM6WXczm9HqW694Wa3A'
 var ago = ArcGIS({
   token: token
 })
