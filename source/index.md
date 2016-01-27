@@ -1473,6 +1473,45 @@ item.delete()
 })
 ```
 
+## `search`
+
+> this is growing in support as needed
+
+Searches for SQL queries against the api.
+
+**Params:**
+Json Object
+
+| Param | Default | Description |
+| --- | --- | --- |
+| queryString | '\"\"'' | String, what to search for. Takes an SQL query. |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
+
+**Results:**
+Promise that resolves to a Paginated search results Object
+
+```
+{
+  nextStart: Number // if -1, this is all the rsults
+  num: Number
+  query: String
+  results: Array
+  start: Number
+  total: Number
+}
+```
+
+**Example**
+```
+arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
+.then(function(results) {
+  console.log(results)
+})
+```
+
 ## `usage`
 
 ```
