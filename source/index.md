@@ -607,12 +607,12 @@ myOrg.users(10)
 
 ### `organization.content`
 
-Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
+Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault, starting at the first page of results.
 
 > This is a shortcut helper for the `search` method with the query needed to target an org predefined.
 
 **Params:**
-Number
+Results Per Page, Page
 
 **Returns:**
 Promise that resolves to JSON Object
@@ -625,6 +625,8 @@ Promise that resolves to JSON Object
   results: Array,
   start: Number,
   total: Number
+  pages: Number,
+  currentPage, Number
 }
 ```
 
@@ -836,10 +838,13 @@ group.delete()
 
 ### `group.content`
 
-> This item results object is similar to a search results object.
+> This item results object is similar to a [search](#search) results object.
 
 Gets the group in a content as a paginated object. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
 Number
+
+**Params:**
+Results Per Page, Page
 
 **Returns:**
 Promise that resolves to JSON Object
@@ -852,6 +857,8 @@ Promise that resolves to JSON Object
   results: Array,
   start: Number,
   total: Number
+  pages: Number,
+  currentPage, Number
 }
 ```
 
