@@ -51,6 +51,7 @@ reference:
           - Folder
           - ChangeOwner
           - Publish
+          - Data
           - Export
           - Download
           - DeleteProtected
@@ -1324,6 +1325,15 @@ item.publish()
   console.log(results)
 })
 ```
+
+### `item.data`
+
+> Not all items have associated hosted data. Some that do have multiple layers of hosted data. We are ignoring this for now, and only returning data for one layer. For now!
+
+Gets the data associated with the item.
+
+**Returns:**
+Promise that resolves to a JSON Object.
 
 ### `item.export`
 
