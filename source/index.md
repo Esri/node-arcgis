@@ -4,6 +4,7 @@ reference:
     sections:
        - title: ArcGIS
        - title: Request
+       - title: Search
   - title: "Platform Management"
     sections:
       - title: User
@@ -36,6 +37,9 @@ reference:
           - Leave
           - ChangeOwner
           - Delete
+      - title: Usage
+        methods:
+          - get
       - title: Item
         methods:
           - New
@@ -57,21 +61,6 @@ reference:
           - Permissions
           - Usage
           - Delete
-      - title: Search
-      - title: Usage
-        methods:
-          - get
-          - billing
-
-  - title: "Services"
-    sections:
-      - title: Geocode
-      - title: Route
-      - title: Geoenrichment
-  - title: "Analysis"
-    sections:
-      - title: Elevation
-      - title: Spatial Analysis
 ---
 
 
@@ -79,7 +68,7 @@ reference:
 
 # `ArcGIS`
 
-> There are a number of ways to authenticate with the platform - either passing in a token when the function is called, or a username and password. As the project grows, we will add more auth methods.
+> There are a number of ways to authenticate with the platform - which include support for federated accounts and things like that. If you need anything other than a token, open an issue. We'll get there!
 
 Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization. Calling `ArcGIS()` with no parameters will set up an instance of the platform that talks to ArcGIS Online as a public, anonymous user.
 
@@ -89,24 +78,20 @@ Initialize the client library session to access the API either as an anonymous u
 | -------------- | ------------ | ----------------------- |
 | token          | String       | none                    |
 | domain         | URL          | www.arcgis.com/         |
-| username		 | String       | none   				  |
-| password       | String		| none. Careful with this |
-| withCreditential | Boolean    | false. For federated accounts. |
+<!-- | withCreditential | Boolean    | false. For federated accounts. | -->
 
 
 **Returns:** JSON Object with ArcGIS methods.
 
 ```
 {
-  auth: function(),         // Authenticates the session
   request: function(),      // Makes requests to the domain
+  search: function(),       // Queries the API
   user: function(),         // Sets up methods for a user
   organization: function(), // Sets up methods for an org
   group: function(),        // Sets up methods for a group
   item: function(),         // Sets up methods for an item
   usage: function(),        // Sets up methods for usage
-  billing: function(),      // Sets up methods for billing
-  search: function()        // Searches the platform
 }
 ```
 
@@ -138,6 +123,8 @@ Request uses information in the client to make calls to the API. It takes a url 
 
 Request appends the URL to the clients domain and the omnipresent 'sharing/rest'. The JSON object gets processed into parameters. The boolean defines the request is GET (default, false) or POST (true). Request also appends the token that the current client session is authenticated with, and defines the response format as JSON.
 
+Some services - like usage, analysis, things like that – require a different root URL, since they are an independent API. Passing a root URL in as the fourth param will replace the standard Root.
+
 **Parameters:**
 
 | Parameter | Type | Default |
@@ -145,6 +132,7 @@ Request appends the URL to the clients domain and the omnipresent 'sharing/rest'
 | url | String | / |
 | form | Object | {} |
 | post | Boolean | false |
+| rootURL | String | `${domain}/sharing/rest` |
 
 **Response:**
 Promise that resolves to whatever the endpoint returns.
@@ -156,6 +144,50 @@ arcgis.request()
     <!-- This calls the endpoint self, and returns a version number of the API. -->
 	console.log(results)
 })
+```
+
+---
+
+## `search`
+
+> this is growing in support as needed
+
+Searches for SQL queries against the api.
+
+**Params:**
+Query String, Results per Page, Page, Sort By, Sort Order
+
+| Param | Default | Description |
+| --- | --- | --- |
+| queryString | '\"\"'' | String, what to search for. Takes an SQL query. |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
+
+**Results:**
+Promise that resolves to a Paginated search results Object
+
+```
+{
+  nextStart: Number,  // if -1, there are no more results
+  num: Number,        // Number of items per page returned
+  query: String,      // The query string that got us here
+  results: Array,     // An array of all the items that match the query
+  start: Number,      // The index of the item that starts this batch of results
+  total: Number,      // Total number of items that match the query
+  pages: Number,      // How many pages of results there are
+  currentPage: Number // Index of the current page
+}
+```
+
+**Example**
+```
+arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
+.then(function(results) {
+  console.log(results)
+})
+
 ```
 
 ---
@@ -1469,45 +1501,6 @@ Promise that resolves to a confirmation of deletion.
 var item = arcgis.item('ItemID')
 item.delete()
 .then(function (results) {
-  console.log(results)
-})
-```
-
-## `search`
-
-> this is growing in support as needed
-
-Searches for SQL queries against the api.
-
-**Params:**
-Json Object
-
-| Param | Default | Description |
-| --- | --- | --- |
-| queryString | '\"\"'' | String, what to search for. Takes an SQL query. |
-| num | 100 | Results per page |
-| page | 0 | Page of results to return |
-| sort | 'created' | Field to sort results on |
-| order | 'desc' | 'asc' or 'desc', ascending or descending |
-
-**Results:**
-Promise that resolves to a Paginated search results Object
-
-```
-{
-  nextStart: Number // if -1, this is all the rsults
-  num: Number
-  query: String
-  results: Array
-  start: Number
-  total: Number
-}
-```
-
-**Example**
-```
-arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
-.then(function(results) {
   console.log(results)
 })
 ```
