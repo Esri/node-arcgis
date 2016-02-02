@@ -16,6 +16,10 @@ blockquote {
   }
 }
 
+h1, h2, h3 {
+  padding-top: $baseline*1.5;
+}
+
 h3 {
   @include leader(2);
 }
