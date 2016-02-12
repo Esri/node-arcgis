@@ -9,8 +9,6 @@ reference:
     sections:
       - title: User
         methods:
-          - Create
-          - Get
           - Update
           - Content
           - Favorites
@@ -19,15 +17,12 @@ reference:
           - Delete
       - title: Organization
         methods:
-          - Get
           - Update
           - Members
           - Content
           - Featured
       - title: Group
         methods:
-          - Create
-          - Get
           - Content
           - Update
           - Users
@@ -39,14 +34,10 @@ reference:
           - Delete
       - title: Usage
         methods:
-          - get
   - title: "Items"
     sections:
       - title: Item
         methods:
-          - New
-          - Get Type
-          - Get
           - Update
           - Rate
           - Favorite
@@ -54,15 +45,14 @@ reference:
           - Folder
           - ChangeOwner
           - DeleteProtected
-          - RelatedItems
           - Permissions
-          - Usage
           - Delete
       - title: Layer
         methods:
           - Data
           - Export
           - generateTiles
+          - Usage
       - title: Map
         methods:
           - Data
@@ -70,16 +60,19 @@ reference:
           - layers
           - addLayers
           - removeLayers
+          - Usage
       - title: Application
         methods:
           - Register
           - GetOAuth
           - GetToken
+          - Usage
       - title: File
         methods:
           - Update
           - Publish
           - Download
+          - relatedItems
 ---
 
 
@@ -114,6 +107,7 @@ Initialize the client library session to access the API either as an anonymous u
 }
 ```
 
+######
 ###### **Example**
 
 > You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time.
@@ -156,7 +150,8 @@ Some services - like usage, analysis, things like that – require a different r
 **Response:**
 Promise that resolves to whatever the endpoint returns.
 
-**Example**
+
+###### **Example**
 ```
 arcgis.request()
 .then( function (results) {
@@ -200,7 +195,8 @@ Promise that resolves to a Paginated search results Object
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
 .then(function(results) {
@@ -239,7 +235,8 @@ JSON user object with management methods.
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var user = arcgis.user('username')
@@ -277,7 +274,8 @@ JSON Object
 **Returns:**
 Promise that resolves to the newly created user invitation object.
 
-**Example**
+
+###### **Example**
 
 ```
 var options = {
@@ -329,7 +327,8 @@ Promise that resolves to JSON Object
   "units": String            // 'imperial' or 'metric'
 ```
 
-**Example**
+
+###### **Example**
 ```
 user.get()
 .then(function (profile){
@@ -362,7 +361,8 @@ Options JSON Object
 **Returns:**
 Promise that resolves to the updated user JSON Object.
 
-**Example**
+
+###### **Example**
 
 ```
 user.update({
@@ -406,7 +406,8 @@ Promise that resolves to a JSON Object.
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 user.content()
 .then(function (userContent){
@@ -432,7 +433,8 @@ Paginated search results object.
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 user.favorites()
 .then(function (userFavorites){
@@ -465,7 +467,8 @@ Promise that resolves to a JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 user.tags()
@@ -521,7 +524,8 @@ JSON Object. (Not a promise!)
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var myOrg = arcgis.organization()
@@ -614,7 +618,8 @@ Promise that resolves to JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var myOrg = arcgis.organization()
@@ -649,7 +654,8 @@ Promise that resolves to JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var myOrg = arcgis.organization()
@@ -683,7 +689,8 @@ Promise that resolves to a JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var myOrg = arcgis.organization()
@@ -726,7 +733,8 @@ JSON user object with management methods.
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 var group = arcgis.group('groupID')
@@ -760,7 +768,8 @@ Creating a group is not too much trouble.
 **Returns**
 Newly created group object, as per [`group.get`](#groupget)
 
-**Example**
+
+###### **Example**
 
 ```
 var options = {
@@ -785,7 +794,8 @@ All the in­for­ma­tion as­so­ci­ated with a group that the cur­rent ses­
 **Returns:**
 Promise that resolves to JSON Object
 
-**Example**
+
+###### **Example**
 
 ```
 {
@@ -827,7 +837,8 @@ JSON Object identical to [`group.create`](#groupcreate)
 **Returns:**
 Promise that resolves to updated group information object
 
-**Example**
+
+###### **Example**
 ```
 arcgis.group('groupId')
 group.update({
@@ -849,7 +860,8 @@ Promise that resolves to a JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 arcgis.group('groupId')
 group.delete()
@@ -881,7 +893,8 @@ Promise that resolves to JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 arcgis.group('groupId')
 group.content()
@@ -908,7 +921,8 @@ Promise that resolves to a JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 
 ```
 arcgis.group('groupId')
@@ -933,7 +947,8 @@ Promise that resolves to a JSON Object
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 var group = arcgis.group('groupId')
 group.removeUsers(['userOne', 'userTwo'])
@@ -984,7 +999,8 @@ Promise that resolves to a JSON Object. If access to the group is still availabl
 }
 ```
 
-**Example**
+
+###### **Example**
 ```
 var group = arcgis.group('groupid')
 group.changeOwner('newOwnerUsername')
@@ -995,97 +1011,53 @@ group.changeOwner('newOwnerUsername')
 
 ---
 
+## `usage`
+
+```
+var orgUsage = arcgis.usage()
+var itemUsage = arcgis.usage(itemId)
+orgUsage.get()  // returns Promise
+itemusage.get() // returns Promise
+
+<!-- or -->
+
+var orgUsage = arcgis.org(orgId).usage(options)    // returns Promise
+var itemUsage = arcgis.item(itemId).usage(options) // returns Promise
+```
+
+```
+var usage = arcgis.usage()
+usage.items(options)
+usage.users(options)
+usage.org(options)
+
+var org = arcgis.org(orgId)
+org.usage(options)
+
+var item = arcgis.item(itemId)
+item.usage(options)
+
+var user = arcgis.user(username)
+user.usage(options)
+```
+
+
+### `usage.get`
+
+---
+
 ## `item`
 
-> Items are complicated, and there are a lot of methods on this. Not every method works for every type of item. There's some work to do here to make this more structured.
+> Item is a generic function that determines the type of item, and adds the appropriate methods from the functions below. If you know your item type, you can call the appropriate function below directly.
 
-Creates an object with methods for interacting with items. Calling the `item` method with no parameters will create an object that can call [`item.create`](#itemcreate) to make new items.
+`Item` creates an object that has the details and interactive methods of an item in the platform. All items share a set of common methods, documented below. Specific item types have additional methods, as documented in [`layer`](#layer), [`map`](#map), [`application`](#application), and [`file`](#file).
 
 **Params:**
 String of an Item ID.
 
 **Returns:**
-JSON Object with item manipulation methods.
+Promise that resolves JSON Object with item information and methods.
 
-```
-{
-	get: function(),             // Gets the item
-	new: function(),             // Creates a new item from the current item
-	update: function(),          // Updates the item
-	delete: function(),          // Deletes the item
-	createService: function(),   // Publishes the item to a service
-	folder: function(),          // Returns the items folder, or moves it to a folder
-	groups: function(),          // Returns the items groups, or adds it to groups
-	owner: function(),           // Returns the items owner, or changes the owner
-	favorite: function(),        // Favorites or defavorites the item.
-	rating: function(),          // Returns the items rating and rates the item.
-	publish: function(),         // Publishes the item—what does that mean? Tiles? should be tiles: function()
-	export: function(),          // Downloads the data for an item
-	data: function(),            // Gets the data table for an item
-	deleteProtected: function(), // Gets delete protection status, sets delete protection status
-	register: function(),        // Registers an item with oAuth
-	oAuth: function(),           // Returns oAuth information for the item
-	relatedItems: function(),    // Gets related items
-	permissions: function(),     // Gets and sets permissions for the item
-	comments: {
-		get: function(),         // Gets all the comments on the item
-		add: function(),         // Adds a comment to the item
-		comment: function(),     // Gets a specific comments methods
-			get: function(),     // Gets the comment
-			edit: function(),    // Edits the comment
-			delete: function(),  // Deletes the comment
-		enabled: function()      // Returns if comments are enables, enables and disables comments
-	}
-}
-```
-
-**Example**
-
-```
-var item = arcgis.item('itemId')
-```
-
-### `item.create`
-
-> This is weird and complicated.
-
-This ... takes an object full of useful information and makes something out of it!
-
-**Params:**
-JSON Options Object
-
-| Options        | Type         | Description             |
-| -------------- | ------------ | ----------------------- |
-| ... | ... | ... |
-
-**Returns:**
-Promise that resolves to the newly created item
-
-**Example***
-```
-var newItem = arcgis.item()
-<!-- Create a new Layer -->
-newItem.create({
-  title:
-  snippet:
-  description:
-  tags:
-})
-.then( function (results) {
-  console.log(results)
-})
-<!-- Create a new Map -->
-<!-- Create a new Application -->
-<!-- Upload a file -->
-```
-
-
-### `item.get`
-
-All the in­for­ma­tion as­so­ci­ated with an item. This includes title, item type, things of that nature.
-
-**Returns:**
-Promise that resolves to a JSON Object.
 ```
 {
   access: String,
@@ -1124,178 +1096,175 @@ Promise that resolves to a JSON Object.
   title: String,
   type: String,
   typeKeywords: Array,
-  url: String
+  url: String,
+  update: Function,          // Updates information
+  rate: Function,            // Sets a rating
+  favorite: Function,        // Adds to favorites
+  duplicate: Function,       // Creates a copy, with options
+  folder: Function,          // Moves to a folder
+  changeOwner: Function,     // Changes owner
+  deleteProtected: Function, // Prevents deletion
+  relatedItems: Function,    // Gets related items
+  permissions: Function,     // Sets permissions
+  usage: Function,           // Gets usage report
+  delete: Function,          // Deletes item
+  // Additional methods per type, documented below
 }
 ```
 
-**Example**
+
+###### **Example**
+
 ```
-var item = arcgis.item('ItemID')
-item.get()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.new`
-
-> This is also complicated, with lots of options. Not sure how to approach this yet.
-
-Creates a new item from the current item. This can mean duplicated an item, creating a reference item that contains a different visualization, things like that.
-
-**Params:**
-JSON Object
-
-**Returns:**
-Promise that resolves to a JSON Object of the new item.
-
-**Example**
-```
-var item = arcgis.item('ItemID')
-item.new({
-  title: 'New Item'
-})
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  console.log(item)
 })
 ```
 
 ### `item.update`
 
-Up­dates the in­for­ma­tion for an item.
+Updates the information for an item.
 
 **Pa­ra­me­ters:**
-JSON Ob­ject with keys from [`item.get`](#itemget)
+JSON Object of Options
+
+| Options        | Type      | Description             |
+| -------------- | --------- | ----------------------- |
+| title          | String    | Human readable title |
+| snippet        | String    | <= 256 character summary |
+| description    | String    | Longer description |
+| tags           | Array     | Array of tags |
+| extent         | Array     | [[lat, long], [lat, long]] |
+| licenseInfo    | String    | Something? |
+| accessInformation | String | Something? |
 
 **Re­turns:**
-Promise that re­solves to up­dated item in­for­ma­tion ob­ject
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var options = {
-  title: 'New Item Title'
-}
-var item = arcgis.item('ItemID')
-item.update(options)
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  var options = {title: 'A New Hope'}
+  return item.update(options)
 })
+.then(function (item) {
+  console.log(item)
+}
 ```
 
 ### `item.rate`
 
 > A user cannot rate their own item.
 
-Items can be rated by users. These ratings are tracked, and an average rating is stored with the item. Users can change their rating of an item at any time.
+Items can be rated by users. These ratings are tracked, and an average rating is stored with the item. Users can change their rating of an item at any time. Associates a rating with the currently authenticated user.
 
 **Params:**
 Number, between 0 and 5
 
-**Returns:**
-Promise that resolves to a JSON Object of the new item information.
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var item = arcgis.item('itemId')
-item.rate(5)
-.then(function (results){
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  return item.rate(5)
 })
+.then(function (item) {
+  console.log(item)
+}
 ```
 
 ### `item.favorite`
 
-> A users favorite is a group that only that user is a member of. Presumably other users can be added to this? In most UIs, this group is exluded from the list of other groups.
+> A users `favorites` are a [group](#group) that only that user is a member of. Presumably other users can be added to this. In most interfaces, this group is excluded from the list of other groups.
 
 When an Item is fetched, it will have a key that is a boolean of whether that item is in that users favorite group or not. This method adds and removes an item from that group.
 
 **Params:**
 Boolean
 
-**Returns:**
-Promise that resolves to a JSON Object of the new item info
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var item = arcgis.item('itemId')
-item.favorite(true)
-.then(function (results){
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  return item.favorite(true)
 })
+.then(function (item) {
+  console.log(item)
+}
 ```
 
 ### `item.duplicate`
 
-> Totally not sure what this works on.
+> Totally not sure what this works on. I think everything can be duplicated tho?
 
-Duplicates an item.
+Duplicates an item. The new item has a new name, description, snippet, tags, and permissions model.
 
 **Params:**
 JSON Object of new item properties
 
-```
-{
-  title: String,
-  snippet: String,
-  tags: Array,
-  description: String
-}
-```
+| Options        | Type      | Default                 |
+| -------------- | --------- | ----------------------- |
+| title          | String    | As original |
+| snippet        | String    | As original |
+| description    | String    | As original |
+| tags           | Array     | As original |
+| extent         | Array     | As original |
+| licenseInfo    | String    | As original |
+| accessInformation | String | As original |
+| permissions    | String    | As original |
+| groups         | Array   | Array of group ids from source |
 
-**Returns:**
-Promise that resolves to a JSON Object of newly created item.
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var options = {
-  title: 'New Item',
-  snippet: 'Just like the old one, but newer'
-}
-var item = arcgis.item('itemId')
-item.duplicate(options)
-.then(function (results){
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  var options = {
+	title: 'A New New Hope',
+	snippet: 'Just like the old one, but newer'
+  }
+  return item.duplicate(options)
 })
+.then(function (newItem) {
+  console.log(newItem)
+}
 ```
 
 ### `item.folder`
 
-> Folders have names and ID's.
+> Folders have names and ID's. This means folders can have non-unique names. Watch out!
 
-Adds the item to a folder by folder ID, returns the contents of the folder as a paginated JSON Object.
+Adds the item to a folder by folder ID. Passing the the value `'/'` adds the item to the root folder.
 
 **Params:**
-String of the folder ID
+String of the folder ID.
 
-**Returns:**
-Promise that resolves to a JSON Object
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-> This is like a search results object, with extra goodies for the folder information.
+###### **Example**
 
 ```
-{
-  currentFolder: {
-    created: Date,
-    id: String,
-    title: String,
-    username: String
-  },
-  items: Array,
-  nextStart: Number,
-  num: Number,
-  start: Number,
-  total: Number.
-  username: String
-}
-```
-
-**Example**
-```
-var item = arcgis.item('ItemId')
-item.folder('folderId')
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  return item.folder('/')
 })
+.then(function (item) {
+  console.log(item)
+}
 ```
 
 ### `item.changeOwner`
@@ -1307,268 +1276,294 @@ Reassigns the item to a new user. This will remove the item from the content of 
 **Params:**
 String of a username
 
-**Returns:**
-Promise that resolves to a JSON Object of the item
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var item = arcgis.item('itemId')
-item.changeOwner('newOwner')
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  return item.changeOwner(username)
 })
-```
-
-### `item.publish`
-
-Publishes the item to a format that can be added to maps.
-
-**Params:**
-Options JSON object
-
-| Options | Default | Description |
-| -- | -- | -- |
-
-**Returns:**
-Promise that resolves to a JSON Object of the new item
-
-**Example**
-```
-var options = {
-  ???: ???
+.then(function (item) {
+  // Will return an error if you no longer have permissions to view the item.
+  console.log(item)
 }
-var item = arcgis.item('itemId')
-item.publish()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.data`
-
-> Not all items have associated hosted data. Some that do have multiple layers of hosted data. We are ignoring this for now, and only returning data for one layer. For now!
-
-Gets the data associated with the item.
-
-**Returns:**
-Promise that resolves to a JSON Object.
-
-### `item.export`
-
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.download`
-
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
 ```
 
 ### `item.deleteProtected`
 
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.register`
+Sets a boolean on the item that allows the item to be deleted.If set to `true`, this needs to be changed to `false` before [`item.delete`](#itemdelete) will function.
 
 **Params:**
+Boolean
 
-**Returns:**
-Promise that resolves to a JSON Object
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
-**Example**
+###### **Example**
+
 ```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  return item.deleteProtected(true)
 })
-```
-
-### `item.getOAuth`
-
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.getToken`
-
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
-```
-
-### `item.relatedItems`
-
-**Params:**
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
-})
+.then(function (item) {
+  console.log(item)
+}
 ```
 
 ### `item.permissions`
 
-**Params:**
+> In this case, 'private' means that the only the user **and admins in that users org** can view the item.
 
-**Returns:**
-Promise that resolves to a JSON Object
+Updates the permissions for the item, either user only, organization, or public, and what groups have access to the item.
+
+**Params:**
+Options object
+
+| Options        | Type      | Description             |
+| -------------- | --------- | ----------------------- |
+| access          | String   | 'private', 'org', 'public' |
+| group        | Array    | Group id's to allow access |
+
+
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
 
 **Example**
 ```
-var item = arcgis.item('itemId')
-item.()
-.then(function (results) {
-  console.log(results)
+arcgis.item('itemId')
+.then(function (item) {
+  options = {
+    access: 'private',
+    groups: [
+      group1id,
+	  group2id
+    ]
+  }
+  return item.permissions(options)
 })
-```
-
-### `item.usage`
-
-> This is a convience method for the as-yet-undocced `arcgis.billing()` deal
-
-Reports credit usage for the item over a defined time, with a variable period.
-
-**Params:**
-JSON Options Object
-
-| Options        | Type         | Default             |
-| -------------- | ------------ | ----------------------- |
-| startTime | Date | Now |
-| endTime | Date | 1 month ago |
-| period | String | '1d'. Takes the form 'Nd', 'Nw', or 'Nm' |
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-```
-{
-  billingCycleStart: Date,
-  billingCycleEnd: Date,
-  subscriptionId: String,
-  creditsRemaining: Number,
-  others: ???
+.then(function (item) {
+  console.log(item)
 }
-```
-
-**Example**
-```
-var item = arcgis.item('itemId')
-item.usage()
-.then(function (results) {
-  console.log(results)
-})
 ```
 
 ### `item.delete`
 
-Deletes the item.
+> For real, once you do this, you can't undo it.
 
-**Results:**
-Promise that resolves to a confirmation of deletion.
+Deletes the item. Permanently. For ever. Seriously. Keep this from being to terrifying on production items with [`item.deleteProtected`](#itemdeleteprotected).
+
+**Re­turns:**
+Promise that resolves to an object with a confirmation.
+
+###### **Example**
 ```
-{
-  success: Boolean,
-  itemId: String
+arcgis.item('itemId')
+.then(function (item) {
+  return item.delete()
+})
+.then(function (confirmation) {
+  console.log(confirmation)
 }
 ```
 
-**Example**
+---
+
+## `layer`
+
+> For example, if you know your item id is for a layer, you can call `arcgis.layer(itemid)`. If aren't sure, than `arcgis.item(itemid)` will check, and return the appropriate type.
+
+`Layer` returns an [`item`](#item) with additional methods.
+
+**Params:**
+String of an Item ID.
+
+**Returns:**
+Promise that resolves JSON Object with item information and methods.
+
 ```
-var item = arcgis.item('ItemID')
-item.delete()
-.then(function (results) {
-  console.log(results)
+{
+	data: Function,          // Geographic data in the layer
+	export: Function,        // Exports to defined format
+	generateTiles: Function, // Creates a tile layer
+	usage: Function          // Reports credits, requests
+}
+```
+
+###### **Example**
+
+```
+arcgis.layer('layerId')
+.then(function (layer) {
+  console.log(layer)
 })
 ```
 
-## `usage`
+### `layer.data`
+
+Layers have geographic data - a set of features with properties. This method returns that geographic data as ... something? Geojson would be nice.
+
+### `layer.export`
+
+Exports data layers in a defined format. Can be generic `.csv`, `.geojson`, or more proprietary esri formats `.shx`, `.gbd`.
+
+### `layer.generateTiles`
+
+> Most layers contain vector feature data - generating tiles is a way to get large vector data sets into raster.
+
+Creates a new tile layer from the existing layer. These tiles are drawn with the default renderer associated with the layer.
+
+### `layer.usage`
+
+Reports usage information for the layer, including credit cost for hosting the layer, bandwidth consumed by the layer, and requests made to the layer over a time period.
+
+---
+
+## `map`
+
+> These map functions are largely aspirational.
+
+`Map` returns an [`item`](#item) with additional methods.
 
 ```
-var orgUsage = arcgis.usage()
-var itemUsage = arcgis.usage(itemId)
-orgUsage.get()  // returns Promise
-itemusage.get() // returns Promise
-
-<!-- or -->
-
-var orgUsage = arcgis.org(orgId).usage(options)    // returns Promise
-var itemUsage = arcgis.item(itemId).usage(options) // returns Promise
+{
+	data: Function,         // Gets all map data
+	export: Function,       // Exports map
+	layers: Function,       // Lists the layers
+	addLayers: Function,    // Adds a layer
+	removeLayers: Function  // Removes a layer
+	generateTiles: Function, // Creates a tile layer
+	usage: Function          // Reports credits, requests
+}
 ```
 
+### `map.data`
+
+maps have geographic data - a set of features with properties. This method returns that geographic data as ... something? Geojson would be nice.
+
+### `map.export`
+
+Exports data maps in a defined format. Can be generic `.csv`, `.geojson`, or more proprietary esri formats `.shx`, `.gbd`.
+
+### `map.layers`
+
+Returns all the layers on the map, in order from back to front. Can also be used to reorder layers on the map.
+
+### `map.addLayers`
+
+Adds one or more layers to the map by layer id.
+
+### `map.removeLayers`
+
+Removes one or more layers from the map, by layer id.
+
+### `map.generateTiles`
+
+Creates a new tile map from the existing map. These tiles are drawn with the default renderer associated with the map.
+
+### `map.usage`
+
+Reports usage information for the map, including credit cost for hosting the map, bandwidth consumed by the map, and requests made to the map over a time period.
+
+---
+
+## `application`
+
+`Application` returns an [`item`](#item) with additional methods.
+
 ```
-var usage = arcgis.usage()
-usage.items(options)
-usage.users(options)
-usage.org(options)
-
-var org = arcgis.org(orgId)
-org.usage(options)
-
-var item = arcgis.item(itemId)
-item.usage(options)
-
-var user = arcgis.user(username)
-user.usage(options)
+{
+	register: Function,     // Registers app with the portal
+	getOAuth: Function,     // Gets oAtuh data for app
+	getToken: Function      // Creates a token for the app
+}
 ```
 
+### `application.register`
 
-### `usage.get`
+Registers the application with the platform, providing access to oAuth methods.
+
+###### **Example**
+
+**Returns:**
+Promise that resolves to the updated [`application`](#application)
+
+```
+arcgis.application(appid)
+.then(function (application) {
+  return application.register()
+})
+.then(function (application) {
+  console.log(application)
+})
+```
+
+### `application.getOAuth`
+
+Gets the applications oAuth information, including client id and secret.
+
+**Returns:**
+Promise that resolves to the oAuth information object.
+
+###### **Example**
+
+```
+arcgis.application(appid)
+.then(function (application) {
+  return application.getOAuth()
+})
+.then(function (oAuth) {
+  console.log(oAuth)
+})
+```
+
+### `application.getToken`
+
+Gets a valid token from the app. This token can used to access services.
+
+**Returns:**
+Promise that resolves to the token
+
+###### **Example**
+
+```
+arcgis.application(appid)
+.then(function (application) {
+  return application.getToken()
+})
+.then(function (token) {
+  console.log(token)
+})
+```
+
+---
+
+## `file`
+
+`File` returns an [`item`](#item) with additional methods.
+
+```
+{
+	update: Function,  // Replaces the file with a new file
+	publish: Function, // Turns the file into a layer
+	download: Function // Downloads the file
+}
+```
+
+### `file.update`
+
+Files are static items that are kept in the Portal after they've been uploaded. You can replace a file with a new file, provided they have the same name.
+
+### `file.publish`
+
+If the file contains geographic data - csv, geojson, shapefile, geodatabase, etc - it can be turned into a layer that you can use on maps.
+
+### `file.download`
+
+Downloads the file.
+
+---
+
