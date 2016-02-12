@@ -40,9 +40,12 @@ reference:
       - title: Usage
         methods:
           - get
+  - title: "Items"
+    sections:
       - title: Item
         methods:
           - New
+          - Get Type
           - Get
           - Update
           - Rate
@@ -50,18 +53,33 @@ reference:
           - Duplicate
           - Folder
           - ChangeOwner
-          - Publish
-          - Data
-          - Export
-          - Download
           - DeleteProtected
-          - Register
-          - GetOAuth
-          - GetToken
           - RelatedItems
           - Permissions
           - Usage
           - Delete
+      - title: Layer
+        methods:
+          - Data
+          - Export
+          - generateTiles
+      - title: Map
+        methods:
+          - Data
+          - Export
+          - layers
+          - addLayers
+          - removeLayers
+      - title: Application
+        methods:
+          - Register
+          - GetOAuth
+          - GetToken
+      - title: File
+        methods:
+          - Update
+          - Publish
+          - Download
 ---
 
 
