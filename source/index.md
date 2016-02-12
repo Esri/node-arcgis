@@ -90,20 +90,22 @@ Initialize the client library session to access the API either as an anonymous u
 | -------------- | ------------ | ----------------------- |
 | token          | String       | none                    |
 | domain         | URL          | www.arcgis.com/         |
-<!-- | withCreditential | Boolean    | false. For federated accounts. | -->
-
 
 **Returns:** JSON Object with ArcGIS methods.
 
 ```
 {
-  request: function(),      // Makes requests to the domain
-  search: function(),       // Queries the API
-  user: function(),         // Sets up methods for a user
-  organization: function(), // Sets up methods for an org
-  group: function(),        // Sets up methods for a group
-  item: function(),         // Sets up methods for an item
-  usage: function(),        // Sets up methods for usage
+  request: Function,      // Makes requests to the domain
+  search: Function,       // Queries the API
+  user: Function,         // Interact with a user
+  organization: Function, // Interact with an org
+  group: Function,        // Interact with a group
+  item: Function,         // Interact with an item
+  layer: Function,         // Interact with an layer
+  map: Function,          // Interact with an map
+  application: Function,  // Interact with an application
+  file: Function,         // Interact with an file
+  usage: Function         // Report usage
 }
 ```
 
@@ -173,7 +175,7 @@ Query String, Results per Page, Page, Sort By, Sort Order
 
 | Param | Default | Description |
 | --- | --- | --- |
-| queryString | '\"\"'' | String, what to search for. Takes an SQL query. |
+| queryString | '\"\"'' | String, what to search for. Can be [complicated.](http://doc.arcgis.com/en/arcgis-online/reference/search.htm) |
 | num | 100 | Results per page |
 | page | 0 | Page of results to return |
 | sort | 'created' | Field to sort results on |
@@ -209,7 +211,7 @@ arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
 
 ## `user`
 
-> Almost all the methods off `ArcGIS()` return an object immediately, which sets up the methods for interacting with the platform. These methods almost always return promises, and involve making requests to the domain.
+> Every method off `ArcGIS()` returns a promise, and involve making requests to the domain.
 
 This object us used to interact with a user - your own user account, other users in your organization, or publicly available users that are not associated with your organization. This method is also used to create new users by inviting them to your organization.
 
@@ -225,114 +227,40 @@ JSON user object with management methods.
 
 ```
 {
-  get: function(),           // gets user information
-  update: function(options), // updates the user information
-  delete: function(),        // deletes a user
-  content: function(),       // gets users content
-  tags: function(),          // returns the users tags?
-  enable: function(),        // enables a disabled user
-  disable: function(),       // disables a user
-}
-```
-
-
-###### **Example**
-
-```
-var user = arcgis.user('username')
-```
-
-
-### `user.create`
-
-> Several function return different sets of methods depending on the params passed. `user()`, `group()`, and `item()` all return a single `create()` function if no params are passed.
-
-Users must be invited to an organization, they cannot be added. To add a user, you must generate an invitation in the platform, which will send an e-mail with instructions for joining a group.
-
-**Params:**
-JSON Object
-
-| Options        | Type         | Description             |
-| -------------- | ------------ | ----------------------- |
-| subject        | String       | Subject of invitation email |
-| html           | String       | HTML string of message body |
-| invitations    | Array | Invitations to create invitations from |
-
-**Invitation:**
-JSON Object
-
-| Param | Type | Description |
-| - | - | - |
-| username  | The username for the new user
-| password  | The password for the new user. If blank, the new user will set it themselves.
-| firstname | The users first name
-| lastname  | The users last name
-| fullname  | The users full name
-| email     | The email address to send the invitation, and link to the users account.
-| role      | The role of the user. Editor / User.
-
-**Returns:**
-Promise that resolves to the newly created user invitation object.
-
-
-###### **Example**
-
-```
-var options = {
-	subject: "Welcome to the Team",
-	html: "<h1>It's gonna be great!</h1>",
-	invitations: {
-		username: 'pat',
-		email: 'pat@email.com'
-	}
-}
-
-arcgis.user().create(options)
-.then(function (invitation) {
-	console.log(invitation)
-})
-```
-
-### `user.get`
-
-All the information associated with a user that the current session has access too.
-
-**Params:**
-None.
-
-**Returns:**
-Promise that resolves to JSON Object
-
-```
-// always returned on any user
-  "created": Date            // when this user was created
-  "firstName": String        // recorded first name of the user
-  "fullName": String         // recorded name of the user
-  "lastName": String         // recorded last name of the user
-  "provider": String         // ???
-  "username": String         // hard username for the user. Never changes.
-
+  created: Date,            // when this user was created
+  firstName: String,        // recorded first name of the user
+  fullName: String,         // recorded name of the user
+  lastName: String,         // recorded last name of the user
+  provider: String,         // ???
+  username: String,         // hard username for the user. Never changes.
 // the following are not returned if the user is private
-  "email": String            // email address of user
-  "culture": String          // two letter lang code ex: 'en'
-  "description": String      // text description set by the user
-  "privileges": Array 		 // Array of strings that denote actions
-  "favGroupId": String       // ID of user favorites group
-  "groups": Array            // Array of group objects associated with the user
-  "orgId": String            // ID of the org the user belongs too
-  "modified": Date           // date when the user
-  "region": String           // two letter country code ex: 'us'
-  "tags": Array              // array of tags that user has used maybe?
-  "thumbnail": String        // name of the users thumbnail image ex: 'coolguy.jpg'
-  "units": String            // 'imperial' or 'metric'
+  email: String,            // email address of user
+  culture: String,          // two letter lang code ex: 'en'
+  description: String,      // text description set by the user
+  privileges: Array, 		 // Strings that denote actions
+  favGroupId: String,       // ID of user favorites group
+  groups: Array,            // Group objects associated with the user
+  orgId: String,            // ID of the org the user belongs too
+  modified: Date,           // date when the user
+  region: String,           // two letter country code ex: 'us'
+  tags: Array,              // array of tags that user has used maybe?
+  thumbnail: String,        // name of the users thumbnail image ex: 'coolguy.jpg'
+  units: String,            // 'imperial' or 'metric'
+  update: Function,         // updates the user information
+  delete: Function,         // deletes a user
+  content: Function,        // gets users content
+  tags: Function,           // returns the users tags?
+  enable: Function,         // enables a disabled user
+  disable: Function,        // disables a user
+}
 ```
-
 
 ###### **Example**
+
 ```
-user.get()
-.then(function (profile){
-  console.log(profile)
+arcgis.user(username)
+.then(function (user){
+  console.log(user)
 })
 ```
 
@@ -345,64 +273,53 @@ Options JSON Object
 
 | Options        | Type         | Description             |
 | -------------- | ------------ | ----------------------- |
-| access         | 'public' / 'org' / 'private' | Visibillity of the user to searches. |
-| preferredView  | 'Web' / 'GIS' / 'null' | Something about ... something? |
+| preferredView  | String | 'Web' / 'GIS' / 'null' |
 | description    | String | Plain text description of the user. |
-| tags           | Array | Tags for the user used for ... something? |
 | thumbnail      | Path | The file to be used as the users profile image. |
 | password       | String | Set the users password to the new string. |
 | fullname       | String | The full name of the user. |
-| email          | Email Address | Email address to contact the user at. |
-| securityQuestionIdx | Integer | Index of the security question in the Security Question Array. |
-| securityAnswer | String | Plain string of the answer to the security question. |
-| culture        | Culture Code | Culture code for the user. |
-| region         | Country Code |  Region code for the user. |
+| email          | String | Email address to contact the user at. |
+| culture        | String | Culture code for the user. |
+| region         | String |  Region code for the user. |
 
 **Returns:**
-Promise that resolves to the updated user JSON Object.
-
+Promise that resolves to the updated [`user`](#user) object.
 
 ###### **Example**
 
 ```
-user.update({
-	preferredView: 'GIS',
-	description: 'I am a GIS analyst.'
+arcgis.user(username)
+.then(function (user) {
+	var options = {description: 'just this person, you know?'}
+	return user.update(options)
+})
+.then(function (user) {
+  console.log(user)
 })
 ```
-
-### `user.delete`
-
-> This is a Future Feature, all delete methods will come in one swoop I hope.
-
-Deletes the user.
 
 ### `user.content`
 
 > Note that this is the only instance where content is returned un-paginated. If a user has lots and lots of content, this call may take some time to resolve.
 
-Returns an array of all of the users items and folders. If passed a folder id, will return an array of the items in that folder. Each item returns the same results as the `item.get()` call.
+Returns an array of all of the users items and folders. If passed a folder id, will return an array of the items in that folder. These items have the same static properties as the results of [`item`](#item), but do not have methods attached to them.
 
 **Params:**
 String.
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
-| Folder ID      | String       | none                    |
+| folder         | String       | none                    |
 
 **Returns:**
 Promise that resolves to a JSON Object.
 
 ```
 {
-	currentFolder: null, // this is the root folder
-	folders: Array,      // array of folders the user has created
-	items: Array,        // array of items in the root folder
-	num: Number,        // number of items returned
-	total: Number,      // number of items owned by the user
-	start: Number,      // item this page of results starts on
-	nextStart: Number,  // -1 if one page, otherwise first item in next page
-	username: String     // The users name.
+	currentFolder: String, // If null, is root
+	folders: Array,       // array of folders for the user
+	items: Array,         // array of items in currentFolder
+	username: String      // The users name.
 }
 ```
 
@@ -491,6 +408,25 @@ If a user is disabled, that means that their account is not active, but has not 
 
 **Returns:**
 Promise, if no params passed resolves to a string.
+
+### `user.delete`
+
+Deletes the user. This cannot be undone.
+
+**Returns:**
+Promise that resolves to an confirmation object.
+
+###### **Example**
+```
+arcgis.user(username)
+.then(function (user) {
+	return user.delete()
+})
+.then(function (confirmation) {
+  console.log(confirmation)
+})
+```
+
 
 ---
 
