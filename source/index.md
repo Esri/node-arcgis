@@ -12,7 +12,6 @@ reference:
           - Update
           - Content
           - Favorites
-          - Tags
           - Enabled
           - Delete
       - title: Organization
@@ -243,7 +242,7 @@ JSON user object with management methods.
   orgId: String,            // ID of the org the user belongs too
   modified: Date,           // date when the user
   region: String,           // two letter country code ex: 'us'
-  tags: Array,              // array of tags that user has used maybe?
+  tags: Array,              // array of tags that user has used, with counts
   thumbnail: String,        // name of the users thumbnail image ex: 'coolguy.jpg'
   units: String,            // 'imperial' or 'metric'
   update: Function,         // updates the user information
@@ -300,35 +299,46 @@ arcgis.user(username)
 
 ### `user.content`
 
-> Note that this is the only instance where content is returned un-paginated. If a user has lots and lots of content, this call may take some time to resolve.
+> This is _not_ using the user content method from the ArcGIS API. Instead, this is using a the [`search`](#search) method and pre-filling the parameters to locate the current user's content. This is done to have all content calls share response properties. The raw user content api call is the only call in the platform that does not return a paginated results object.
 
 Returns an array of all of the users items and folders. If passed a folder id, will return an array of the items in that folder. These items have the same static properties as the results of [`item`](#item), but do not have methods attached to them.
 
 **Params:**
-String.
+Flolder ID, Results per Page, Page, Sort By, Sort Order
 
-| Params         | Type         | Default                 |
+| Params         | Default      | Description             |
 | -------------- | ------------ | ----------------------- |
-| folder         | String       | none                    |
+| folder         | /       | Folder of content to return  |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 **Returns:**
-Promise that resolves to a JSON Object.
+Promise that resolves to a [`search` results object](#search).
 
 ```
 {
-	currentFolder: String, // If null, is root
-	folders: Array,       // array of folders for the user
-	items: Array,         // array of items in currentFolder
-	username: String      // The users name.
+  nextStart: Number,  // if -1, there are no more results
+  num: Number,        // Number of items per page returned
+  query: String,      // The query string that got us here
+  results: Array,     // An array of all the items that match the query
+  start: Number,      // The index of the item that starts this batch of results
+  total: Number,      // Total number of items that match the query
+  pages: Number,      // How many pages of results there are
+  currentPage: Number // Index of the current page
 }
 ```
 
 
 ###### **Example**
 ```
-user.content()
-.then(function (userContent){
-  console.log(userContent)
+arcgis.user(username)
+.then(function (user) {
+	return user.content()
+})
+.then(function (results) {
+  console.log(results)
 })
 ```
 
@@ -336,8 +346,18 @@ user.content()
 
 Users store their their favorite items in a group associated with their account. Getting a users favorites is similar to getting any other groups content.
 
+**Params:**
+Results per Page, Page, Sort By, Sort Order
+
+| Params         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
+
 **Returns:**
-Paginated search results object.
+Promise that resolves to a [`search` results object](#search).
 
 ```
 {
@@ -350,47 +370,14 @@ Paginated search results object.
 }
 ```
 
-
 ###### **Example**
 ```
-user.favorites()
-.then(function (userFavorites){
-  console.log(userFavorites)
+arcgis.user(username)
+.then(function (user) {
+	return user.favorites()
 })
-```
-
-### `user.tags`
-
-Gets all the tags that a user has used, along with counts of how many times that tag has appeared.
-
-**Params:**
-None.
-
-**Returns:**
-Promise that resolves to a JSON Object
-
-```
-{
-	tags: [
-		{
-			count: Number, // Number of times the tag appears
-			tag: String    // String of the tag itself
-		},
-		{
-			count: Number, // Number of times the tag appears
-			tag: String    // String of the tag itself
-		}
-	]
-}
-```
-
-
-###### **Example**
-
-```
-user.tags()
-.then(function(userTags){
-  console.log(userTags)
+.then(function (results) {
+  console.log(results)
 })
 ```
 
@@ -398,16 +385,29 @@ user.tags()
 
 Enables and disables the user within the organization. Passing no boolean to the method will return the current state of the user.
 
-If a user is disabled, that means that their account is not active, but has not been deleted. A disabled user still counts towards yours organizations maximum number of users.
+If a user is disabled, that means that their account is not active, but has not been deleted. A disabled user still counts towards your organizations maximum number of users.
 
-**Params**
+**Params:**
+Enabled
 
 | Params         | Type         | Default                 |
 | -------------- | ------------ | ----------------------- |
 | User Enabled   | Boolean      | none                    |
 
 **Returns:**
-Promise, if no params passed resolves to a string.
+Promise that resolves to the updated [`user`](#user) object.
+
+###### **Example**
+
+```
+arcgis.user(username)
+.then(function (user) {
+	return user.enabled(false)
+})
+.then(function (user) {
+  console.log(user)
+})
+```
 
 ### `user.delete`
 
