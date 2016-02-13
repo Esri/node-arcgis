@@ -427,16 +427,13 @@ arcgis.user(username)
 })
 ```
 
-
 ---
 
 ## `organization`
 
-> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization.
+> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization, even [developer accounts](http://developers.arcgis.com/plans), which have an organization with a single user.
 
-This object us used to interact with an Organization within the domains Portal - ArcGIS Online for example has many organizations that can be interacted with. An on-premises version of Portal or Server may have fewer, if not just one.
-
-Calling the function without any parameters will create an object that interacts with the organization that is currently authenticated. Calling the function with an organizations ID will interact with that organization from the perspective of a public user.
+This method is used to retrieve and interact with an Organization within the domains Portal - ArcGIS Online for example has many organizations that can be interacted with. An on-premises version of Portal or Server may have fewer, if not just one.
 
 **Params:**
 String of an Org Id.
@@ -446,91 +443,88 @@ String of an Org Id.
 | Org Id         | String       | self                    |
 
 **Returns:**
-JSON Object. (Not a promise!)
+Promise that resolves to the Org Object
 
 ```
 {
-  get: function(),           // gets user information
-  update: function(options), // updates the user information
-  delete: function(),        // deletes a user
-  content: function(),       // gets users content
-  tags: function(),          // returns the users tags?
-  enable: function(),        // enables a disabled user
-  disable: function(),       // disables a user
+  access: String,                  //
+  availableCredits: Number,        //
+  backgroundImage: String,         //
+  created: Date,                   //
+  culture: String,                 //
+  defaultBasemap: Object,          //
+  defaultExtent: Object,           //
+  description: String,             //
+  featuredGroups: Array,           //
+  featuredGroupsId: String,        //
+  helpBase: String,                //
+  id: String,                      //
+  ipCntryCode: String,             //
+  modified: Date,                  //
+  name: String,                    //
+  region: String,                  //
+  staticImagesUrl: String,         //
+  subscriptionInfo: Object,        //
+  supportsHostedServices: Boolean, //
+  supportsOAuth: Boolean,          //
+  thumbnail: String,               //
+  units: String,                   //
+  urlKey: String,                  //
+  user: Object,                    //
+  update: Function,                // Updates the orgs info
+  content: Function,               // Gets all content in the org
+  members: Function,               // Gets all users in the org
+  featured: Function               // Gets the orgs featured items
 }
 ```
-
 
 ###### **Example**
 
 ```
-var myOrg = arcgis.organization()
-<!-- Creates an object with methods for interacting with the org associated with the current authorized session -->
-
-var otherOrg = arcgis.organization('orgId')
-<!-- Creates an object with methods for interacting with a given org -->
-```
-
-### `organization.get`
-
-All the in­for­ma­tion as­so­ci­ated with an organization that the current session has access too.
-
-> This is only a small sample of the returned properties. The actual returned object is very large, and I'm not sure what most of it is for.
-
-**Returns:**
-Promise that resolves to JSON Object
-
-```
-{
-  access: String,
-  availableCredits: Number,
-  backgroundImage: String,
-  created: Date,
-  culture: String,
-  defaultBasemap: Object,
-  defaultExtent: Object,
-  description: String,
-  featuredGroups: Array,
-  featuredGroupsId: String,
-  helpBase: String,
-  homePageFeaturedContent: String,
-  homePageFeaturedContentCount: Number,
-  id: String,
-  ipCntryCode: String,
-  modified: Date,
-  name: String,
-  region: String,
-  staticImagesUrl: String,
-  subscriptionInfo: Object,
-  supportsHostedServices: Boolean,
-  supportsOAuth: Boolean,
-  thumbnail: String,
-  units: String,
-  urlKey: String,
-  user: Object
-}
+arcgis.organization()
+.then(function (organization) {
+  console.log(organization)
+})
 ```
 
 ### `organization.update`
 
+> All options that are settable with this method have yet to be fully plumbed.
+
 Takes an op­tions ob­ject, and sets the organizations in­for­ma­tion to the op­tions pro­vided. Re­turns an er­ror, or the up­dated organization ob­ject.
 
 **Params:**
-JSON Object
+Options JSON Object
+
+| Options        | Type         | Description             |
+| -------------- | ------------ | ----------------------- |
+| name           | String,      | The character limit is 250. |
+| access         | String,      | Setting to public allows anonymous users to|access your organization's custom URL. Setting to private restricts access|to only members of your organization. |
+| description    | String, | Describes the organization. |
+| summary        | String | Short description of the organization, less than 256 characters. |
+| canSharePublic | Boolean,     | Allows members of the organization to share outside the organization |
+| canSearchPublic| Boolean,     | Allows members of the organization to search outside the organization. |
+| thumbnail      | String,      | Acceptable image formats are PNG, GIF, and JPEG |
+| urlKey         | String,      | The prefix that will be used in the URL for this portal, for example, <urlkey>.maps.arcgis.com. |
+| urlHostname    | String,      | A custom URL for this portal. |
+| culture        | String       | The default locale (language and country)information. |
+
+**Returns:**
+Promise that resolves to the [`organization` object](#organization)
+
+###### **Example**
 
 ```
-{
-  name: String,              // The character limit is 250.
-  access: String,            // Setting to public allows anonymous users to access your organization's custom URL. Setting to private restricts access to only members of your organization.
-  description: String,
-  canSharePublic: Boolean,   // Allows members of the organization to share outside the organizatio
-  canSearchPublic: Boolean,  // Allows members of the organization to search outside the organization.
-  thumbnail: String,         // Acceptable image formats are PNG, GIF, and JPEG.
-  urlKey: String,            // The prefix that will be used in the URL for this portal, for example, <urlkey>.maps.arcgis.com.
-  urlHostname: String,       // A custom URL for this portal.
-  culture: String            // The default locale (language and country) information.
-}
+arcgis.organization()
+.then(function (organization) {
+  var options = {description: 'We are super professional'}
+  return organization.update(options)
+})
+.then(function (organization) {
+  console.log(organization)
+})
 ```
+
 
 ### `organization.members`
 
