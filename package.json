@@ -27,6 +27,7 @@
     "markdown-it-emoji": "^1.1.0",
     "markdown-it-highlightjs": "^2.0.0",
     "mkdirp": "^0.5.1",
+    "node-sass": "^3.4.2",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
     "standard": "*",
