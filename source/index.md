@@ -74,6 +74,15 @@ reference:
           - relatedItems
 ---
 
+The basic structure of the ArcGIS Platform is an [organization](#organization) that contains a number of [users](#user). Each [user](#user) can own a number of [items](#item). [Items](#item) come in 4 basic types - [layers](#layer), [maps](#map) [applications](#application), and [files](#file). [Items](#item) can be collected together into [groups](#group), regardless of what [user](#user) or [organization](#organization) they are associated with. [Groups](#group) can include a number of [users](#user), who than have access to that [groups](#group) [items](#item).
+
+All methods in the library besides the initial `Arcgis()` function return a Promise by default. However, one can also use callbacks by passing a function as the last parameter on each method. For example, getting an [item](#item) by ID can be done in two ways:
+
+```
+arcgis.item('id').then(cb)
+// or
+arcgis.item('id', cb)
+```
 
 ***
 
@@ -82,6 +91,7 @@ reference:
 > There are a number of ways to authenticate with the platform - which include support for federated accounts and things like that. If you need anything other than a token, open an issue. We'll get there!
 
 Initialize the client library session to access the API either as an anonymous user, or as an authenticated member of an organization. Calling `ArcGIS()` with no parameters will set up an instance of the platform that talks to ArcGIS Online as a public, anonymous user.
+
 
 **Params:** JSON Object with the following options;
 
@@ -131,17 +141,18 @@ var serverGIS = ArcGIS({
 
 ## `request`
 
-> Request has a lot of functionality that I've been told we need, but I'm really not sure that any of it is. Right now, this barebones request works fine. As it stops working fine, we'll add more to it.
+> Request has a lot of functionality that I've been told we need, but I'm really not sure that any of it is. Right now, this bare-bones request works fine. As it stops working fine, we'll add more to it.
 
 Request uses information in the client to make calls to the API. It takes a url substring, a JSON object, and a boolean.
 
 Request appends the URL to the clients domain and the omnipresent 'sharing/rest'. The JSON object gets processed into parameters. The boolean defines the request is GET (default, false) or POST (true). Request also appends the token that the current client session is authenticated with, and defines the response format as JSON.
 
-Some services - like usage, analysis, things like that – require a different root URL, since they are an independent API. Passing a root URL in as the fourth param will replace the standard Root.
+Some services - like usage, analysis, things like that – require a different root URL, since they are an independent API.
 
 **Parameters:**
+Options Object
 
-| Parameter | Type | Default |
+| Options | Type | Default |
 | -- | -- | -- |
 | url | String | / |
 | form | Object | {} |
@@ -167,14 +178,14 @@ arcgis.request()
 
 > this is growing in support as needed
 
-Searches for SQL queries against the api.
+Searches for [items](#item), [users](#user), and [groups](#group) within the platform.
 
 **Params:**
-Query String, Results per Page, Page, Sort By, Sort Order
+Options object
 
-| Param | Default | Description |
+| Option | Default | Description |
 | --- | --- | --- |
-| queryString | '\"\"'' | String, what to search for. Can be [complicated.](http://doc.arcgis.com/en/arcgis-online/reference/search.htm) |
+| query | '\"\"'' | String, what to search for. Can be [complicated.](http://doc.arcgis.com/en/arcgis-online/reference/search.htm) |
 | num | 100 | Results per page |
 | page | 0 | Page of results to return |
 | sort | 'created' | Field to sort results on |
@@ -199,7 +210,11 @@ Promise that resolves to a Paginated search results Object
 
 ###### **Example**
 ```
-arcgis.search('owner:NikolasWise AND (type:"Feature Service")', 100)
+var options = {
+	query: 'owner:NikolasWise AND (type:"Feature Service")',
+	num: 100
+}
+arcgis.search(options)
 .then(function(results) {
   console.log(results)
 })
