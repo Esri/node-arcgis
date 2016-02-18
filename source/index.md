@@ -319,11 +319,10 @@ arcgis.user(username)
 Returns an array of all of the users items and folders. If passed a folder id, will return an array of the items in that folder. These items have the same static properties as the results of [`item`](#item), but do not have methods attached to them.
 
 **Params:**
-Flolder ID, Results per Page, Page, Sort By, Sort Order
+Options Object
 
-| Params         | Default      | Description             |
+| Options         | Default      | Description             |
 | -------------- | ------------ | ----------------------- |
-| folder         | /       | Folder of content to return  |
 | num | 100 | Results per page |
 | page | 0 | Page of results to return |
 | sort | 'created' | Field to sort results on |
@@ -362,7 +361,7 @@ arcgis.user(username)
 Users store their their favorite items in a group associated with their account. Getting a users favorites is similar to getting any other groups content.
 
 **Params:**
-Results per Page, Page, Sort By, Sort Order
+Options Object
 
 | Params         | Default      | Description             |
 | -------------- | ------------ | ----------------------- |
@@ -446,7 +445,7 @@ arcgis.user(username)
 
 ## `organization`
 
-> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization, even [developer accounts](http://developers.arcgis.com/plans), which have an organization with a single user.
+> Organizations are the central entities in the ArcGIS platform. All users belong to an Organization, even [developer accounts](http://developers.arcgis.com/plans), which belong to an organization with a single user.
 
 This method is used to retrieve and interact with an Organization within the domains Portal - ArcGIS Online for example has many organizations that can be interacted with. An on-premises version of Portal or Server may have fewer, if not just one.
 
@@ -546,12 +545,19 @@ arcgis.organization()
 Gets the members within an organization. Takes a number, and returns as a paginated list with that number of members per page. Returns 100 members per page by default.
 
 **Params:**
-Number
+Options Object
+
+| Options         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 > If the `nextStart` value is -1, that means your on the last page of the results. The objects returned in the `users` array are the same as in [`user.get()`](#userget)
 
 **Returns:**
-Promise that resolves to JSON Object
+Promise that resolves to the [`organization` object](#organization)
 
 ```
 {
@@ -567,10 +573,12 @@ Promise that resolves to JSON Object
 ###### **Example**
 
 ```
-var myOrg = arcgis.organization()
-myOrg.users(10)
-.then(function(results) {
-	console.log(results)
+arcgis.organization()
+.then(function(organization) {
+	return organization.members()
+})
+.then(function (members) {
+	console.log(members)
 })
 ```
 
@@ -581,10 +589,17 @@ Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a 
 > This is a shortcut helper for the `search` method with the query needed to target an org predefined.
 
 **Params:**
-Results Per Page, Page
+Options Object
+
+| Options         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 **Returns:**
-Promise that resolves to JSON Object
+Promise that resolves to the [`search` results object](#search)
 
 ```
 {
@@ -603,10 +618,12 @@ Promise that resolves to JSON Object
 ###### **Example**
 
 ```
-var myOrg = arcgis.organization()
-myOrg.content()
-.then(function(results) {
-	console.log(results)
+arcgis.organization()
+.then(funtion (organization) {
+	organization.content()
+})
+.then(function(content) {
+	console.log(content)
 })
 ```
 
@@ -619,29 +636,27 @@ Takes a number, and returns a paginated list of items within the organizations f
 > This method is the same as [`group.content()`](#groupcontent), but with the group id prefilled from the organizations profile.
 
 **Params:**
-Number
+Options Object
+
+| Options         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 **Returns:**
-Promise that resolves to a JSON Object
-```
-{
-  nextStart: Number,
-  num: Number,
-  query: String
-  results: Array,
-  start: Number,
-  total: Number
-}
-```
-
+Promise that resolves to the [`search` results object](#search)
 
 ###### **Example**
 
 ```
-var myOrg = arcgis.organization()
-myOrg.featured()
-.then(function(results) {
-	console.log(results)
+arcgis.organization()
+.then(funtion (organization) {
+	organization.featured()
+})
+.then(function(featured) {
+	console.log(featured)
 })
 ```
 
@@ -661,11 +676,35 @@ A group id string
 | GroupID        | String       | none                    |
 
 **Returns:**
-JSON user object with management methods.
+Promise that resolves to group object with management methods.
 
 ```
 {
-  get: function (),         // Gets the group information
+  access: String,           //
+  capabilities: Array,      //
+  created: Date,            //
+  description: String,      //
+  id: String,               //
+  isFav: Boolean,           //
+  isInvitationOnly: true    //
+  isReadOnly: Boolean,      //
+  isViewOnly: Boolean,      //
+  modified: Date,           //
+  owner: String,            //
+  phone: String,            //
+  provider: String,         //
+  providerGroupName: String,//
+  snippet: String,          //
+  sortField: String,        //
+  sortOrder: String,        //
+  tags: Array,              //
+  thumbnail: String,        //
+  title: String,            //
+  userMembership: {         //
+  	applications: Number    //
+  	memberType: String,     //
+  	username: String,       //
+  }                         //
   update: function (),      // Updates the group information
   content: function (),     // Gets the content in the group
   members: function (),     // Gets the members in the group
@@ -678,116 +717,35 @@ JSON user object with management methods.
 }
 ```
 
-
 ###### **Example**
 
 ```
-var group = arcgis.group('groupID')
-```
-
-### `group.create`
-
-Creating a group is not too much trouble.
-
-**Params**
-
-| Params         | Type         | Default                 |
-| -------------- | ------------ | ----------------------- |
-| Options        | Object       | see below               |
-
-| Options        | Type         | Description             |
-| -------------- | ------------ | ----------------------- |
-| title            | String  | The group title must be unique for the username, and the character limit is 250. |
-| description      | String  | A description of the group that can be any length. |
-| snippet          | String  |  Snippet or summary of the group that has a character limit of 250 characters. |
-| tags             | Array   | Tags are words or short phrases that describe the group. |
-| phone            | String  | Phone is the group contact information. It can be a combination of letters and numbers. The character limit is 250. |
-| access           | String  | Sets the access level for the group. private is the default. Setting to org restricts group access to members of your organization. If public, all users can access the group. // 'org' / 'public' / 'private' |
-| sortField        | String  |  Sets sort field for group items.  // 'title' / 'owner' / 'avgrating' / 'numviews' / 'created' / 'modified'
-| sortOrder        | String  |  Sets sort order for group items. // 'asc' / 'desc' |
-| isViewOnly       | Boolean | Allows the group owner or admin to create view-only groups where members are not able to share items. |
-| isInvitationOnly | Boolean | If true, this group will not accept join requests. If false, this group does not require an invitation to join. |
-| thumbnail        | String  | Path to the thumbnail image to be used for the group. |
-
-
-**Returns**
-Newly created group object, as per [`group.get`](#groupget)
-
-
-###### **Example**
-
-```
-var options = {
-  title: 'My pretty cool group',
-  description: 'Its not a huge deal, but this group is pretty cool',
-  snippet: 'For cool people, for cool content.',
-  tags: ['cool', 'rad'],
-  access: 'Public',
-  isViewOnly: false,
-  isInvitationOnly: true
-}
-arcgis.group().create(options)
-.then(function (group) {
+arcgis.group(id)
+.then(function(group) {
 	console.log(group)
 })
-```
-
-### `group.get`
-
-All the in­for­ma­tion as­so­ci­ated with a group that the cur­rent ses­sion has ac­cess too.
-
-**Returns:**
-Promise that resolves to JSON Object
-
-
-###### **Example**
-
-```
-{
-  access: String
-  capabilities: Array
-  created: Date
-  description: String
-  id: String
-  isFav: Boolean
-  isInvitationOnly: true
-  isReadOnly: Boolean
-  isViewOnly: Boolean
-  modified: Date
-  owner: String
-  phone: String
-  provider: String
-  providerGroupName: String
-  snippet: String
-  sortField: String
-  sortOrder: String
-  tags: Array
-  thumbnail: String
-  title: String
-  userMembership: {
-  	applications: Number
-  	memberType: String
-  	username: String
-   }
-}
 ```
 
 ### `group.update`
 
 Updates the information for a group.
 
+> Updatable params are still TBD
+
 **Parameters:**
-JSON Object identical to [`group.create`](#groupcreate)
+JSON Options Object
 
 **Returns:**
-Promise that resolves to updated group information object
-
+Promise that resolves to updated [`group` object](#group)
 
 ###### **Example**
 ```
-arcgis.group('groupId')
-group.update({
-  title: "My New Group Name"
+arcgis.group(id)
+.then(function (group) {
+	return group.update({ title: "My New Group Name" })
+})
+.then(function (group) {
+	console.log(group)
 })
 ```
 
@@ -796,7 +754,7 @@ group.update({
 Deletes the group. This does not delete content or users, just the group that aggregates them. This is permanent.
 
 **Returns**
-Promise that resolves to a JSON Object
+Promise that resolves to a JSON confirmation Object
 
 ```
 {
@@ -808,22 +766,31 @@ Promise that resolves to a JSON Object
 
 ###### **Example**
 ```
-arcgis.group('groupId')
-group.delete()
+arcgis.group(id)
+.then(function (group) {
+	return group.delete()
+})
+.then(function (confirmation) {
+	console.log(confirmation)
+})
 ```
 
 ### `group.content`
 
 > This item results object is similar to a [search](#search) results object.
 
-Gets the group in a content as a paginated object. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault.
-Number
+Gets the items that are aggregated with in the group.
 
-**Params:**
-Results Per Page, Page
+
+| Options         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| num | 100 | Results per page |
+| page | 0 | Page of results to return |
+| sort | 'created' | Field to sort results on |
+| order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 **Returns:**
-Promise that resolves to JSON Object
+Promise that resolves to JSON [earch results](#search) Object
 
 ```
 {
@@ -841,10 +808,12 @@ Promise that resolves to JSON Object
 
 ###### **Example**
 ```
-arcgis.group('groupId')
-group.content()
-.then(function (results) {
-  console.log(results)
+arcgis.group(id)
+.then(function (group) {
+	return group.content()
+})
+.then(function (content) {
+	console.log(content)
 })
 ```
 
@@ -852,7 +821,7 @@ group.content()
 
 > This item is not paginated, not similar to a search results object. Comme se, comme ca I guess.
 
-Gets the users within a group, along with the groups owner and an array of group admins.
+Gets the users within a group, along with the groups owner and an array of group admins. It does not take params. Unknown why this is different, just one of those things.
 
 **Returns:**
 Promise that resolves to a JSON Object
@@ -870,10 +839,12 @@ Promise that resolves to a JSON Object
 ###### **Example**
 
 ```
-arcgis.group('groupId')
-group.members()
-.then(function (results) {
-  console.log(results)
+arcgis.group(id)
+.then( function (group) {
+  return group.members()
+})
+.then(function (members) {
+  console.log(members)
 })
 ```
 
@@ -895,10 +866,12 @@ Promise that resolves to a JSON Object
 
 ###### **Example**
 ```
-var group = arcgis.group('groupId')
-group.removeUsers(['userOne', 'userTwo'])
-.then(function (results) {
-  console.log(results)
+var group = arcgis.group(id)
+.then(function (group) {
+  group.removeUsers(['userOne', 'userTwo'])
+})
+.then(function (confirmation) {
+  console.log(confirmation)
 })
 ```
 
@@ -947,10 +920,12 @@ Promise that resolves to a JSON Object. If access to the group is still availabl
 
 ###### **Example**
 ```
-var group = arcgis.group('groupid')
-group.changeOwner('newOwnerUsername')
-.then(function (results) {
-  console.log(results)
+var group = arcgis.group(id)
+.then(function (group) {
+  return group.changeOwner(username)
+})
+.then(function (group) {
+  console.log(group)
 })
 ```
 
@@ -958,36 +933,14 @@ group.changeOwner('newOwnerUsername')
 
 ## `usage`
 
-```
-var orgUsage = arcgis.usage()
-var itemUsage = arcgis.usage(itemId)
-orgUsage.get()  // returns Promise
-itemusage.get() // returns Promise
-
-<!-- or -->
-
-var orgUsage = arcgis.org(orgId).usage(options)    // returns Promise
-var itemUsage = arcgis.item(itemId).usage(options) // returns Promise
-```
+Usage is complicated and sucks. This is literally the last thing on the list to do.
 
 ```
-var usage = arcgis.usage()
-usage.items(options)
-usage.users(options)
-usage.org(options)
-
-var org = arcgis.org(orgId)
-org.usage(options)
-
-var item = arcgis.item(itemId)
-item.usage(options)
-
-var user = arcgis.user(username)
-user.usage(options)
+arcgis.usage(options)
+.then(function (usage) {
+  console.log(usage)
+})
 ```
-
-
-### `usage.get`
 
 ---
 
@@ -1092,8 +1045,7 @@ Promise that resolves to the updated [`item`](#item)
 ```
 arcgis.item('itemId')
 .then(function (item) {
-  var options = {title: 'A New Hope'}
-  return item.update(options)
+  return item.update({title: 'A New Hope'})
 })
 .then(function (item) {
   console.log(item)
@@ -1190,7 +1142,7 @@ arcgis.item('itemId')
 
 ### `item.folder`
 
-> Folders have names and ID's. This means folders can have non-unique names. Watch out!
+> Folders have names and ID's. This means folders can have non-unique names. Watch out! Although, the only way to use folders is to use the API user.content call, which we're not doing any more to standardize content responses. Can my client lib even get at folders? Might not be worth supporting.
 
 Adds the item to a folder by folder ID. Passing the the value `'/'` adds the item to the root folder.
 
