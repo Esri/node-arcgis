@@ -619,8 +619,8 @@ Promise that resolves to the [`search` results object](#search)
 
 ```
 arcgis.organization()
-.then(funtion (organization) {
-	organization.content()
+.then(function (organization) {
+	return organization.content()
 })
 .then(function(content) {
 	console.log(content)
