@@ -948,11 +948,25 @@ var group = arcgis.group(id)
 Creates a request to join a group for the currently authenticated user.
 
 **Returns**
-Promise that resolves to a JSON Object
+Promise that resolves to a confirmation JSON Object
+
 ```
 {
-  not: sure
+  success: true,
+  groupId: id
 }
+```
+
+###### **Example**
+
+```
+arcgis.group(id)
+.then(function (group) {
+  return group.join()
+})
+.then(function (confirmation) {
+  console.log(confirmation)
+})
 ```
 
 ### `group.leave`
@@ -960,16 +974,30 @@ Promise that resolves to a JSON Object
 Removes the currently authenticated user from the group.
 
 **Returns**
-Promise that resolves to a JSON Object
+Promise that resolves to a confirmation JSON Object
+
 ```
 {
-  something: maybe
+  success: true,
+  groupId: id
 }
+```
+
+###### **Example**
+
+```
+arcgis.group(id)
+.then(function (group) {
+  return group.leave()
+})
+.then(function (confirmation) {
+  console.log(confirmation)
+})
 ```
 
 ### `group.changeOwner`
 
-> Unknown limits on this.
+> If you are an org admin, you can always perform this if you are a member of the group. Otherwise, only admins can do this maybe?
 
 Changes to owner to a specified username.
 
@@ -977,23 +1005,24 @@ Changes to owner to a specified username.
 String of a Username
 
 **Returns:**
-Promise that resolves to a JSON Object. If access to the group is still available, returns the updated group. If not, some message to confirm the action
+Promise that resolves to a confirmation JSON Object.
 
 ```
 {
- it: worked
+  success: true,
+  groupId: id
 }
 ```
 
 
 ###### **Example**
 ```
-var group = arcgis.group(id)
+arcgis.group(id)
 .then(function (group) {
   return group.changeOwner(username)
 })
-.then(function (group) {
-  console.log(group)
+.then(function (confirmation) {
+  console.log(confirmation)
 })
 ```
 
