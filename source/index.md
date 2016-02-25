@@ -24,9 +24,10 @@ reference:
         methods:
           - Content
           - Update
-          - Users
+          - Members
           - RemoveUsers
           - AddUsers
+          - InviteUsers
           - Join
           - Leave
           - ChangeOwner
@@ -848,18 +849,20 @@ arcgis.group(id)
 })
 ```
 
-### `group.removeUser`
+### `group.removeUsers`
+
+> [`addUsers`](#groupaddusers), [`inviteUsers`](#groupinviteusers), and [`removeUsers`](#groupremoveusers) can all accept an array of usernames, or a single username as a string.
 
 Removes one or more users from the group.
 
 **Params:**
-Array of username strings
+Array of username strings.
 
 **Returns:**
 Promise that resolves to a JSON Object
 ```
 {
-  somestuff: 'I guess?'
+   notRemoved: Array // If any users couldn't be removed, thats noted here.
 }
 ```
 
@@ -868,7 +871,72 @@ Promise that resolves to a JSON Object
 ```
 var group = arcgis.group(id)
 .then(function (group) {
-  group.removeUsers(['userOne', 'userTwo'])
+  return group.removeUsers(['userOne', 'userTwo'])
+})
+.then(function (confirmation) {
+  console.log(confirmation)
+})
+```
+
+### `group.addUsers`
+
+Users can be added to a group. The groups administrators and owner can add any user to the group. Members without this access can only add other members within the same organization to the group.
+
+**Params:**
+Array of username strings
+
+**Returns:**
+Promise that resolves to a confirmation JSON Object
+
+```
+{
+  success: true,
+  groupId: id
+}
+```
+
+###### **Example**
+```
+var group = arcgis.group(id)
+.then(function (group) {
+  return group.addUsers(['userOne', 'userTwo'])
+})
+.then(function (confirmation) {
+  console.log(confirmation)
+})
+```
+
+### `group.inviteUsers`
+
+Users can be invited to join a group. This method sends an email to the address on record for the users given. All users in a group can invite other users.
+
+**Params:**
+JSON Options object
+
+> You cannot put an arbitrary number of minutes in for expiration. It must be one of the values in description.
+
+| Options         | Default      | Description             |
+| -------------- | ------------ | ----------------------- |
+| users | [] | Users to invite to group via email |
+| role | 'group_member' | 'group_member' or 'group_admin' |
+| expiration |  1440 | Expiration date on the invitation can be set for one day, three days, one week, or two weeks, in minutes. |
+
+**Returns:**
+Promise that resolves to a confirmation JSON Object
+
+```
+{
+  success: true,
+  groupId: id
+}
+```
+
+
+###### **Example**
+```
+var group = arcgis.group(id)
+.then(function (group) {
+  return group.inviteUsers(['userOne', 'userTwo'])
 })
 .then(function (confirmation) {
   console.log(confirmation)
