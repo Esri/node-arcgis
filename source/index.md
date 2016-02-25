@@ -936,7 +936,7 @@ Promise that resolves to a confirmation JSON Object
 ```
 var group = arcgis.group(id)
 .then(function (group) {
-  return group.inviteUsers(['userOne', 'userTwo'])
+  return group.inviteUsers({users: ['userOne', 'userTwo']})
 })
 .then(function (confirmation) {
   console.log(confirmation)
