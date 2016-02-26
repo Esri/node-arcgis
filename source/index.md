@@ -1030,7 +1030,7 @@ arcgis.group(id)
 
 ## `usage`
 
-Usage is complicated and sucks. This is literally the last thing on the list to do.
+Usage is complicated. This is the last thing on the list to do.
 
 ```
 arcgis.usage(options)
