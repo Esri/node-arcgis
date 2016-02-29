@@ -1,3 +1,0 @@
-## `request`
-
-###### **Example**
