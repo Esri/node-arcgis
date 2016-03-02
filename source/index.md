@@ -540,7 +540,6 @@ arcgis.organization()
 })
 ```
 
-
 ### `organization.members`
 
 Gets the members within an organization. Takes a number, and returns as a paginated list with that number of members per page. Returns 100 members per page by default.
@@ -1111,7 +1110,7 @@ Promise that resolves JSON Object with item information and methods.
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   console.log(item)
 })
@@ -1140,13 +1139,13 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.update({title: 'A New Hope'})
 })
 .then(function (item) {
   console.log(item)
-}
+})
 ```
 
 ### `item.rate`
@@ -1164,20 +1163,41 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.rate(5)
 })
 .then(function (item) {
   console.log(item)
-}
+})
+```
+
+### `item.isFavorite`
+
+> Checking if an item is currently in the your favorites group takes a couple of extra calls, so we don't return that with the item itself.
+
+Checks to see if an item is in the users 'favorite items' group.
+
+**Re­turns:**
+Promise that resolves to a boolean
+
+###### **Example**
+
+```
+arcgis.item(itemId)
+.then(function (item) {
+  return item.isFavorite()
+})
+.then(function (isFavorite) {
+  console.log(isFavorite)
+})
 ```
 
 ### `item.favorite`
 
 > A users `favorites` are a [group](#group) that only that user is a member of. Presumably other users can be added to this. In most interfaces, this group is excluded from the list of other groups.
 
-When an Item is fetched, it will have a key that is a boolean of whether that item is in that users favorite group or not. This method adds and removes an item from that group.
+This method adds and removes an item from the users 'favorite items' group.
 
 **Params:**
 Boolean
@@ -1188,13 +1208,13 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.favorite(true)
 })
 .then(function (item) {
   console.log(item)
-}
+})
 ```
 
 ### `item.duplicate`
@@ -1224,7 +1244,7 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   var options = {
 	title: 'A New New Hope',
@@ -1252,7 +1272,7 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.folder('/')
 })
@@ -1276,7 +1296,7 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.changeOwner(username)
 })
@@ -1299,7 +1319,7 @@ Promise that resolves to the updated [`item`](#item)
 ###### **Example**
 
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.deleteProtected(true)
 })
@@ -1328,7 +1348,7 @@ Promise that resolves to the updated [`item`](#item)
 
 **Example**
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   options = {
     access: 'private',
@@ -1355,7 +1375,7 @@ Promise that resolves to an object with a confirmation.
 
 ###### **Example**
 ```
-arcgis.item('itemId')
+arcgis.item(itemId)
 .then(function (item) {
   return item.delete()
 })
@@ -1445,6 +1465,46 @@ Exports data maps in a defined format. Can be generic `.csv`, `.geojson`, or mor
 ### `map.layers`
 
 Returns all the layers on the map, in order from back to front. Can also be used to reorder layers on the map.
+
+**Returns**
+Promise that resolves to an Object
+
+```
+{
+  authoringApp: String,
+  authoringAppVersion: String,
+  baseMap: {
+    baseMapLayers: [
+      {
+        id: String,
+        layerType: String,
+        opacity: Number,
+        url: String,
+        visibility: Boolean,
+        length: Number,
+        title: String
+      }
+    ]
+  },
+  operationalLayers: [
+    {
+      id: String,
+      itemId: String,
+      layerType: String,
+      opacity: Number,
+      popupInfo: Object,
+      title: String,
+      url: String,
+      visibility: Boolean
+    }
+  ],
+  spatialReference: {
+    latestWkid: String,
+    wkid: String
+  }
+}
+```
+
 
 ### `map.addLayers`
 
@@ -1553,7 +1613,28 @@ Files are static items that are kept in the Portal after they've been uploaded. 
 
 ### `file.publish`
 
-If the file contains geographic data - csv, geojson, shapefile, geodatabase, etc - it can be turned into a layer that you can use on maps.
+If the file contains geographic data - csv, geojson, shapefile, geodatabase, etc - it can be turned into a layer that you can use on maps. Results in a confirmation object that contains information on the new layer.
+
+Returns a Job ID in the confirmation, which can be used to pole the service to see if the layer has finished being created.
+
+**Returns**
+Promise that resolves to an object with array of processes
+
+> The `serviceItemId` key is the item ID for the newly created layer.
+
+```
+{
+  services: [
+    {
+      encodedServiceURL: String,
+      jobId: String,
+      serviceItemId: String,
+      serviceurl: String,
+      size: Number,
+      type: String
+	}
+}
+```
 
 ### `file.download`
 
