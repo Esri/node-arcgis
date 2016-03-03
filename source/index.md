@@ -11,6 +11,7 @@ reference:
         methods:
           - Update
           - Content
+          - Tags
           - Favorites
           - Enabled
           - Delete
@@ -22,8 +23,8 @@ reference:
           - Featured
       - title: Group
         methods:
-          - Content
           - Update
+          - Content
           - Members
           - RemoveUsers
           - AddUsers
@@ -32,47 +33,36 @@ reference:
           - Leave
           - ChangeOwner
           - Delete
-      - title: Usage
-        methods:
+          - Create
   - title: "Items"
     sections:
       - title: Item
         methods:
           - Update
+          - Permissions
           - Rate
+          - IsFavorite
           - Favorite
-          - Duplicate
-          - Folder
+          - Groups
           - ChangeOwner
           - DeleteProtected
-          - Permissions
           - Delete
       - title: Layer
         methods:
           - Data
           - Export
-          - generateTiles
-          - Usage
       - title: Map
         methods:
-          - Data
-          - Export
-          - layers
-          - addLayers
-          - removeLayers
-          - Usage
+          - Layers
       - title: Application
         methods:
           - Register
           - GetOAuth
           - GetToken
-          - Usage
       - title: File
         methods:
-          - Update
           - Publish
           - Download
-          - relatedItems
 ---
 
 The basic structure of the ArcGIS Platform is an [organization](#organization) that contains a number of [users](#user). Each [user](#user) can own a number of [items](#item). [Items](#item) come in 4 basic types - [layers](#layer), [maps](#map) [applications](#application), and [files](#file). [Items](#item) can be collected together into [groups](#group), regardless of what [user](#user) or [organization](#organization) they are associated with. [Groups](#group) can include a number of [users](#user), who than have access to that [groups](#group) [items](#item).
@@ -115,7 +105,6 @@ Initialize the client library session to access the API either as an anonymous u
   map: Function,          // Interact with an map
   application: Function,  // Interact with an application
   file: Function,         // Interact with an file
-  usage: Function         // Report usage
 }
 ```
 
@@ -305,8 +294,8 @@ Promise that resolves to the updated [`user`](#user) object.
 ```
 arcgis.user(username)
 .then(function (user) {
-	var options = {description: 'just this person, you know?'}
-	return user.update(options)
+  var options = {description: 'just this person, you know?'}
+  return user.update(options)
 })
 .then(function (user) {
   console.log(user)
@@ -354,6 +343,35 @@ arcgis.user(username)
 })
 .then(function (results) {
   console.log(results)
+})
+```
+
+### `user.tags`
+
+All content has a set of tags associated with it. This call returns all the tags a user has applied to their content, with counts for the number of time each tag appears.
+
+**Returns**
+Promise that resolves to a JSON Object.
+
+```
+{
+  tags: [
+    {
+      count: Number,
+      tag: String
+    }
+  ]
+}
+```
+
+###### **Example**
+```
+arcgis.user(username)
+.then(function (user){
+  return user.tags()
+})
+.then(function (tags) {
+  console.log(tags)
 })
 ```
 
@@ -487,8 +505,8 @@ Promise that resolves to the Org Object
   urlKey: String,                  //
   user: Object,                    //
   update: Function,                // Updates the orgs info
-  content: Function,               // Gets all content in the org
   members: Function,               // Gets all users in the org
+  content: Function,               // Gets all content in the org
   featured: Function               // Gets the orgs featured items
 }
 ```
@@ -749,32 +767,6 @@ arcgis.group(id)
 })
 ```
 
-### `group.delete`
-
-Deletes the group. This does not delete content or users, just the group that aggregates them. This is permanent.
-
-**Returns**
-Promise that resolves to a JSON confirmation Object
-
-```
-{
-  success: Boolean,
-  groupId: String
-}
-```
-
-
-###### **Example**
-```
-arcgis.group(id)
-.then(function (group) {
-	return group.delete()
-})
-.then(function (confirmation) {
-	console.log(confirmation)
-})
-```
-
 ### `group.content`
 
 > This item results object is similar to a [search](#search) results object.
@@ -1025,16 +1017,62 @@ arcgis.group(id)
 })
 ```
 
----
+### `group.delete`
 
-## `usage`
+Deletes the group. This does not delete content or users, just the group that aggregates them. This is permanent.
 
-Usage is complicated. This is the last thing on the list to do.
+**Returns**
+Promise that resolves to a JSON confirmation Object
 
 ```
-arcgis.usage(options)
-.then(function (usage) {
-  console.log(usage)
+{
+  success: Boolean,
+  groupId: String
+}
+```
+
+
+###### **Example**
+```
+arcgis.group(id)
+.then(function (group) {
+	return group.delete()
+})
+.then(function (confirmation) {
+	console.log(confirmation)
+})
+```
+
+### `group.create`
+
+> Creating a new group is a little different than the other group methods - one does not pass in a group Id, so it can be called off `group` immediately.
+
+**Params:**
+JSON Options object
+
+| Options          | Default   | Description             |
+| ---------------- | --------- | ----------------------- |
+| title            | none      | String, Name of the group
+| description      | none      | String, Description of the group
+| summary          | none      | String, > 256 character summary
+| tags             | none      | Array, tags for group
+| access           | 'private' | String. 'private', 'public', or 'org'
+| isViewOnly       | false     | Boolean. Can items be added to the group?
+| isInvitationOnly | false     | Boolean. Can users join the group without an invitation?
+
+
+###### **Example:**
+
+```
+var options = {
+  title: 'My New Group',
+  description: 'This group is both new and mine',
+  tags: ['my', 'new', 'cool', 'group'],
+  access: 'public'
+}
+arcgis.group.create(options)
+.then(function (newGroup) {
+  console.log(newGroup)
 })
 ```
 
@@ -1100,7 +1138,6 @@ Promise that resolves JSON Object with item information and methods.
   deleteProtected: Function, // Prevents deletion
   relatedItems: Function,    // Gets related items
   permissions: Function,     // Sets permissions
-  usage: Function,           // Gets usage report
   delete: Function,          // Deletes item
   // Additional methods per type, documented below
 }
@@ -1147,6 +1184,43 @@ arcgis.item(itemId)
   console.log(item)
 })
 ```
+
+### `item.permissions`
+
+> In this case, 'private' means that the only the user **and admins in that users org** can view the item.
+
+Updates the permissions for the item, either user only, organization, or public, and what groups have access to the item.
+
+**Params:**
+Options object
+
+| Options        | Type      | Description             |
+| -------------- | --------- | ----------------------- |
+| access          | String   | 'private', 'org', 'public' |
+| group        | Array    | Group id's to allow access |
+
+
+**Re­turns:**
+Promise that resolves to the updated [`item`](#item)
+
+**Example**
+```
+arcgis.item(itemId)
+.then(function (item) {
+  options = {
+    access: 'private',
+    groups: [
+      group1id,
+	  group2id
+    ]
+  }
+  return item.permissions(options)
+})
+.then(function (item) {
+  console.log(item)
+}
+```
+
 
 ### `item.rate`
 
@@ -1217,68 +1291,24 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.duplicate`
+### `item.groups`
 
-> Totally not sure what this works on. I think everything can be duplicated tho?
+> An item being in a group is often referred to as being 'shared with' that group.
 
-Duplicates an item. The new item has a new name, description, snippet, tags, and permissions model.
+Items can be placed in one or more groups. This call determines what groups that item is a part of. This only returns groups that you can see - meaning it won't return other users 'favorite items' groups.
 
-**Params:**
-JSON Object of new item properties
+**Returns:**
+Promise that resolves to an array of [group](#group) objects.
 
-| Options        | Type      | Default                 |
-| -------------- | --------- | ----------------------- |
-| title          | String    | As original |
-| snippet        | String    | As original |
-| description    | String    | As original |
-| tags           | Array     | As original |
-| extent         | Array     | As original |
-| licenseInfo    | String    | As original |
-| accessInformation | String | As original |
-| permissions    | String    | As original |
-| groups         | Array   | Array of group ids from source |
-
-**Re­turns:**
-Promise that resolves to the updated [`item`](#item)
-
-###### **Example**
-
+###### **Example:**
 ```
 arcgis.item(itemId)
 .then(function (item) {
-  var options = {
-	title: 'A New New Hope',
-	snippet: 'Just like the old one, but newer'
-  }
-  return item.duplicate(options)
+  return item.groups()
 })
-.then(function (newItem) {
-  console.log(newItem)
-}
-```
-
-### `item.folder`
-
-> Folders have names and ID's. This means folders can have non-unique names. Watch out! Although, the only way to use folders is to use the API user.content call, which we're not doing any more to standardize content responses. Can my client lib even get at folders? Might not be worth supporting.
-
-Adds the item to a folder by folder ID. Passing the the value `'/'` adds the item to the root folder.
-
-**Params:**
-String of the folder ID.
-
-**Re­turns:**
-Promise that resolves to the updated [`item`](#item)
-
-###### **Example**
-
-```
-arcgis.item(itemId)
-.then(function (item) {
-  return item.folder('/')
+.then(function (groups) {
+  console.log(groups)
 })
-.then(function (item) {
-  console.log(item)
-}
 ```
 
 ### `item.changeOwner`
@@ -1322,42 +1352,6 @@ Promise that resolves to the updated [`item`](#item)
 arcgis.item(itemId)
 .then(function (item) {
   return item.deleteProtected(true)
-})
-.then(function (item) {
-  console.log(item)
-}
-```
-
-### `item.permissions`
-
-> In this case, 'private' means that the only the user **and admins in that users org** can view the item.
-
-Updates the permissions for the item, either user only, organization, or public, and what groups have access to the item.
-
-**Params:**
-Options object
-
-| Options        | Type      | Description             |
-| -------------- | --------- | ----------------------- |
-| access          | String   | 'private', 'org', 'public' |
-| group        | Array    | Group id's to allow access |
-
-
-**Re­turns:**
-Promise that resolves to the updated [`item`](#item)
-
-**Example**
-```
-arcgis.item(itemId)
-.then(function (item) {
-  options = {
-    access: 'private',
-    groups: [
-      group1id,
-	  group2id
-    ]
-  }
-  return item.permissions(options)
 })
 .then(function (item) {
   console.log(item)
@@ -1418,21 +1412,45 @@ arcgis.layer('layerId')
 
 ### `layer.data`
 
-Layers have geographic data - a set of features with properties. This method returns that geographic data as ... something? Geojson would be nice.
+Layers have geographic data - a set of features with properties. This method returns that geographic data as ... something?
 
-### `layer.export`
+**Returns:**
+Promise that resolves to a JSON Object
 
-Exports data layers in a defined format. Can be generic `.csv`, `.geojson`, or more proprietary esri formats `.shx`, `.gbd`.
+```
+{
+  features: [
+    {
+      attributes: Object,
+      geometry: Object
+    }
+  ],
+  fields: [
+    {
+      ???: ???
+    }
+  ],
+  geometryType: String,
+  globalIdFieldName: String,
+  objectIdFieldName: String,
+  spatialReference: {
+	latestWkid: String,
+	wkid: String
+  }
+}
+```
 
-### `layer.generateTiles`
+###### **Example:**
 
-> Most layers contain vector feature data - generating tiles is a way to get large vector data sets into raster.
-
-Creates a new tile layer from the existing layer. These tiles are drawn with the default renderer associated with the layer.
-
-### `layer.usage`
-
-Reports usage information for the layer, including credit cost for hosting the layer, bandwidth consumed by the layer, and requests made to the layer over a time period.
+```
+arcgis.layer(itemId)
+.then(function (layer) {
+  return layer.data()
+})
+.then(function (data) {
+  console.log(data)
+}
+```
 
 ---
 
@@ -1444,23 +1462,9 @@ Reports usage information for the layer, including credit cost for hosting the l
 
 ```
 {
-	data: Function,         // Gets all map data
-	export: Function,       // Exports map
-	layers: Function,       // Lists the layers
-	addLayers: Function,    // Adds a layer
-	removeLayers: Function  // Removes a layer
-	generateTiles: Function, // Creates a tile layer
-	usage: Function          // Reports credits, requests
+  layers: Function,       // Lists the layers
 }
 ```
-
-### `map.data`
-
-maps have geographic data - a set of features with properties. This method returns that geographic data as ... something? Geojson would be nice.
-
-### `map.export`
-
-Exports data maps in a defined format. Can be generic `.csv`, `.geojson`, or more proprietary esri formats `.shx`, `.gbd`.
 
 ### `map.layers`
 
@@ -1505,22 +1509,17 @@ Promise that resolves to an Object
 }
 ```
 
+###### **Example:**
 
-### `map.addLayers`
-
-Adds one or more layers to the map by layer id.
-
-### `map.removeLayers`
-
-Removes one or more layers from the map, by layer id.
-
-### `map.generateTiles`
-
-Creates a new tile map from the existing map. These tiles are drawn with the default renderer associated with the map.
-
-### `map.usage`
-
-Reports usage information for the map, including credit cost for hosting the map, bandwidth consumed by the map, and requests made to the map over a time period.
+```
+arcgis.map(itemId)
+.then(function (map) {
+  return map.layers()
+})
+.then(function (layers) {
+  console.log(layers)
+})
+```
 
 ---
 
@@ -1540,10 +1539,10 @@ Reports usage information for the map, including credit cost for hosting the map
 
 Registers the application with the platform, providing access to oAuth methods.
 
-###### **Example**
-
 **Returns:**
 Promise that resolves to the updated [`application`](#application)
+
+###### **Example**
 
 ```
 arcgis.application(appid)
@@ -1601,15 +1600,10 @@ arcgis.application(appid)
 
 ```
 {
-	update: Function,  // Replaces the file with a new file
-	publish: Function, // Turns the file into a layer
-	download: Function // Downloads the file
+  publish: Function, // Turns the file into a layer
+  download: Function // Downloads the file
 }
 ```
-
-### `file.update`
-
-Files are static items that are kept in the Portal after they've been uploaded. You can replace a file with a new file, provided they have the same name.
 
 ### `file.publish`
 
