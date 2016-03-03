@@ -4,12 +4,12 @@ var md = require('markdown-it')({
   typographer: true,
   quotes: '“”‘’'
 })
-.use(require('markdown-it-highlightjs'))
-.use(require('markdown-it-emoji'))
-.use(require('markdown-it-anchor'))
+  .use(require('markdown-it-highlightjs'))
+  .use(require('markdown-it-emoji'))
+  .use(require('markdown-it-anchor'))
 
-var typogr = require('typogr');
-var typeset = require('typeset');
+var typogr = require('typogr')
+var typeset = require('typeset')
 
 module.exports = function (site, cb) {
   site = site.map(function (page) {
@@ -21,4 +21,3 @@ module.exports = function (site, cb) {
   })
   cb(null, site)
 }
-
