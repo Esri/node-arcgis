@@ -460,6 +460,21 @@ arcgis.user(username)
 })
 ```
 
+### `user.create`
+
+Creates a new user in your organization.
+
+###### **Example:**
+
+```
+var options = {
+}
+arcgis.user.create(options)
+.then(function (???) {
+  console.log(???)
+})
+```
+
 ---
 
 ## `organization`
