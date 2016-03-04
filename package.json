@@ -1,7 +1,7 @@
 {
   "name": "arcgis",
   "description": "Node client library for ArcGIS",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
     "url": "https://github.com/esripdx/node-arcgis/issues"
@@ -71,6 +71,9 @@
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
+    "prerelease": "npm run build && zip -r node-arcgis.zip dist/",
+    "release": "parallelshell 'gh-release -a node-arcgis.zip' 'npm publish'",
+    "postrelease": "parallelshell 'rm node-arcgis.zip' 'npm run deploy'",
     "test": "standard | snazzy"
   }
 }

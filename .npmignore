@@ -1,0 +1,6 @@
+node_modules
+npm-debug.log
+docs/
+test/bundle.js
+test/credentials.json
+talk
