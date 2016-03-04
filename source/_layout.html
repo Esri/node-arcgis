@@ -31,6 +31,7 @@
 
           <p class="font-size-0 trailer-1">Client library for interfacing with ArcGIS, either a Server installation or ArcGIS Online. Works in server-side Node environments as well as the browser. Provides a set of convience methods, and structures the underlying REST API concepts and behaviors to align closer with the expectations of an API in the node environment.</p>
 
+
           <nav>
             <h2 class="trailer-1">Reference</h2>
             {% for group in reference %}
@@ -54,16 +55,19 @@
         </aside>
       </section>
 
-      <aside class="side-nav column-5 post-1 js-sticky scroll-show leader-1" data-top=12 aria-role="complementary">
-        {% for group in reference %}
-          <h4 class="side-nav-title">{{ group.title }}</h4>
-          {% for section in group.sections %}
-            <a href="#{{ section.title | lower }}" class="side-nav-link">{{ section.title }}</a>
+      <aside class="column-5 post-1 js-sticky scroll-show leader-1" data-top=12 aria-role="complementary">
+        <div class="side-nav">
+          {% for group in reference %}
+            <h4 class="side-nav-title">{{ group.title }}</h4>
+            {% for section in group.sections %}
+              <a href="#{{ section.title | lower }}" class="side-nav-link">{{ section.title }}</a>
+            {% endfor %}
           {% endfor %}
-        {% endfor %}
+        </div>
+        <a href="#" class="btn btn-transparent btn-small leader-half">Back to Top</a>
       </aside>
 
-      <main class="column-12">
+      <main class="column-12 content-face">
         {% block content %}{% endblock %}
       </main>
     </div>

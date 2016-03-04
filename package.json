@@ -27,9 +27,11 @@
     "markdown-it-emoji": "^1.1.0",
     "markdown-it-highlightjs": "^2.0.0",
     "mkdirp": "^0.5.1",
+    "node-sass": "^3.4.2",
     "parallelshell": "^2.0.0",
     "rerun-script": "^0.6.0",
-    "standard": "*",
+    "snazzy": "^3.0.0",
+    "standard": "^6.0.7",
     "static-site": "^1.0.2",
     "typeset": "^0.1.6",
     "typogr": "^0.6.6",
@@ -65,11 +67,10 @@
     "postdist": "babel lib --out-dir dist/node",
     "build": "parallelshell 'npm run dist' 'npm run doc'",
     "server": "http-server docs/",
-    "js": "watchify source/browser.js -t babelify --presets es2015 --outfile docs/bundle.js",
+    "js": "watchify source/browser.js -d -t babelify --presets es2015 --outfile docs/bundle.js",
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
-    "pretest": "npm run dist",
-    "test": "faucet test/**.js"
+    "test": "standard | snazzy"
   }
 }
