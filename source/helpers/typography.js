@@ -8,7 +8,6 @@ var md = require('markdown-it')({
   .use(require('markdown-it-emoji'))
   .use(require('markdown-it-anchor'))
 
-var typogr = require('typogr')
 var typeset = require('typeset')
 
 module.exports = function (site, cb) {
