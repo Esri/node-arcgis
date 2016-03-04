@@ -18,7 +18,7 @@
     "babelify": "^7.2.0",
     "blue-tape": "^0.1.11",
     "browserify": "^12.0.0",
-    "calcite-web": "git+ssh://git@github.com/esri/calcite-web.git#v0.15.1",
+    "calcite-web": "github:esri/calcite-web#v1.0.0-beta.6",
     "faucet": "0.0.1",
     "gh-release": "^2.0.2",
     "http-server": "^0.8.5",
