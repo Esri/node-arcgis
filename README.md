@@ -23,15 +23,6 @@ var ArcGIS = require('arcgis')
 var ago = ArcGIS(token)
 ```
 
-## Contributing
-
-[Open-2](CONTRIBUTING.md)
-
-## License
-
-[ISC](LICENSE.md)
-
-
 ## Project Goals
 
 This project should be more than just a wrapper around our current REST API, but an aspirational and forward looking attempt to create what the REST API _could_ be. Some of the primary targets are below:
@@ -64,7 +55,7 @@ This is framework agnostic. No dependencies, should work anywhere and everywhere
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+This is an OPEN Open Source Project.  Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](./CONTRIBUTING.md) for more information.
 
 ## Licensing
 Copyright 2016 Esri
@@ -75,7 +66,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/node-arcgis/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/node-arcgis/master/license.txt) file.
 
 [](Esri Tags: ArcGIS Web Platform Node Server Browser)
 [](Esri Language: JavaScript)
