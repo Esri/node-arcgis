@@ -4,7 +4,7 @@
   "version": "1.0.0-beta.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
-    "url": "https://github.com/esripdx/node-arcgis/issues"
+    "url": "https://github.com/esri/node-arcgis/issues"
   },
   "main": "dist/node/index.js",
   "dependencies": {
@@ -45,10 +45,10 @@
     "ArcGIS Online",
     "Portal for ArcGIS"
   ],
-  "license": "Apache-2.0",
+  "license": "Apache 2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/esripdx/node-arcgis.git"
+    "url": "https://github.com/esri/node-arcgis.git"
   },
   "watches": {
     "doc": [
