@@ -2,7 +2,6 @@
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
-
 [npm-image]: https://img.shields.io/npm/v/arcgis.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/arcgis
 [travis-image]: https://img.shields.io/travis/Esri/node-arcgis.svg?style=flat-square
@@ -10,21 +9,20 @@
 
 Node/Browser Javascript library for ArcGIS
 
-## Install
+## Usage
 
 ```
 npm install arcgis
 ```
 
-## Usage
-
 ```js
 var ArcGIS = require('arcgis')
-var ago = ArcGIS(token)
+var ago = ArcGIS({token: 'usertoken'})
 ```
 
 ## Documentation
 
+API Reference and Examples
 https://node-arcgis.surge.sh
 
 ## Contributing
@@ -35,6 +33,20 @@ https://node-arcgis.surge.sh
 
 [ISC](LICENSE.md)
 
+## Contributing
+
+This is an OPEN Open Source Project.  Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](./CONTRIBUTING.md) for more information.
+
+## Licensing
+Copyright 2016 Esri
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+> http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+A copy of the license is available in the repository's [license.txt](https://raw.github.com/Esri/node-arcgis/master/license.txt) file.
 
 ## Project Goals
 
@@ -65,21 +77,6 @@ This should run in node land on the server and in the browser as well. The same 
 ### Revolutionary Framework: Vanilla JS
 
 This is framework agnostic. No dependencies, should work anywhere and everywhere. No dojo, no angular, no jquery, no lodash, no nothin'.
-
-## Contributing
-
-Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](https://github.com/esri/contributing).
-
-## Licensing
-Copyright 2016 Esri
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
-> http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
-A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/node-arcgis/master/license.txt) file.
 
 [](Esri Tags: ArcGIS Web Platform Node Server Browser)
 [](Esri Language: JavaScript)
