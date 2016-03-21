@@ -27,14 +27,6 @@ https://node-arcgis.surge.sh
 
 ## Contributing
 
-[Open-2](CONTRIBUTING.md)
-
-## License
-
-[ISC](LICENSE.md)
-
-## Contributing
-
 This is an OPEN Open Source Project.  Anyone and everyone is welcome to contribute. Please see our [guidelines for contributing](./CONTRIBUTING.md) for more information.
 
 ## Licensing
