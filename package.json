@@ -1,7 +1,7 @@
 {
   "name": "arcgis",
   "description": "Node client library for ArcGIS",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.1",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
     "url": "https://github.com/esri/node-arcgis/issues"

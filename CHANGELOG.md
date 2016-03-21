@@ -2,9 +2,21 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Upcoming changes][unreleased]
+## [Upcoming changes](https://github.com/Esri/node-arcgis/compare/v1.0.1...HEAD)
 
-## 1.0.0-beta.1 - 04.03.2016
+## [1.0.1 - 04.18.2016](https://github.com/Esri/node-arcgis/compare/v1.0.0-beta.1...v1.0.1)
+
+### Fixed
+
+- A number of Organization methods
+- Recursive item methods (getting within getting, etc) add methods to item object.
+
+### Modified
+
+- `arcgis.request` callback pattern simplified
+- `end` processes needs not return callback, just calls it.
+
+## [1.0.0-beta.1 - 04.03.2016](https://github.com/Esri/node-arcgis/releases/tag/v1.0.0-beta.1)
 
 Initial Release. Methods using promises, or optional callbacks.
 
