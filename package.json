@@ -36,6 +36,7 @@
     "snazzy": "^3.0.0",
     "standard": "^6.0.7",
     "static-site": "^1.0.2",
+    "tap-spec": "^4.1.1",
     "typeset": "^0.1.6",
     "typogr": "^0.6.6",
     "uglifyify": "^3.0.1",
