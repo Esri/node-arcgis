@@ -60,8 +60,8 @@ test('End function with callback resolves properly', function (t) {
 test('End function with callback rejects properly', function (t) {
   t.plan(2)
   function cb (err, results) {
-    t.ok(err)
-    t.notOk(results)
+    t.ok(err, 'Should exist')
+    t.notOk(results, 'Should not exist')
   }
   var promise = fail()
   end(promise, cb)
@@ -70,8 +70,8 @@ test('End function with callback rejects properly', function (t) {
 test('End function with callback rejects esri failure properly', function (t) {
   t.plan(2)
   function cb (err, results) {
-    t.ok(err)
-    t.notOk(results)
+    t.ok(err, 'Should exist')
+    t.notOk(results, 'Should not exist')
   }
   var promise = esriFail()
   end(promise, cb)
