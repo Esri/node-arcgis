@@ -43,7 +43,7 @@ test('End function processes Esri Failure', function (t) {
   t.plan(1)
   var promise = esriFail()
   end(promise).catch(function (err) {
-    t.throws(err)
+    t.ok(err, 'End promise should catch error')
   })
 })
 
