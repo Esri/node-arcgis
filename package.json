@@ -36,6 +36,7 @@
     "snazzy": "^3.0.0",
     "standard": "^6.0.7",
     "static-site": "^1.0.2",
+    "surge": "^0.17.7",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
     "typeset": "^0.1.6",
@@ -70,15 +71,15 @@
     "predist": "mkdirp dist/node dist/browser",
     "dist": "browserify lib/index.js -t babelify --presets es2015 --outfile dist/browser/index.js",
     "postdist": "babel lib --out-dir dist/node",
-    "build": "parallelshell 'npm run dist' 'npm run doc'",
+    "build": "npm run dist && npm run doc",
     "server": "http-server docs/",
     "js": "watchify source/browser.js -d -t babelify --presets es2015 --outfile docs/bundle.js",
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
     "deploy": "surge docs/ --domain node-arcgis.surge.sh",
     "prerelease": "npm run build && zip -r node-arcgis.zip dist/",
-    "release": "parallelshell 'gh-release -a node-arcgis.zip' 'npm publish'",
-    "postrelease": "parallelshell 'rm node-arcgis.zip' 'npm run deploy'",
+    "release": "gh-release -a node-arcgis.zip && npm publish",
+    "postrelease": "rm node-arcgis.zip && npm run deploy",
     "test": "standard | snazzy && babel-tape-runner test/*.js | tap-spec"
   }
 }
