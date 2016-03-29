@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Upcoming changes](https://github.com/Esri/node-arcgis/compare/v1.0.1...HEAD)
+### [Unreleased](https://github.com/Esri/node-arcgis/compare/v1.0.1...HEAD)
 
 ## [1.0.1]
 
