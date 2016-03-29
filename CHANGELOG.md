@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Upcoming changes](https://github.com/Esri/node-arcgis/compare/v1.0.1...HEAD)
 
-## [1.0.1](https://github.com/Esri/node-arcgis/compare/v1.0.0-beta.1...v1.0.1)
+## [1.0.1]
 
 ### Fixed
 
@@ -16,9 +16,9 @@ All notable changes to this project will be documented in this file. This projec
 - `arcgis.request` callback pattern simplified
 - `end` processes needs not return callback, just calls it.
 
-## [1.0.0] - DEPRECATED
+## 1.0.0 - DEPRECATED
 
-## [1.0.0-beta.1](https://github.com/Esri/node-arcgis/releases/tag/v1.0.0-beta.1) - 04.03.2016
+## [1.0.0-beta.1]
 
 Initial Release. Methods using promises, or optional callbacks.
 
@@ -79,3 +79,6 @@ Initial Release. Methods using promises, or optional callbacks.
 		- Overview
 		- Publish
 		- Download
+
+[1.0.1]:(https://github.com/Esri/node-arcgis/compare/v1.0.0-beta.1...v1.0.1)
+[1.0.0-beta.1]:https://github.com/Esri/node-arcgis/releases/tag/v1.0.0-beta.1
