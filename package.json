@@ -76,7 +76,7 @@
     "js": "watchify source/browser.js -d -t babelify --presets es2015 --outfile docs/bundle.js",
     "sass": "node-sass ./source/sass -o ./docs/css --include-path node_modules/calcite-web/dist/sass",
     "predeploy": "browserify lib/index.js -t babelify --outfile docs/arcgis.js",
-    "deploy": "surge docs/ --domain node-arcgis.surge.sh",
+    "deploy": "./bin/deploy.sh",
     "prerelease": "npm run build && zip -r node-arcgis.zip dist/",
     "release": "gh-release -a node-arcgis.zip && npm publish",
     "postrelease": "rm node-arcgis.zip && npm run deploy",
