@@ -23,7 +23,7 @@ var ago = ArcGIS({token: 'usertoken'})
 ## Documentation
 
 API Reference and Examples
-https://node-arcgis.surge.sh
+https://esri.github.io/node-arcgis
 
 ## Contributing
 
