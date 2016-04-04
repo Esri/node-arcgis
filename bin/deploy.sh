@@ -2,10 +2,8 @@
 git branch -D gh-pages
 git checkout -b gh-pages
 npm install
-npm run build -- --PRD
-npm run cp
-npm run sass
-cp -r build/ ./
+npm run doc -- --PRD
+cp -r docs/ ./
 rm -r node_modules
 git add -f *
 git commit -m "deploy"
