@@ -77,7 +77,7 @@ arcgis.item('id', cb)
 
 ***
 
-# `ArcGIS`
+# ArcGIS
 
 > There are a number of ways to authenticate with the platform - which include support for federated accounts and things like that. If you need anything other than a token, open an issue. We'll get there!
 
@@ -108,7 +108,6 @@ Initialize the client library session to access the API either as an anonymous u
 }
 ```
 
-######
 ###### **Example**
 
 > You can probably set up multiple of these suckers in one session to have access to public and private stuff at the same time.
@@ -129,7 +128,7 @@ var serverGIS = ArcGIS({
 
 ---
 
-## `request`
+## request
 
 > Request has a lot of functionality that I've been told we need, but I'm really not sure that any of it is. Right now, this bare-bones request works fine. As it stops working fine, we'll add more to it.
 
@@ -164,7 +163,7 @@ arcgis.request()
 
 ---
 
-## `search`
+## search
 
 > this is growing in support as needed
 
@@ -213,7 +212,7 @@ arcgis.search(options)
 
 ---
 
-## `user`
+## user
 
 > Every method off `ArcGIS()` returns a promise, and involve making requests to the domain.
 
@@ -268,7 +267,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.update`
+### user.update
 
 Takes an options object, and sets the users information to the options provided. Returns an error, or the updated user object.
 
@@ -302,7 +301,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.content`
+### user.content
 
 > This is _not_ using the user content method from the ArcGIS API. Instead, this is using a the [`search`](#search) method and pre-filling the parameters to locate the current user's content. This is done to have all content calls share response properties. The raw user content api call is the only call in the platform that does not return a paginated results object.
 
@@ -346,7 +345,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.tags`
+### user.tags
 
 All content has a set of tags associated with it. This call returns all the tags a user has applied to their content, with counts for the number of time each tag appears.
 
@@ -375,7 +374,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.favorites`
+### user.favorites
 
 Users store their their favorite items in a group associated with their account. Getting a users favorites is similar to getting any other groups content.
 
@@ -414,7 +413,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.enabled`
+### user.enabled
 
 Enables and disables the user within the organization. Passing no boolean to the method will return the current state of the user.
 
@@ -442,7 +441,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.delete`
+### user.delete
 
 Deletes the user. This cannot be undone.
 
@@ -460,7 +459,7 @@ arcgis.user(username)
 })
 ```
 
-### `user.create`
+### user.create
 
 Creates a new user in your organization.
 
@@ -477,7 +476,7 @@ arcgis.user.create(options)
 
 ---
 
-## `organization`
+## organization
 
 > Organizations are the central entities in the ArcGIS platform. All users belong to an Organization, even [developer accounts](http://developers.arcgis.com/plans), which belong to an organization with a single user.
 
@@ -535,7 +534,7 @@ arcgis.organization()
 })
 ```
 
-### `organization.update`
+### organization.update
 
 > All options that are settable with this method have yet to be fully plumbed.
 
@@ -573,7 +572,7 @@ arcgis.organization()
 })
 ```
 
-### `organization.members`
+### organization.members
 
 Gets the members within an organization. Takes a number, and returns as a paginated list with that number of members per page. Returns 100 members per page by default.
 
@@ -615,7 +614,7 @@ arcgis.organization()
 })
 ```
 
-### `organization.content`
+### organization.content
 
 Gets the items in an or­ga­ni­za­tion. Takes a num­ber, and re­turns as a pag­i­nated list with that number of items per page. Re­turns 100 items per page by de­fault, starting at the first page of results.
 
@@ -660,7 +659,7 @@ arcgis.organization()
 })
 ```
 
-### `organization.featured`
+### organization.featured
 
 Organizations can add items to a group that is for specially 'featured content', items that may be common or high-traffic within the organization. This group is displayed on the orgs home page.
 
@@ -695,7 +694,7 @@ arcgis.organization()
 
 ---
 
-## `group`
+## group
 
 > In the ArcGIS platform, groups are used to aggregate users and content together. They can contain items and users from outside organizations, be authorized to access applictions and content purchased from [the marketplace](https://marketplace.arcgis.com/), and are used to manage things like user favorites and featured content.
 
@@ -759,7 +758,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.update`
+### group.update
 
 Updates the information for a group.
 
@@ -782,7 +781,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.content`
+### group.content
 
 > This item results object is similar to a [search](#search) results object.
 
@@ -824,7 +823,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.members`
+### group.members
 
 > This item is not paginated, not similar to a search results object. Comme se, comme ca I guess.
 
@@ -855,7 +854,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.removeUsers`
+### group.removeUsers
 
 > [`addUsers`](#groupaddusers), [`inviteUsers`](#groupinviteusers), and [`removeUsers`](#groupremoveusers) can all accept an array of usernames, or a single username as a string.
 
@@ -884,7 +883,7 @@ var group = arcgis.group(id)
 })
 ```
 
-### `group.addUsers`
+### group.addUsers
 
 Users can be added to a group. The groups administrators and owner can add any user to the group. Members without this access can only add other members within the same organization to the group.
 
@@ -912,7 +911,7 @@ var group = arcgis.group(id)
 })
 ```
 
-### `group.inviteUsers`
+### group.inviteUsers
 
 Users can be invited to join a group. This method sends an email to the address on record for the users given. All users in a group can invite other users.
 
@@ -949,7 +948,7 @@ var group = arcgis.group(id)
 })
 ```
 
-### `group.join`
+### group.join
 
 Creates a request to join a group for the currently authenticated user.
 
@@ -975,7 +974,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.leave`
+### group.leave
 
 Removes the currently authenticated user from the group.
 
@@ -1001,7 +1000,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.changeOwner`
+### group.changeOwner
 
 > If you are an org admin, you can always perform this if you are a member of the group. Otherwise, only admins can do this maybe?
 
@@ -1032,7 +1031,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.delete`
+### group.delete
 
 Deletes the group. This does not delete content or users, just the group that aggregates them. This is permanent.
 
@@ -1058,7 +1057,7 @@ arcgis.group(id)
 })
 ```
 
-### `group.create`
+### group.create
 
 > Creating a new group is a little different than the other group methods - one does not pass in a group Id, so it can be called off `group` immediately.
 
@@ -1093,7 +1092,7 @@ arcgis.group.create(options)
 
 ---
 
-## `item`
+## item
 
 > Item is a generic function that determines the type of item, and adds the appropriate methods from the functions below. If you know your item type, you can call the appropriate function below directly.
 
@@ -1168,7 +1167,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.update`
+### item.update
 
 Updates the information for an item.
 
@@ -1200,7 +1199,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.permissions`
+### item.permissions
 
 > In this case, 'private' means that the only the user **and admins in that users org** can view the item.
 
@@ -1237,7 +1236,7 @@ arcgis.item(itemId)
 ```
 
 
-### `item.rate`
+### item.rate
 
 > A user cannot rate their own item.
 
@@ -1261,7 +1260,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.isFavorite`
+### item.isFavorite
 
 > Checking if an item is currently in the your favorites group takes a couple of extra calls, so we don't return that with the item itself.
 
@@ -1282,7 +1281,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.favorite`
+### item.favorite
 
 > A users `favorites` are a [group](#group) that only that user is a member of. Presumably other users can be added to this. In most interfaces, this group is excluded from the list of other groups.
 
@@ -1306,7 +1305,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.groups`
+### item.groups
 
 > An item being in a group is often referred to as being 'shared with' that group.
 
@@ -1326,7 +1325,7 @@ arcgis.item(itemId)
 })
 ```
 
-### `item.changeOwner`
+### item.changeOwner
 
 > If the permissions on the item are set to private, this action could remove the item from your view entirely. This cannot be undone unless your user has admin permissions.
 
@@ -1351,7 +1350,7 @@ arcgis.item(itemId)
 }
 ```
 
-### `item.deleteProtected`
+### item.deleteProtected
 
 Sets a boolean on the item that allows the item to be deleted.If set to `true`, this needs to be changed to `false` before [`item.delete`](#itemdelete) will function.
 
@@ -1373,7 +1372,7 @@ arcgis.item(itemId)
 }
 ```
 
-### `item.delete`
+### item.delete
 
 > For real, once you do this, you can't undo it.
 
@@ -1395,7 +1394,7 @@ arcgis.item(itemId)
 
 ---
 
-## `layer`
+## layer
 
 > For example, if you know your item id is for a layer, you can call `arcgis.layer(itemid)`. If aren't sure, than `arcgis.item(itemid)` will check, and return the appropriate type.
 
@@ -1425,7 +1424,7 @@ arcgis.layer('layerId')
 })
 ```
 
-### `layer.data`
+### layer.data
 
 Layers have geographic data - a set of features with properties. This method returns that geographic data as ... something?
 
@@ -1469,7 +1468,7 @@ arcgis.layer(itemId)
 
 ---
 
-## `map`
+## map
 
 > These map functions are largely aspirational.
 
@@ -1481,7 +1480,7 @@ arcgis.layer(itemId)
 }
 ```
 
-### `map.layers`
+### map.layers
 
 Returns all the layers on the map, in order from back to front. Can also be used to reorder layers on the map.
 
@@ -1538,7 +1537,7 @@ arcgis.map(itemId)
 
 ---
 
-## `application`
+## application
 
 `Application` returns an [`item`](#item) with additional methods.
 
@@ -1550,7 +1549,7 @@ arcgis.map(itemId)
 }
 ```
 
-### `application.register`
+### application.register
 
 Registers the application with the platform, providing access to oAuth methods.
 
@@ -1569,7 +1568,7 @@ arcgis.application(appid)
 })
 ```
 
-### `application.getOAuth`
+### application.getOAuth
 
 Gets the applications oAuth information, including client id and secret.
 
@@ -1588,7 +1587,7 @@ arcgis.application(appid)
 })
 ```
 
-### `application.getToken`
+### application.getToken
 
 Gets a valid token from the app. This token can used to access services.
 
@@ -1609,7 +1608,7 @@ arcgis.application(appid)
 
 ---
 
-## `file`
+## file
 
 `File` returns an [`item`](#item) with additional methods.
 
@@ -1620,7 +1619,7 @@ arcgis.application(appid)
 }
 ```
 
-### `file.publish`
+### file.publish
 
 If the file contains geographic data - csv, geojson, shapefile, geodatabase, etc - it can be turned into a layer that you can use on maps. Results in a confirmation object that contains information on the new layer.
 
@@ -1645,7 +1644,7 @@ Promise that resolves to an object with array of processes
 }
 ```
 
-### `file.download`
+### file.download
 
 Downloads the file.
 

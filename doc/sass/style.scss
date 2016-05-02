@@ -21,8 +21,21 @@ blockquote {
   }
 }
 
-h1, h2, h3 {
-  padding-top: $baseline*1.5;
+main {
+  h1, h2, h3 {
+    padding-top: $baseline*1.5;
+    font-family: $code-family;
+    position: relative;
+  }
+}
+
+.header-anchor {
+  color: $lightest-gray;
+  left: -1em;
+  position: absolute;
+  &:hover {
+    color: $lighter-gray;
+  }
 }
 
 h3 {
