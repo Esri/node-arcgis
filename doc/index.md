@@ -114,15 +114,15 @@ Initialize the client library session to access the API either as an anonymous u
 
 ```
 var ArcGIS = require('arcgis')
-<!-- Create an anonymous session with www.arcgis.com -->
+// Create an anonymous session with www.arcgis.com
 var anonAGO = ArcGIS()
-<!-- Create an authenticated session with www.arcgis.com -->
+// Create an authenticated session with www.arcgis.com
 var authAGO = ArcGIS({
-	token: token
+  token: token
 })
-<!-- Creat an anonymous session with ArcGIS Server -->
+// Creat an anonymous session with ArcGIS Server
 var serverGIS = ArcGIS({
-	domain: 'myGIS.myurl.com'
+  domain: 'myGIS.myurl.com'
 })
 ```
 
@@ -156,8 +156,8 @@ Promise that resolves to whatever the endpoint returns.
 ```
 arcgis.request()
 .then( function (results) {
-    <!-- This calls the endpoint self, and returns a version number of the API. -->
-	console.log(results)
+  // This calls the endpoint self, and returns a version number of the API.
+  console.log(results)
 })
 ```
 
@@ -200,8 +200,8 @@ Promise that resolves to a Paginated search results Object
 ###### **Example**
 ```
 var options = {
-	query: 'owner:NikolasWise AND (type:"Feature Service")',
-	num: 100
+  query: 'owner:NikolasWise AND (type:"Feature Service")',
+  num: 100
 }
 arcgis.search(options)
 .then(function(results) {
@@ -240,7 +240,7 @@ JSON user object with management methods.
   email: String,            // email address of user
   culture: String,          // two letter lang code ex: 'en'
   description: String,      // text description set by the user
-  privileges: Array, 		 // Strings that denote actions
+  privileges: Array,     // Strings that denote actions
   favGroupId: String,       // ID of user favorites group
   groups: Array,            // Group objects associated with the user
   orgId: String,            // ID of the org the user belongs too
@@ -338,7 +338,7 @@ Promise that resolves to a [`search` results object](#search).
 ```
 arcgis.user(username)
 .then(function (user) {
-	return user.content()
+  return user.content()
 })
 .then(function (results) {
   console.log(results)
@@ -393,12 +393,12 @@ Promise that resolves to a [`search` results object](#search).
 
 ```
 {
-	num: Number,       // Total number of items that could be returned
-	total: Number,     // Total number of items in favorites
-	query: String,     // Search string used to get these
-	start: Number,     // Which item this page starts with
-	nextStart: Number, // Which item next page starts with.
-	results: Array     // Item objects
+  num: Number,       // Total number of items that could be returned
+  total: Number,     // Total number of items in favorites
+  query: String,     // Search string used to get these
+  start: Number,     // Which item this page starts with
+  nextStart: Number, // Which item next page starts with.
+  results: Array     // Item objects
 }
 ```
 
@@ -406,7 +406,7 @@ Promise that resolves to a [`search` results object](#search).
 ```
 arcgis.user(username)
 .then(function (user) {
-	return user.favorites()
+  return user.favorites()
 })
 .then(function (results) {
   console.log(results)
@@ -434,7 +434,7 @@ Promise that resolves to the updated [`user`](#user) object.
 ```
 arcgis.user(username)
 .then(function (user) {
-	return user.enabled(false)
+  return user.enabled(false)
 })
 .then(function (user) {
   console.log(user)
@@ -452,7 +452,7 @@ Promise that resolves to an confirmation object.
 ```
 arcgis.user(username)
 .then(function (user) {
-	return user.delete()
+  return user.delete()
 })
 .then(function (confirmation) {
   console.log(confirmation)
@@ -607,10 +607,10 @@ Promise that resolves to the [`organization` object](#organization)
 ```
 arcgis.organization()
 .then(function(organization) {
-	return organization.members()
+  return organization.members()
 })
 .then(function (members) {
-	console.log(members)
+  console.log(members)
 })
 ```
 
@@ -652,10 +652,10 @@ Promise that resolves to the [`search` results object](#search)
 ```
 arcgis.organization()
 .then(function (organization) {
-	return organization.content()
+  return organization.content()
 })
 .then(function(content) {
-	console.log(content)
+  console.log(content)
 })
 ```
 
@@ -685,10 +685,10 @@ Promise that resolves to the [`search` results object](#search)
 ```
 arcgis.organization()
 .then(function (organization) {
-	return organization.featured()
+  return organization.featured()
 })
 .then(function(featured) {
-	console.log(featured)
+  console.log(featured)
 })
 ```
 
@@ -733,9 +733,9 @@ Promise that resolves to group object with management methods.
   thumbnail: String,        //
   title: String,            //
   userMembership: {         //
-  	applications: Number    //
-  	memberType: String,     //
-  	username: String,       //
+    applications: Number    //
+    memberType: String,     //
+    username: String,       //
   }                         //
   update: function (),      // Updates the group information
   content: function (),     // Gets the content in the group
@@ -754,7 +754,7 @@ Promise that resolves to group object with management methods.
 ```
 arcgis.group(id)
 .then(function(group) {
-	console.log(group)
+  console.log(group)
 })
 ```
 
@@ -774,10 +774,10 @@ Promise that resolves to updated [`group` object](#group)
 ```
 arcgis.group(id)
 .then(function (group) {
-	return group.update({ title: "My New Group Name" })
+  return group.update({ title: "My New Group Name" })
 })
 .then(function (group) {
-	console.log(group)
+  console.log(group)
 })
 ```
 
@@ -816,10 +816,10 @@ Promise that resolves to JSON [earch results](#search) Object
 ```
 arcgis.group(id)
 .then(function (group) {
-	return group.content()
+  return group.content()
 })
 .then(function (content) {
-	console.log(content)
+  console.log(content)
 })
 ```
 
@@ -1050,10 +1050,10 @@ Promise that resolves to a JSON confirmation Object
 ```
 arcgis.group(id)
 .then(function (group) {
-	return group.delete()
+  return group.delete()
 })
 .then(function (confirmation) {
-	console.log(confirmation)
+  console.log(confirmation)
 })
 ```
 
@@ -1225,7 +1225,7 @@ arcgis.item(itemId)
     access: 'private',
     groups: [
       group1id,
-	  group2id
+    group2id
     ]
   }
   return item.permissions(options)
@@ -1408,10 +1408,10 @@ Promise that resolves JSON Object with item information and methods.
 
 ```
 {
-	data: Function,          // Geographic data in the layer
-	export: Function,        // Exports to defined format
-	generateTiles: Function, // Creates a tile layer
-	usage: Function          // Reports credits, requests
+  data: Function,          // Geographic data in the layer
+  export: Function,        // Exports to defined format
+  generateTiles: Function, // Creates a tile layer
+  usage: Function          // Reports credits, requests
 }
 ```
 
@@ -1448,8 +1448,8 @@ Promise that resolves to a JSON Object
   globalIdFieldName: String,
   objectIdFieldName: String,
   spatialReference: {
-	latestWkid: String,
-	wkid: String
+  latestWkid: String,
+  wkid: String
   }
 }
 ```
@@ -1543,9 +1543,9 @@ arcgis.map(itemId)
 
 ```
 {
-	register: Function,     // Registers app with the portal
-	getOAuth: Function,     // Gets oAtuh data for app
-	getToken: Function      // Creates a token for the app
+  register: Function,     // Registers app with the portal
+  getOAuth: Function,     // Gets oAtuh data for app
+  getToken: Function      // Creates a token for the app
 }
 ```
 
@@ -1640,7 +1640,7 @@ Promise that resolves to an object with array of processes
       serviceurl: String,
       size: Number,
       type: String
-	}
+  }
 }
 ```
 
@@ -1649,4 +1649,3 @@ Promise that resolves to an object with array of processes
 Downloads the file.
 
 ---
-
