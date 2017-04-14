@@ -2,6 +2,7 @@
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
+
 [npm-image]: https://img.shields.io/npm/v/arcgis.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/arcgis
 [travis-image]: https://img.shields.io/travis/Esri/node-arcgis.svg?style=flat-square
