@@ -38,6 +38,7 @@ reference:
     sections:
       - title: Item
         methods:
+          - Create
           - Update
           - Permissions
           - Rate
@@ -1164,6 +1165,44 @@ Promise that resolves JSON Object with item information and methods.
 arcgis.item(itemId)
 .then(function (item) {
   console.log(item)
+})
+```
+
+### group.create
+
+> Creating a new group is a little different than the other group methods - one does not pass in a group Id, so it can be called off `group` immediately.
+
+**Params:**
+JSON Options object
+
+| Options          | Default   | Description             |
+| ---------------- | --------- | ----------------------- |
+| title            | none      | String. Name of the group
+| description      | none      | String. Description of the group
+| snippet          | none      | String. > 256 character summary
+| tags             | none      | Array. tags for group
+| access           | 'private' | String. 'private', 'public', or 'org'
+| url              | none      | String. Web URI
+| licenseInfo      | none      | String. access and usage permissions or constraints
+| thumbnail        | none      | String. URL to a thumbnail
+| extent           | none      | String. minimum bounding extent
+| type             | none      | String. Type of item from all Portal types
+
+
+###### **Example:**
+
+```
+var options = {
+  title: 'My New Item',
+  description: 'This item is both new and mine',
+  tags: ['my', 'new', 'cool', 'item'],
+  type: 'Web Mapping Application',
+  access: 'public',
+  owner: 'myuser'
+}
+arcgis.item.create(options)
+.then(function (newGroup) {
+  console.log(newGroup)
 })
 ```
 
