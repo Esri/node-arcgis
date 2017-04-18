@@ -1168,9 +1168,31 @@ arcgis.item(itemId)
 })
 ```
 
-### group.create
+### item.data
 
-> Creating a new group is a little different than the other group methods - one does not pass in a group Id, so it can be called off `group` immediately.
+Get the data content of the item such as WebMap or App configuration.
+
+**Params:**
+String of an Item ID.
+
+**Returns:**
+Promise that resolves JSON Object with item data.
+
+###### **Example**
+
+```
+arcgis.item(itemId)
+.then(function (item) {
+  return item.data()
+})
+.then(function (data) {
+  console.log(data)
+})
+```
+
+### item.create
+
+> Creates a new Item and optional data
 
 **Params:**
 JSON Options object
@@ -1183,6 +1205,7 @@ JSON Options object
 | tags             | none      | Array. tags for group
 | access           | 'private' | String. 'private', 'public', or 'org'
 | url              | none      | String. Web URI
+| data             | none      | String. Data content such as WebMap JSON or App configuration
 | licenseInfo      | none      | String. access and usage permissions or constraints
 | thumbnail        | none      | String. URL to a thumbnail
 | extent           | none      | String. minimum bounding extent
