@@ -1220,12 +1220,11 @@ var options = {
   description: 'This item is both new and mine',
   tags: ['my', 'new', 'cool', 'item'],
   type: 'Web Mapping Application',
-  access: 'public',
   owner: 'myuser'
 }
 arcgis.item.create(options)
-.then(function (newGroup) {
-  console.log(newGroup)
+.then(function (newItem) {
+  console.log({'id': newItem.id, 'title': newItem.title})
 })
 ```
 
