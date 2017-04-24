@@ -201,7 +201,7 @@ Promise that resolves to a paginated search results Object
 ###### **Example**
 ```
 var options = {
-  query: 'owner:NikolasWise AND (type:"Feature Service")',
+  queryString: 'owner:NikolasWise AND (type:"Feature Service")',
   num: 100
 }
 arcgis.search(options)
