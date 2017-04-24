@@ -38,6 +38,7 @@ reference:
     sections:
       - title: Item
         methods:
+          - Create
           - Update
           - Permissions
           - Rate
@@ -65,7 +66,7 @@ reference:
           - Download
 ---
 
-The basic structure of the ArcGIS Platform is an [organization](#organization) that contains a number of [users](#user). Each [user](#user) can own a number of [items](#item). [Items](#item) come in 4 basic types - [layers](#layer), [maps](#map) [applications](#application), and [files](#file). [Items](#item) can be collected together into [groups](#group), regardless of what [user](#user) or [organization](#organization) they are associated with. [Groups](#group) can include a number of [users](#user), who than have access to that [groups](#group) [items](#item).
+The basic structure of the ArcGIS Platform is an [organization](#organization) with a number of [users](#user). Each [user](#user) can own a number of [items](#item). [Items](#item) come in four basic types - [layers](#layer), [maps](#map) [applications](#application), and [files](#file). [Items](#item) can be collected together into [groups](#group), regardless of what [user](#user) or [organization](#organization) they are associated with. [Groups](#group) can include a number of [users](#user), who than have access to that [groups](#group) [items](#item).
 
 All methods in the library besides the initial `Arcgis()` function return a Promise by default. However, one can also use callbacks by passing a function as the last parameter on each method. For example, getting an [item](#item) by ID can be done in two ways:
 
@@ -130,7 +131,7 @@ var serverGIS = ArcGIS({
 
 ## request
 
-> Request has a lot of functionality that I've been told we need, but I'm really not sure that any of it is. Right now, this bare-bones request works fine. As it stops working fine, we'll add more to it.
+> Request has a lot of functionality that I've been told we need, but I'm really not sure what any of it is. Right now, this bare-bones request works fine. We'll add more to it as needed.
 
 Request uses information in the client to make calls to the API. It takes a url substring, a JSON object, and a boolean.
 
@@ -174,14 +175,14 @@ Options object
 
 | Option | Default | Description |
 | --- | --- | --- |
-| query | '\"\"'' | String, what to search for. Can be [complicated.](http://doc.arcgis.com/en/arcgis-online/reference/search.htm) |
+| queryString | '\"\"'' | String, what to search for. Can be [complicated](http://doc.arcgis.com/en/arcgis-online/reference/search.htm). |
 | num | 100 | Results per page |
 | page | 0 | Page of results to return |
 | sort | 'created' | Field to sort results on |
 | order | 'desc' | 'asc' or 'desc', ascending or descending |
 
 **Results:**
-Promise that resolves to a Paginated search results Object
+Promise that resolves to a paginated search results Object
 
 ```
 {
@@ -200,7 +201,7 @@ Promise that resolves to a Paginated search results Object
 ###### **Example**
 ```
 var options = {
-  query: 'owner:NikolasWise AND (type:"Feature Service")',
+  queryString: 'owner:NikolasWise AND (type:"Feature Service")',
   num: 100
 }
 arcgis.search(options)
@@ -214,9 +215,9 @@ arcgis.search(options)
 
 ## user
 
-> Every method off `ArcGIS()` returns a promise, and involve making requests to the domain.
+> Every method off `ArcGIS()` returns a promise, and involves making web requests to the domain.
 
-This object us used to interact with a user - your own user account, other users in your organization, or publicly available users that are not associated with your organization. This method is also used to create new users by inviting them to your organization.
+This object is used to interact with a user - your own user account, other users in your organization, or publicly available users that are not associated with your organization. This method is also used to create new users by inviting them to your organization.
 
 **Params:**
 A username string
@@ -538,7 +539,7 @@ arcgis.organization()
 
 > All options that are settable with this method have yet to be fully plumbed.
 
-Takes an op­tions ob­ject, and sets the organizations in­for­ma­tion to the op­tions pro­vided. Re­turns an er­ror, or the up­dated organization ob­ject.
+Takes an op­tions ob­ject, and sets the organization's in­for­ma­tion to the op­tions pro­vided. Re­turns an er­ror, or the up­dated organization ob­ject.
 
 **Params:**
 Options JSON Object
@@ -1164,6 +1165,65 @@ Promise that resolves JSON Object with item information and methods.
 arcgis.item(itemId)
 .then(function (item) {
   console.log(item)
+})
+```
+
+### item.data
+
+Get the data content of the item such as WebMap or App configuration.
+
+**Params:**
+String of an Item ID.
+
+**Returns:**
+Promise that resolves JSON Object with item data.
+
+###### **Example**
+
+```
+arcgis.item(itemId)
+.then(function (item) {
+  return item.data()
+})
+.then(function (data) {
+  console.log(data)
+})
+```
+
+### item.create
+
+> Creates a new Item and optional data
+
+**Params:**
+JSON Options object
+
+| Options          | Default   | Description             |
+| ---------------- | --------- | ----------------------- |
+| title            | none      | String. Name of the group
+| description      | none      | String. Description of the group
+| snippet          | none      | String. > 256 character summary
+| tags             | none      | Array. tags for group
+| url              | none      | String. Web URI
+| data             | none      | String. Data content such as WebMap JSON or App configuration
+| licenseInfo      | none      | String. access and usage permissions or constraints
+| thumbnail        | none      | String. URL to a thumbnail
+| extent           | none      | String. minimum bounding extent
+| type             | none      | String. Type of item from all Portal types
+
+
+###### **Example:**
+
+```
+var options = {
+  title: 'My New Item',
+  description: 'This item is both new and mine',
+  tags: ['my', 'new', 'cool', 'item'],
+  type: 'Web Mapping Application',
+  owner: 'myuser'
+}
+arcgis.item.create(options)
+.then(function (newItem) {
+  console.log({'id': newItem.id, 'title': newItem.title})
 })
 ```
 
