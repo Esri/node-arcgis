@@ -70,6 +70,3 @@ This should run in node land on the server and in the browser as well. The same 
 ### Revolutionary Framework: Vanilla JS
 
 This is framework agnostic. No dependencies, should work anywhere and everywhere. No dojo, no angular, no jquery, no lodash, no nothin'.
-
-[](Esri Tags: ArcGIS Web Platform Node Server Browser)
-[](Esri Language: JavaScript)

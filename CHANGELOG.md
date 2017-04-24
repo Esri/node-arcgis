@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
-### [Unreleased](https://github.com/Esri/node-arcgis/compare/v1.0.1...HEAD)
+### [Unreleased](unreleased)
+
+## [1.0.2]
+
+### Added
+
+- `item.create`
+- `item.data`
+
+### Fixed
+
+- Updated Search doc to identify `queryString` as the supported input parameter.
 
 ## [1.0.1]
 
@@ -80,5 +91,7 @@ Initial Release. Methods using promises, or optional callbacks.
 		- Publish
 		- Download
 
-[1.0.1]:(https://github.com/Esri/node-arcgis/compare/v1.0.0-beta.1...v1.0.1)
-[1.0.0-beta.1]:https://github.com/Esri/node-arcgis/releases/tag/v1.0.0-beta.1
+[unreleased]: https://github.com/Esri/node-arcgis/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/Esri/node-arcgis/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Esri/node-arcgis/compare/v1.0.0-beta.1...v1.0.1
+[1.0.0-beta.1]: https://github.com/Esri/node-arcgis/releases/tag/v1.0.0-beta.1
