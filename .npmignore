@@ -4,3 +4,5 @@ docs/
 test/bundle.js
 test/credentials.json
 talk
+
+local.js

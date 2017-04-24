@@ -1,14 +1,15 @@
 {
   "name": "arcgis",
   "description": "Node client library for ArcGIS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Nikolas Wise <nikolaswise@gmail.com>",
   "bugs": {
     "url": "https://github.com/esri/node-arcgis/issues"
   },
   "contributors": [
     "Nikolas Wise <nikolaswise@gmail.com>",
-    "John Gravois <jgravois@esri.com>"
+    "John Gravois <jgravois@esri.com>",
+    "Andrew Turner <andrew@esri.com>"
   ],
   "main": "dist/node/index.js",
   "dependencies": {
