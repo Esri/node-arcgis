@@ -1,4 +1,6 @@
-# node-arcgis
+# node-arcgis (Deprecated)
+
+Current development efforts are being being invested in [`arcgis-rest-js`](https://github.com/Esri/arcgis-rest-js). Please consider upgrading.
 
 [![npm][npm-image]][npm-url]
 [![travis][travis-image]][travis-url]
