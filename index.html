@@ -1,0 +1,2071 @@
+<!doctype html lang="en">
+<!--[if lt IE 9]>  <html class="ie lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9"> <![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Node ArcGIS</title>
+    <link rel="stylesheet" href="/node-arcgis/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="grid-container">
+      <!-- aside.column6 -->
+      <!--   room on either side of text block  -->
+      <!--   left side could be for sticky navigation -->
+      <!--   right side could be for notations -->
+
+      <section class="markdown-body column-12 pre-6 post-6">
+        <nav class="trailer-2 leader-half">
+          <a href="https://github.com/Esri/node-arcgis/">Github</a>
+          <span class="right">
+            <a href="https://www.npmjs.com/package/arcgis"><img src="https://camo.githubusercontent.com/6106212e06906cdef0ddccba937e2b9cd84bd09f/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f6172636769732e7376673f7374796c653d666c61742d737175617265" alt="npm" data-canonical-src="https://img.shields.io/npm/v/arcgis.svg?style=flat-square" style="max-width:100%;"></a>
+            <a href="https://travis-ci.org/Esri/node-arcgis"><img src="https://img.shields.io/travis/Esri/node-arcgis.svg?style=flat-square" alt="travis" data-canonical-src="https://img.shields.io/travis/Esri/node-arcgis.svg?style=flat-square" style="max-width:100%;"></a>
+          </span>
+        </nav>
+
+        <aside>
+          <h1 class="trailer-half">Node ArcGIS (Deprecated)</h1>
+          <pre class="trailer-1"><code>$ npm install arcgis</code></pre>
+
+          <h3>This libray has been retired. Please consider migrating to <a href="https://esri.github.io/arcgis-rest-js">arcgis-rest-js</a>.</h3>
+
+          <p class="font-size-0 trailer-1">Client library for interfacing with ArcGIS Online and Enterprise. Works in server-side Node environments as well as the browser. Provides a set of convenience methods, and structures the underlying REST API concepts and behaviors to align closer with the expectations of an API in the node environment.</p>
+
+
+
+          <nav>
+            <h2 class="trailer-1">Reference</h2>
+            
+              <hr class="leader-0">
+              <h4 class="leader-half font-size-2">Library Methods</h4>
+              <div class="block-group block-group-3-up tablet-block-group-2-up phone-block-group-1-up">
+                
+                  <div class="block">
+                    <h5 class="trailer-0">ArcGIS</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#arcgis">Overview</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Request</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#request">Overview</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Search</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#search">Overview</a></li>
+                      
+                    </ul>
+                  </div>
+                
+              </div>
+            
+              <hr class="leader-0">
+              <h4 class="leader-half font-size-2">Platform Management</h4>
+              <div class="block-group block-group-3-up tablet-block-group-2-up phone-block-group-1-up">
+                
+                  <div class="block">
+                    <h5 class="trailer-0">User</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#user">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#userupdate">Update</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#usercontent">Content</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#usertags">Tags</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#userfavorites">Favorites</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#userenabled">Enabled</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#userdelete">Delete</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Organization</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#organization">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#organizationupdate">Update</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#organizationmembers">Members</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#organizationcontent">Content</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#organizationfeatured">Featured</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Group</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#group">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupupdate">Update</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupcontent">Content</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupmembers">Members</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupremoveusers">RemoveUsers</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupaddusers">AddUsers</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupinviteusers">InviteUsers</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupjoin">Join</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupleave">Leave</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupchangeowner">ChangeOwner</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupdelete">Delete</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#groupcreate">Create</a></li>
+                      
+                    </ul>
+                  </div>
+                
+              </div>
+            
+              <hr class="leader-0">
+              <h4 class="leader-half font-size-2">Items</h4>
+              <div class="block-group block-group-3-up tablet-block-group-2-up phone-block-group-1-up">
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Item</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#item">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemcreate">Create</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemupdate">Update</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itempermissions">Permissions</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemrate">Rate</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemisfavorite">IsFavorite</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemfavorite">Favorite</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemgroups">Groups</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemchangeowner">ChangeOwner</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemdeleteprotected">DeleteProtected</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#itemdelete">Delete</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Layer</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#layer">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#layerdata">Data</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#layerexport">Export</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Map</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#map">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#maplayers">Layers</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">Application</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#application">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#applicationregister">Register</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#applicationgetoauth">GetOAuth</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#applicationgettoken">GetToken</a></li>
+                      
+                    </ul>
+                  </div>
+                
+                  <div class="block">
+                    <h5 class="trailer-0">File</h5>
+                    <ul class="list-plain trailer-1">
+                      <li class="font-size--2 trailer-0 leader-0"><a href="#file">Overview</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#filepublish">Publish</a></li>
+                      
+                        <li class="font-size--2 trailer-0 leader-0"><a href="#filedownload">Download</a></li>
+                      
+                    </ul>
+                  </div>
+                
+              </div>
+            
+          </nav>
+        </aside>
+      </section>
+
+      <aside class="column-5 post-1 js-sticky scroll-show leader-1" data-top=12 aria-role="complementary">
+        <div class="side-nav tablet-hide">
+          
+            <h4 class="side-nav-title">Library Methods</h4>
+            
+              <a href="#arcgis" class="side-nav-link">ArcGIS</a>
+            
+              <a href="#request" class="side-nav-link">Request</a>
+            
+              <a href="#search" class="side-nav-link">Search</a>
+            
+          
+            <h4 class="side-nav-title">Platform Management</h4>
+            
+              <a href="#user" class="side-nav-link">User</a>
+            
+              <a href="#organization" class="side-nav-link">Organization</a>
+            
+              <a href="#group" class="side-nav-link">Group</a>
+            
+          
+            <h4 class="side-nav-title">Items</h4>
+            
+              <a href="#item" class="side-nav-link">Item</a>
+            
+              <a href="#layer" class="side-nav-link">Layer</a>
+            
+              <a href="#map" class="side-nav-link">Map</a>
+            
+              <a href="#application" class="side-nav-link">Application</a>
+            
+              <a href="#file" class="side-nav-link">File</a>
+            
+          
+        </div>
+        <a href="#" class="btn btn-transparent btn-small leader-half tablet-hide">Back to Top</a>
+      </aside>
+
+      <main class="column-12 content-face">
+        <p><span class="pull-T">T</span>he ba­sic struc­ture<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS Plat­form is an <a href="#organization"><span class="pull-o">o</span>r­ga­ni­za­tion</a> <span class="pull-w">w</span>ith a num­ber<span class="push-o"></span> <span class="pull-o">o</span>f <a href="#user">users</a>. Each <a href="#user">user</a> <span class="pull-c">c</span>an<span class="push-o"></span> <span class="pull-o">o</span>wn a num­ber<span class="push-o"></span> <span class="pull-o">o</span>f <a href="#item">items</a>. <a href="#item">Items</a> <span class="pull-c">c</span>ome in four ba­sic types - <a href="#layer">lay­ers</a>, <a href="#map">maps</a> <a href="#application">ap­pli­ca­tions</a>, and <a href="#file">ﬁles</a>. <a href="#item">Items</a> <span class="pull-c">c</span>an be<span class="push-c"></span> <span class="pull-c">c</span>ol­lected to­gether into <a href="#group">groups</a>, re­gard­less<span class="push-o"></span> <span class="pull-o">o</span>f<span class="push-w"></span> <span class="pull-w">w</span>hat <a href="#user">user</a> <span class="pull-o">o</span>r <a href="#organization"><span class="pull-o">o</span>r­ga­ni­za­tion</a> they are as­so­ci­ated<span class="push-w"></span> <span class="pull-w">w</span>ith. <a href="#group">Groups</a> <span class="pull-c">c</span>an in­clude a num­ber<span class="push-o"></span> <span class="pull-o">o</span>f <a href="#user">users</a>,<span class="push-w"></span> <span class="pull-w">w</span>ho than have ac­cess to that <a href="#group">groups</a> <a href="#item">items</a>.</p>
+<p><span class="pull-A">A</span>ll meth­ods in the li­brary be­sides the ini­tial <code>Arcgis()</code> func­tion re­turn a Promise by de­fault. How­ever,<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-c"></span> <span class="pull-c">c</span>an also use<span class="push-c"></span> <span class="pull-c">c</span>all­backs by pass­ing a func­tion as the last pa­ra­me­ter<span class="push-o"></span> <span class="pull-o">o</span>n each method. For ex­am­ple, get­ting an <a href="#item">item</a> by <span class="small-caps">ID</span> <span class="pull-c">c</span>an be done in two<span class="push-w"></span> <span class="pull-w">w</span>ays:</p>
+<pre><code class="hljs">arcgis.<span class="hljs-function"><span class="hljs-title">item</span><span class="hljs-params">(<span class="hljs-string">'id'</span>)</span></span>.<span class="hljs-function"><span class="hljs-title">then</span><span class="hljs-params">(cb)</span></span>
+<span class="hljs-comment">// or</span>
+arcgis.<span class="hljs-function"><span class="hljs-title">item</span><span class="hljs-params">(<span class="hljs-string">'id'</span>, cb)</span></span>
+</code></pre>
+<hr>
+<h1 id="arcgis"><span class="pull-A">A</span>r­cGIS <a class="header-anchor" href="#arcgis" aria-hidden="true">¶</a></h1>
+<blockquote>
+<p><span class="pull-T">T</span>here are a num­ber<span class="push-o"></span> <span class="pull-o">o</span>f<span class="push-w"></span> <span class="pull-w">w</span>ays to au­then­ti­cate<span class="push-w"></span> <span class="pull-w">w</span>ith the plat­form -<span class="push-w"></span> <span class="pull-w">w</span>hich in­clude sup­port for fed­er­ated ac­counts and things like that. If you need any­thing<span class="push-o"></span> <span class="pull-o">o</span>ther than a to­ken,<span class="push-o"></span> <span class="pull-o">o</span>pen an is­sue.<span class="push-W"></span> <span class="pull-W">W</span>e’ll get there!</p>
+</blockquote>
+<p>Ini­tial­ize the<span class="push-c"></span> <span class="pull-c">c</span>lient li­brary ses­sion to ac­cess the <span class="small-caps">API</span> ei­ther as an anony­mous user,<span class="push-o"></span> <span class="pull-o">o</span>r as an au­then­ti­cated mem­ber<span class="push-o"></span> <span class="pull-o">o</span>f an<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.<span class="push-C"></span> <span class="pull-C">C</span>all­ing <code>ArcGIS()</code> <span class="pull-w">w</span>ith no pa­ra­me­ters<span class="push-w"></span> <span class="pull-w">w</span>ill set up an in­stance<span class="push-o"></span> <span class="pull-o">o</span>f the plat­form that talks to<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS<span class="push-O"></span> <span class="pull-O">O</span>n­line as a pub­lic, anony­mous user.</p>
+<p><strong>Params:</strong> <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith the fol­low­ing<span class="push-o"></span> <span class="pull-o">o</span>p­tions;</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>to­ken</td>
+<td>String</td>
+<td>none</td>
+</tr>
+<tr>
+<td>do­main</td>
+<td><span class="small-caps">URL</span></td>
+<td><a href="http://www.arcgis.com/"><span class="pull-w">w</span>ww.ar­cgis.com/</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong> <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS meth­ods.</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">request</span>: Function,      <span class="hljs-comment">// Makes requests to the domain</span>
+  <span class="hljs-attribute">search</span>: Function,       <span class="hljs-comment">// Queries the API</span>
+  <span class="hljs-attribute">user</span>: Function,         <span class="hljs-comment">// Interact with a user</span>
+  <span class="hljs-attribute">organization</span>: Function, <span class="hljs-comment">// Interact with an org</span>
+  <span class="hljs-attribute">group</span>: Function,        <span class="hljs-comment">// Interact with a group</span>
+  <span class="hljs-attribute">item</span>: Function,         <span class="hljs-comment">// Interact with an item</span>
+  <span class="hljs-attribute">layer</span>: Function,         <span class="hljs-comment">// Interact with an layer</span>
+  <span class="hljs-attribute">map</span>: Function,          <span class="hljs-comment">// Interact with an map</span>
+  <span class="hljs-attribute">application</span>: Function,  <span class="hljs-comment">// Interact with an application</span>
+  <span class="hljs-attribute">file</span>: Function,         <span class="hljs-comment">// Interact with an file</span>
+}
+</code></pre>
+<h6 id="example"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example" aria-hidden="true">¶</a></h6>
+<blockquote>
+<p><span class="pull-Y">Y</span>ou<span class="push-c"></span> <span class="pull-c">c</span>an prob­a­bly set up mul­ti­ple<span class="push-o"></span> <span class="pull-o">o</span>f these suck­ers in<span class="push-o"></span> <span class="pull-o">o</span>ne ses­sion to have ac­cess to pub­lic and pri­vate stuff at the same time.</p>
+</blockquote>
+<pre><code class="hljs">var ArcGIS = require('arcgis')
+// <span class="hljs-operator"><span class="hljs-keyword">Create</span> an anonymous <span class="hljs-keyword">session</span> <span class="hljs-keyword">with</span> www.arcgis.com
+<span class="hljs-keyword">var</span> anonAGO = ArcGIS()
+// <span class="hljs-keyword">Create</span> an <span class="hljs-keyword">authenticated</span> <span class="hljs-keyword">session</span> <span class="hljs-keyword">with</span> www.arcgis.com
+<span class="hljs-keyword">var</span> authAGO = ArcGIS({
+  token: token
+})
+// Creat an anonymous <span class="hljs-keyword">session</span> <span class="hljs-keyword">with</span> ArcGIS <span class="hljs-keyword">Server</span>
+<span class="hljs-keyword">var</span> serverGIS = ArcGIS({
+  <span class="hljs-keyword">domain</span>: <span class="hljs-string">'myGIS.myurl.com'</span>
+})
+</span></code></pre>
+<hr>
+<h2 id="request">re­quest <a class="header-anchor" href="#request" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>Re­quest has a lot<span class="push-o"></span> <span class="pull-o">o</span>f func­tion­al­ity that I’ve been told<span class="push-w"></span> <span class="pull-w">w</span>e need, but I’m re­ally not sure<span class="push-w"></span> <span class="pull-w">w</span>hat any<span class="push-o"></span> <span class="pull-o">o</span>f it is. Right now, this bare-bones re­quest<span class="push-w"></span> <span class="pull-w">w</span>orks ﬁne.<span class="push-W"></span> <span class="pull-W">W</span>e’ll add more to it as needed.</p>
+</blockquote>
+<p>Re­quest uses in­for­ma­tion in the<span class="push-c"></span> <span class="pull-c">c</span>lient to make<span class="push-c"></span> <span class="pull-c">c</span>alls to the <span class="small-caps">API</span>. It takes a url sub­string, a <span class="small-caps">JSON</span> <span class="pull-o">o</span>b­ject, and a boolean.</p>
+<p>Re­quest ap­pends the <span class="small-caps">URL</span> to the<span class="push-c"></span> <span class="pull-c">c</span>lients do­main and the<span class="push-o"></span> <span class="pull-o">o</span>m­nipresent<span class="push-single"></span> <span class="pull-single">‘</span>shar­ing/​rest’.<span class="push-T"></span> <span class="pull-T">T</span>he <span class="small-caps">JSON</span> <span class="pull-o">o</span>b­ject gets processed into pa­ra­me­ters.<span class="push-T"></span> <span class="pull-T">T</span>he boolean de­ﬁnes the re­quest is <span class="small-caps">GET</span> (de­fault, false)<span class="push-o"></span> <span class="pull-o">o</span>r <span class="small-caps">POST</span> (true). Re­quest also ap­pends the to­ken that the<span class="push-c"></span> <span class="pull-c">c</span>ur­rent<span class="push-c"></span> <span class="pull-c">c</span>lient ses­sion is au­then­ti­cated<span class="push-w"></span> <span class="pull-w">w</span>ith, and de­ﬁnes the re­sponse for­mat as <span class="small-caps">JSON</span>.</p>
+<p>Some ser­vices - like us­age, analy­sis, things like that&thinsp;&mdash;&thinsp;re­quire a dif­fer­ent root <span class="small-caps">URL</span>, since they are an in­de­pen­dent <span class="small-caps">API</span>.</p>
+<p><strong>Pa­ra­me­ters:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>String</td>
+<td>/</td>
+</tr>
+<tr>
+<td>form</td>
+<td><span class="pull-O">O</span>b­ject</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>post</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>rootURL</td>
+<td>String</td>
+<td><code>${domain}/sharing/rest</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­sponse:</strong>
+Promise that re­solves to<span class="push-w"></span> <span class="pull-w">w</span>hat­ever the end­point re­turns.</p>
+<h6 id="example-2"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-2" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.request()
+.then( <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">results</span>) </span>{
+  <span class="hljs-comment">// This calls the endpoint self, and returns a version number of the API.</span>
+  <span class="hljs-built_in">console</span>.log(results)
+})
+</code></pre>
+<hr>
+<h2 id="search">search <a class="header-anchor" href="#search" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>this is grow­ing in sup­port as needed</p>
+</blockquote>
+<p>Searches for <a href="#item">items</a>, <a href="#user">users</a>, and <a href="#group">groups</a> <span class="pull-w">w</span>ithin the plat­form.</p>
+<p><strong>Params:</strong>
+Op­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tion</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryS­tring</td>
+<td><span class="pull-single">‘</span>“”’’</td>
+<td>String,<span class="push-w"></span> <span class="pull-w">w</span>hat to search for.<span class="push-C"></span> <span class="pull-C">C</span>an be <a href="http://doc.arcgis.com/en/arcgis-online/reference/search.htm"><span class="pull-c">c</span>om­pli­cated</a>.</td>
+</tr>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­sults:</strong>
+Promise that re­solves to a pag­i­nated search re­sults<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">nextStart</span>: Number,  <span class="hljs-comment">// if -1, there are no more results</span>
+  <span class="hljs-attribute">num</span>: Number,        <span class="hljs-comment">// Number of items per page returned</span>
+  <span class="hljs-attribute">query</span>: String,      <span class="hljs-comment">// The query string that got us here</span>
+  <span class="hljs-attribute">results</span>: Array,     <span class="hljs-comment">// An array of all the items that match the query</span>
+  <span class="hljs-attribute">start</span>: Number,      <span class="hljs-comment">// The index of the item that starts this batch of results</span>
+  <span class="hljs-attribute">total</span>: Number,      <span class="hljs-comment">// Total number of items that match the query</span>
+  <span class="hljs-attribute">pages</span>: Number,      <span class="hljs-comment">// How many pages of results there are</span>
+  <span class="hljs-attribute">currentPage</span>: Number <span class="hljs-comment">// Index of the current page</span>
+}
+</code></pre>
+<h6 id="example-3"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-3" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs"><span class="hljs-keyword">var</span> options = {
+  queryString: <span class="hljs-string">'owner:NikolasWise AND (type:"Feature Service")'</span>,
+  num: <span class="hljs-number">100</span>
+}
+arcgis.search(options)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(results)
+})
+<p></code></pre></p>
+<hr>
+<h2 id="user">user <a class="header-anchor" href="#user" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>Every method<span class="push-o"></span> <span class="pull-o">o</span>ff <code>ArcGIS()</code> re­turns a promise, and in­volves mak­ing<span class="push-w"></span> <span class="pull-w">w</span>eb re­quests to the do­main.</p>
+</blockquote>
+<p><span class="pull-T">T</span>his<span class="push-o"></span> <span class="pull-o">o</span>b­ject is used to in­ter­act<span class="push-w"></span> <span class="pull-w">w</span>ith a user - your<span class="push-o"></span> <span class="pull-o">o</span>wn user ac­count,<span class="push-o"></span> <span class="pull-o">o</span>ther users in your<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion,<span class="push-o"></span> <span class="pull-o">o</span>r pub­licly avail­able users that are not as­so­ci­ated<span class="push-w"></span> <span class="pull-w">w</span>ith your<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.<span class="push-T"></span> <span class="pull-T">T</span>his method is also used to<span class="push-c"></span> <span class="pull-c">c</span>re­ate new users by invit­ing them to your<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.</p>
+<p><strong>Params:</strong>
+A user­name string</p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User­name</td>
+<td>String</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong><span class="small-caps">
+JSON</span> user<span class="push-o"></span> <span class="pull-o">o</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith man­age­ment meth­ods.</p>
+<pre><code class="hljs">{
+  created: <span class="hljs-operator">Date</span>,            // when this <span class="hljs-keyword">user</span> <span class="hljs-title">was</span> created
+  firstName: <span class="hljs-type">String</span>,        // recorded first name of the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">fullName</span>: <span class="hljs-type">String</span>,         // recorded name of the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">lastName</span>: <span class="hljs-type">String</span>,         // recorded last name of the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">provider</span>: <span class="hljs-type">String</span>,         // ???
+  username: <span class="hljs-type">String</span>,         // hard username for the user. Never changes.
+// the following are not returned if the <span class="hljs-keyword">user</span> <span class="hljs-title">is</span> private
+  email: <span class="hljs-type">String</span>,            // email address of <span class="hljs-keyword">user</span>
+  <span class="hljs-title">culture</span>: <span class="hljs-type">String</span>,          // two letter lang code ex: 'en'
+  description: <span class="hljs-type">String</span>,      // text description set by the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">privileges</span>: Array,     // Strings that denote actions
+  favGroupId: <span class="hljs-type">String</span>,       // ID of <span class="hljs-keyword">user</span> <span class="hljs-title">favorites</span> <span class="hljs-keyword">group</span>
+  <span class="hljs-title">groups</span>: Array,            // <span class="hljs-keyword">Group</span> <span class="hljs-title">objects</span> associated with the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">orgId</span>: <span class="hljs-type">String</span>,            // ID of the org the <span class="hljs-keyword">user</span> <span class="hljs-title">belongs</span> too
+  modified: <span class="hljs-operator">Date</span>,           // <span class="hljs-operator">date</span> when the <span class="hljs-keyword">user</span>
+  <span class="hljs-title">region</span>: <span class="hljs-type">String</span>,           // two letter country code ex: 'us'
+  tags: Array,              // array of tags that <span class="hljs-keyword">user</span> <span class="hljs-title">has</span> used, with counts
+  thumbnail: <span class="hljs-type">String</span>,        // name of the users thumbnail image ex: 'coolguy.jpg'
+  units: <span class="hljs-type">String</span>,            // 'imperial' <span class="hljs-operator">or</span> 'metric'
+  update: Function,         // updates the <span class="hljs-keyword">user</span> <span class="hljs-title">information</span>
+  delete: Function,         // deletes a <span class="hljs-keyword">user</span>
+  <span class="hljs-title">content</span>: Function,        // gets users content
+  tags: Function,           // returns the users tags?
+  enable: Function,         // enables a disabled <span class="hljs-keyword">user</span>
+  <span class="hljs-title">disable</span>: Function,        // disables a <span class="hljs-keyword">user</span>
+<span class="hljs-title">}
+</span></code></pre>
+<h6 id="example-4"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-4" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (user){
+  console.<span class="hljs-built_in">log</span>(user)
+})
+</code></pre>
+<h3 id="userupdate">user.up­date <a class="header-anchor" href="#userupdate" aria-hidden="true">¶</a></h3>
+<p><span class="pull-T">T</span>akes an<span class="push-o"></span> <span class="pull-o">o</span>p­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject, and sets the users in­for­ma­tion to the<span class="push-o"></span> <span class="pull-o">o</span>p­tions pro­vided. Re­turns an er­ror,<span class="push-o"></span> <span class="pull-o">o</span>r the up­dated user<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+<p><strong>Params:</strong>
+Op­tions <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pre­ferred­View</td>
+<td>String</td>
+<td><span class="pull-single">‘</span>Web’ /<span class="push-single"></span> <span class="pull-single">‘</span><span class="small-caps">GIS</span><span class="pull-single">’</span> /<span class="push-single"></span> <span class="pull-single">‘</span>null’</td>
+</tr>
+<tr>
+<td>de­scrip­tion</td>
+<td>String</td>
+<td>Plain text de­scrip­tion<span class="push-o"></span> <span class="pull-o">o</span>f the user.</td>
+</tr>
+<tr>
+<td>thumb­nail</td>
+<td>Path</td>
+<td><span class="pull-T">T</span>he ﬁle to be used as the users pro­ﬁle im­age.</td>
+</tr>
+<tr>
+<td>pass­word</td>
+<td>String</td>
+<td>Set the users pass­word to the new string.</td>
+</tr>
+<tr>
+<td>full­name</td>
+<td>String</td>
+<td><span class="pull-T">T</span>he full name<span class="push-o"></span> <span class="pull-o">o</span>f the user.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>Email ad­dress to<span class="push-c"></span> <span class="pull-c">c</span>on­tact the user at.</td>
+</tr>
+<tr>
+<td><span class="pull-c">c</span>ul­ture</td>
+<td>String</td>
+<td><span class="pull-C">C</span>ul­ture<span class="push-c"></span> <span class="pull-c">c</span>ode for the user.</td>
+</tr>
+<tr>
+<td>re­gion</td>
+<td>String</td>
+<td>Re­gion<span class="push-c"></span> <span class="pull-c">c</span>ode for the user.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#user"><code>user</code></a> <span class="pull-o">o</span>b­ject.</p>
+<h6 id="example-5"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-5" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
+  <span class="hljs-keyword">var</span> options = {description: <span class="hljs-string">'just this person, you know?'</span>}
+  <span class="hljs-keyword">return</span> user.update(options)
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(user)
+})
+</code></pre>
+<h3 id="usercontent">user.con­tent <a class="header-anchor" href="#usercontent" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-T">T</span>his is <em>not</em> us­ing the user<span class="push-c"></span> <span class="pull-c">c</span>on­tent method from the<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS <span class="small-caps">API</span>. In­stead, this is us­ing a the <a href="#search"><code>search</code></a> method and pre-ﬁll­ing the pa­ra­me­ters to lo­cate the<span class="push-c"></span> <span class="pull-c">c</span>ur­rent user’s<span class="push-c"></span> <span class="pull-c">c</span>on­tent.<span class="push-T"></span> <span class="pull-T">T</span>his is done to have all<span class="push-c"></span> <span class="pull-c">c</span>on­tent<span class="push-c"></span> <span class="pull-c">c</span>alls share re­sponse prop­er­ties.<span class="push-T"></span> <span class="pull-T">T</span>he raw user<span class="push-c"></span> <span class="pull-c">c</span>on­tent api<span class="push-c"></span> <span class="pull-c">c</span>all is the<span class="push-o"></span> <span class="pull-o">o</span>nly<span class="push-c"></span> <span class="pull-c">c</span>all in the plat­form that does not re­turn a pag­i­nated re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+</blockquote>
+<p>Re­turns an ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f all<span class="push-o"></span> <span class="pull-o">o</span>f the users items and fold­ers. If passed a folder id,<span class="push-w"></span> <span class="pull-w">w</span>ill re­turn an ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f the items in that folder.<span class="push-T"></span> <span class="pull-T">T</span>hese items have the same sta­tic prop­er­ties as the re­sults<span class="push-o"></span> <span class="pull-o">o</span>f <a href="#item"><code>item</code></a>, but do not have meth­ods at­tached to them.</p>
+<p><strong>Params:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a <a href="#search"><code>search</code> re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject</a>.</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">nextStart</span>: Number,  <span class="hljs-comment">// if -1, there are no more results</span>
+  <span class="hljs-attribute">num</span>: Number,        <span class="hljs-comment">// Number of items per page returned</span>
+  <span class="hljs-attribute">query</span>: String,      <span class="hljs-comment">// The query string that got us here</span>
+  <span class="hljs-attribute">results</span>: Array,     <span class="hljs-comment">// An array of all the items that match the query</span>
+  <span class="hljs-attribute">start</span>: Number,      <span class="hljs-comment">// The index of the item that starts this batch of results</span>
+  <span class="hljs-attribute">total</span>: Number,      <span class="hljs-comment">// Total number of items that match the query</span>
+  <span class="hljs-attribute">pages</span>: Number,      <span class="hljs-comment">// How many pages of results there are</span>
+  <span class="hljs-attribute">currentPage</span>: Number <span class="hljs-comment">// Index of the current page</span>
+}
+</code></pre>
+<h6 id="example-6"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-6" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(user)</span></span> {
+  <span class="hljs-keyword">return</span> user.content()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(results)</span></span> {
+  console.log(results)
+})
+</code></pre>
+<h3 id="usertags">user.tags <a class="header-anchor" href="#usertags" aria-hidden="true">¶</a></h3>
+<p><span class="pull-A">A</span>ll<span class="push-c"></span> <span class="pull-c">c</span>on­tent has a set<span class="push-o"></span> <span class="pull-o">o</span>f tags as­so­ci­ated<span class="push-w"></span> <span class="pull-w">w</span>ith it.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-c"></span> <span class="pull-c">c</span>all re­turns all the tags a user has ap­plied to their<span class="push-c"></span> <span class="pull-c">c</span>on­tent,<span class="push-w"></span> <span class="pull-w">w</span>ith<span class="push-c"></span> <span class="pull-c">c</span>ounts for the num­ber<span class="push-o"></span> <span class="pull-o">o</span>f time each tag ap­pears.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to a <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject.</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">tags</span>:<span class="hljs-value"> [
+    {
+      count: Number,
+      tag: String
+    </span></span></span>}
+  ]
+}
+</code></pre>
+<h6 id="example-7"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-7" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(user)</span></span>{
+  <span class="hljs-keyword">return</span> user.tags()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(tags)</span></span> {
+  console.log(tags)
+})
+</code></pre>
+<h3 id="userfavorites">user.fa­vorites <a class="header-anchor" href="#userfavorites" aria-hidden="true">¶</a></h3>
+<p>Users store their their fa­vorite items in a group as­so­ci­ated<span class="push-w"></span> <span class="pull-w">w</span>ith their ac­count. Get­ting a users fa­vorites is sim­i­lar to get­ting any<span class="push-o"></span> <span class="pull-o">o</span>ther groups<span class="push-c"></span> <span class="pull-c">c</span>on­tent.</p>
+<p><strong>Params:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a <a href="#search"><code>search</code> re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject</a>.</p>
+<pre><code class="hljs">{
+  num: <span class="hljs-built_in">Number</span>,       // Total <span class="hljs-built_in">number</span> of items that could be returned
+  total: <span class="hljs-built_in">Number</span>,     // Total <span class="hljs-built_in">number</span> of items <span class="hljs-keyword">in</span> favorites
+  query: <span class="hljs-built_in">String</span>,     // Search <span class="hljs-built_in">string</span> used <span class="hljs-keyword">to</span> get these
+  start: <span class="hljs-built_in">Number</span>,     // Which item this page starts <span class="hljs-keyword">with</span>
+  nextStart: <span class="hljs-built_in">Number</span>, // Which item <span class="hljs-keyword">next</span> page starts <span class="hljs-keyword">with</span>.
+  results: Array     // Item objects
+}
+</code></pre>
+<h6 id="example-8"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-8" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(user)</span></span> {
+  <span class="hljs-keyword">return</span> user.favorites()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(results)</span></span> {
+  console.log(results)
+})
+</code></pre>
+<h3 id="userenabled">user.en­abled <a class="header-anchor" href="#userenabled" aria-hidden="true">¶</a></h3>
+<p>En­ables and dis­ables the user<span class="push-w"></span> <span class="pull-w">w</span>ithin the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion. Pass­ing no boolean to the method<span class="push-w"></span> <span class="pull-w">w</span>ill re­turn the<span class="push-c"></span> <span class="pull-c">c</span>ur­rent state<span class="push-o"></span> <span class="pull-o">o</span>f the user.</p>
+<p>If a user is dis­abled, that means that their ac­count is not ac­tive, but has not been deleted.<span class="push-A"></span> <span class="pull-A">A</span> dis­abled user still<span class="push-c"></span> <span class="pull-c">c</span>ounts to­wards your<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tions max­i­mum num­ber<span class="push-o"></span> <span class="pull-o">o</span>f users.</p>
+<p><strong>Params:</strong>
+En­abled</p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User En­abled</td>
+<td>Boolean</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#user"><code>user</code></a> <span class="pull-o">o</span>b­ject.</p>
+<h6 id="example-9"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-9" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(user)</span></span> {
+  <span class="hljs-keyword">return</span> user.enabled(<span class="hljs-keyword">false</span>)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(user)</span></span> {
+  console.log(user)
+})
+</code></pre>
+<h3 id="userdelete">user.delete <a class="header-anchor" href="#userdelete" aria-hidden="true">¶</a></h3>
+<p>Deletes the user.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-c"></span> <span class="pull-c">c</span>an­not be un­done.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to an<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+<h6 id="example-10"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-10" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.user(username)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">user</span>) {</span>
+  <span class="hljs-constant">return</span> user.<span class="hljs-built_in">delete</span>()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">confirmation</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(confirmation)
+})
+</code></pre>
+<h3 id="usercreate">user.cre­ate <a class="header-anchor" href="#usercreate" aria-hidden="true">¶</a></h3>
+<p><span class="pull-C">C</span>re­ates a new user in your<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.</p>
+<h6 id="example-11"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-11" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs"><span class="hljs-keyword">var</span> options = {
+}
+arcgis.user.create(options)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">???</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(???)
+})
+</code></pre>
+<hr>
+<h2 id="organization"><span class="pull-o">o</span>r­ga­ni­za­tion <a class="header-anchor" href="#organization" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p><span class="pull-O">O</span>r­ga­ni­za­tions are the<span class="push-c"></span> <span class="pull-c">c</span>en­tral en­ti­ties in the<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS plat­form.<span class="push-A"></span> <span class="pull-A">A</span>ll users be­long to an<span class="push-O"></span> <span class="pull-O">O</span>r­ga­ni­za­tion, even <a href="http://developers.arcgis.com/plans">de­vel­oper ac­counts</a>,<span class="push-w"></span> <span class="pull-w">w</span>hich be­long to an<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion<span class="push-w"></span> <span class="pull-w">w</span>ith a sin­gle user.</p>
+</blockquote>
+<p><span class="pull-T">T</span>his method is used to re­trieve and in­ter­act<span class="push-w"></span> <span class="pull-w">w</span>ith an<span class="push-O"></span> <span class="pull-O">O</span>r­ga­ni­za­tion<span class="push-w"></span> <span class="pull-w">w</span>ithin the do­mains Por­tal -<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS<span class="push-O"></span> <span class="pull-O">O</span>n­line for ex­am­ple has many<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tions that<span class="push-c"></span> <span class="pull-c">c</span>an be in­ter­acted<span class="push-w"></span> <span class="pull-w">w</span>ith.<span class="push-A"></span> <span class="pull-A">A</span>n<span class="push-o"></span> <span class="pull-o">o</span>n-premises<span class="push-v"></span> <span class="pull-v">v</span>er­sion<span class="push-o"></span> <span class="pull-o">o</span>f Por­tal<span class="push-o"></span> <span class="pull-o">o</span>r Server may have fewer, if not just<span class="push-o"></span> <span class="pull-o">o</span>ne.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f an<span class="push-O"></span> <span class="pull-O">O</span>rg Id.</p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="pull-O">O</span>rg Id</td>
+<td>String</td>
+<td>self</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the<span class="push-O"></span> <span class="pull-O">O</span>rg<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">access</span>: String,                  <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">availableCredits</span>: Number,        <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">backgroundImage</span>: String,         <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">created</span>: Date,                   <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">culture</span>: String,                 <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">defaultBasemap</span>: Object,          <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">defaultExtent</span>: Object,           <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">description</span>: String,             <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">featuredGroups</span>: Array,           <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">featuredGroupsId</span>: String,        <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">helpBase</span>: String,                <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">id</span>: String,                      <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">ipCntryCode</span>: String,             <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">modified</span>: Date,                  <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">name</span>: String,                    <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">region</span>: String,                  <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">staticImagesUrl</span>: String,         <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">subscriptionInfo</span>: Object,        <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">supportsHostedServices</span>: Boolean, <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">supportsOAuth</span>: Boolean,          <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">thumbnail</span>: String,               <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">units</span>: String,                   <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">urlKey</span>: String,                  <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">user</span>: Object,                    <span class="hljs-comment">//</span>
+  <span class="hljs-attribute">update</span>: Function,                <span class="hljs-comment">// Updates the orgs info</span>
+  <span class="hljs-attribute">members</span>: Function,               <span class="hljs-comment">// Gets all users in the org</span>
+  <span class="hljs-attribute">content</span>: Function,               <span class="hljs-comment">// Gets all content in the org</span>
+  <span class="hljs-attribute">featured</span>: Function               <span class="hljs-comment">// Gets the orgs featured items</span>
+}
+</code></pre>
+<h6 id="example-12"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-12" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.organization()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (organization) {
+  console.<span class="hljs-built_in">log</span>(organization)
+})
+</code></pre>
+<h3 id="organizationupdate"><span class="pull-o">o</span>r­ga­ni­za­tion.up­date <a class="header-anchor" href="#organizationupdate" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-A">A</span>ll<span class="push-o"></span> <span class="pull-o">o</span>p­tions that are set­table<span class="push-w"></span> <span class="pull-w">w</span>ith this method have yet to be fully plumbed.</p>
+</blockquote>
+<p><span class="pull-T">T</span>akes an<span class="push-o"></span> <span class="pull-o">o</span>p­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject, and sets the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion’s in­for­ma­tion to the<span class="push-o"></span> <span class="pull-o">o</span>p­tions pro­vided. Re­turns an er­ror,<span class="push-o"></span> <span class="pull-o">o</span>r the up­dated<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+<p><strong>Params:</strong>
+Op­tions <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String,</td>
+<td><span class="pull-T">T</span>he<span class="push-c"></span> <span class="pull-c">c</span>har­ac­ter limit is 250.</td>
+</tr>
+<tr>
+<td>ac­cess</td>
+<td>String,</td>
+<td>Set­ting to pub­lic al­lows anony­mous users to</td>
+</tr>
+<tr>
+<td>de­scrip­tion</td>
+<td>String,</td>
+<td>De­scribes the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.</td>
+</tr>
+<tr>
+<td>sum­mary</td>
+<td>String</td>
+<td>Short de­scrip­tion<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion, less than 256<span class="push-c"></span> <span class="pull-c">c</span>har­ac­ters.</td>
+</tr>
+<tr>
+<td><span class="pull-c">c</span>an­Share­Pub­lic</td>
+<td>Boolean,</td>
+<td><span class="pull-A">A</span>l­lows mem­bers<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion to share<span class="push-o"></span> <span class="pull-o">o</span>ut­side the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion</td>
+</tr>
+<tr>
+<td><span class="pull-c">c</span>anSearch­Pub­lic</td>
+<td>Boolean,</td>
+<td><span class="pull-A">A</span>l­lows mem­bers<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion to search<span class="push-o"></span> <span class="pull-o">o</span>ut­side the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.</td>
+</tr>
+<tr>
+<td>thumb­nail</td>
+<td>String,</td>
+<td><span class="pull-A">A</span>c­cept­able im­age for­mats are <span class="small-caps">PNG</span>, <span class="small-caps">GIF</span>, and <span class="small-caps">JPEG</span></td>
+</tr>
+<tr>
+<td>urlKey</td>
+<td>String,</td>
+<td><span class="pull-T">T</span>he pre­ﬁx that<span class="push-w"></span> <span class="pull-w">w</span>ill be used in the <span class="small-caps">URL</span> for this por­tal, for ex­am­ple, <urlkey>.maps.ar­cgis.com.</urlkey></td>
+</tr>
+<tr>
+<td>url­Host­name</td>
+<td>String,</td>
+<td><span class="pull-A">A</span><span class="push-c"></span> <span class="pull-c">c</span>us­tom <span class="small-caps">URL</span> for this por­tal.</td>
+</tr>
+<tr>
+<td><span class="pull-c">c</span>ul­ture</td>
+<td>String</td>
+<td><span class="pull-T">T</span>he de­fault lo­cale (lan­guage and<span class="push-c"></span> <span class="pull-c">c</span>oun­try)in­for­ma­tion.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the <a href="#organization"><code>organization</code> <span class="pull-o">o</span>b­ject</a></p>
+<h6 id="example-13"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-13" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.organization()
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">organization</span>) </span>{
+  <span class="hljs-keyword">var</span> options = {description: <span class="hljs-string">'We are super professional'</span>}
+  <span class="hljs-keyword">return</span> organization.update(options)
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">organization</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(organization)
+})
+</code></pre>
+<h3 id="organizationmembers"><span class="pull-o">o</span>r­ga­ni­za­tion.mem­bers <a class="header-anchor" href="#organizationmembers" aria-hidden="true">¶</a></h3>
+<p>Gets the mem­bers<span class="push-w"></span> <span class="pull-w">w</span>ithin an<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.<span class="push-T"></span> <span class="pull-T">T</span>akes a num­ber, and re­turns as a pag­i­nated list<span class="push-w"></span> <span class="pull-w">w</span>ith that num­ber<span class="push-o"></span> <span class="pull-o">o</span>f mem­bers per page. Re­turns 100 mem­bers per page by de­fault.</p>
+<p><strong>Params:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If the <code>nextStart</code> <span class="pull-v">v</span>alue is -1, that means your<span class="push-o"></span> <span class="pull-o">o</span>n the last page<span class="push-o"></span> <span class="pull-o">o</span>f the re­sults.<span class="push-T"></span> <span class="pull-T">T</span>he<span class="push-o"></span> <span class="pull-o">o</span>b­jects re­turned in the <code>users</code> ar­ray are the same as in <a href="#userget"><code>user.get()</code></a></p>
+</blockquote>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the <a href="#organization"><code>organization</code> <span class="pull-o">o</span>b­ject</a></p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">nextStart</span>: Number,
+  <span class="hljs-attribute">num</span>: Number,
+  <span class="hljs-attribute">start</span>: Number,
+  <span class="hljs-attribute">total</span>: Number,
+  <span class="hljs-attribute">users</span>: Array
+}
+</code></pre>
+<h6 id="example-14"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-14" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.organization()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(organization)</span></span> {
+  <span class="hljs-keyword">return</span> organization.members()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (members) {
+  console.<span class="hljs-built_in">log</span>(members)
+})
+</code></pre>
+<h3 id="organizationcontent"><span class="pull-o">o</span>r­ga­ni­za­tion.con­tent <a class="header-anchor" href="#organizationcontent" aria-hidden="true">¶</a></h3>
+<p>Gets the items in an<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.<span class="push-T"></span> <span class="pull-T">T</span>akes a num­ber, and re­turns as a pag­i­nated list<span class="push-w"></span> <span class="pull-w">w</span>ith that num­ber<span class="push-o"></span> <span class="pull-o">o</span>f items per page. Re­turns 100 items per page by de­fault, start­ing at the ﬁrst page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults.</p>
+<blockquote>
+<p><span class="pull-T">T</span>his is a short­cut helper for the <code>search</code> method<span class="push-w"></span> <span class="pull-w">w</span>ith the query needed to tar­get an<span class="push-o"></span> <span class="pull-o">o</span>rg pre­de­ﬁned.</p>
+</blockquote>
+<p><strong>Params:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the <a href="#search"><code>search</code> re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject</a></p>
+<pre><code class="hljs">{
+  nextStart: <span class="hljs-type">Number</span>,
+  num: <span class="hljs-type">Number</span>,
+  query: <span class="hljs-type">String</span>
+  results: Array,
+  <span class="hljs-literal">start</span>: <span class="hljs-type">Number</span>,
+  total: <span class="hljs-type">Number</span>
+  pages: <span class="hljs-type">Number</span>,
+  currentPage, <span class="hljs-type">Number</span>
+}
+</code></pre>
+<h6 id="example-15"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-15" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.organization()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (organization) {
+  <span class="hljs-keyword">return</span> organization.content()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(content)</span></span> {
+  console.<span class="hljs-built_in">log</span>(content)
+})
+</code></pre>
+<h3 id="organizationfeatured"><span class="pull-o">o</span>r­ga­ni­za­tion.fea­tured <a class="header-anchor" href="#organizationfeatured" aria-hidden="true">¶</a></h3>
+<p><span class="pull-O">O</span>r­ga­ni­za­tions<span class="push-c"></span> <span class="pull-c">c</span>an add items to a group that is for spe­cially<span class="push-single"></span> <span class="pull-single">‘</span>fea­tured<span class="push-c"></span> <span class="pull-c">c</span>on­tent’, items that may be<span class="push-c"></span> <span class="pull-c">c</span>om­mon<span class="push-o"></span> <span class="pull-o">o</span>r high-traf­ﬁc<span class="push-w"></span> <span class="pull-w">w</span>ithin the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion.<span class="push-T"></span> <span class="pull-T">T</span>his group is dis­played<span class="push-o"></span> <span class="pull-o">o</span>n the<span class="push-o"></span> <span class="pull-o">o</span>rgs home page.</p>
+<p><span class="pull-T">T</span>akes a num­ber, and re­turns a pag­i­nated list<span class="push-o"></span> <span class="pull-o">o</span>f items<span class="push-w"></span> <span class="pull-w">w</span>ithin the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tions fea­tured group.</p>
+<blockquote>
+<p><span class="pull-T">T</span>his method is the same as <a href="#groupcontent"><code>group.content()</code></a>, but<span class="push-w"></span> <span class="pull-w">w</span>ith the group id pre­ﬁlled from the<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tions pro­ﬁle.</p>
+</blockquote>
+<p><strong>Params:</strong>
+Op­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the <a href="#search"><code>search</code> re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject</a></p>
+<h6 id="example-16"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-16" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.organization()
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (organization) {
+  <span class="hljs-keyword">return</span> organization.featured()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(featured)</span></span> {
+  console.<span class="hljs-built_in">log</span>(featured)
+})
+</code></pre>
+<hr>
+<h2 id="group">group <a class="header-anchor" href="#group" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>In the<span class="push-A"></span> <span class="pull-A">A</span>r­cGIS plat­form, groups are used to ag­gre­gate users and<span class="push-c"></span> <span class="pull-c">c</span>on­tent to­gether.<span class="push-T"></span> <span class="pull-T">T</span>hey<span class="push-c"></span> <span class="pull-c">c</span>an<span class="push-c"></span> <span class="pull-c">c</span>on­tain items and users from<span class="push-o"></span> <span class="pull-o">o</span>ut­side<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tions, be au­tho­rized to ac­cess ap­plic­tions and<span class="push-c"></span> <span class="pull-c">c</span>on­tent pur­chased from <a href="https://marketplace.arcgis.com/">the mar­ket­place</a>, and are used to man­age things like user fa­vorites and fea­tured<span class="push-c"></span> <span class="pull-c">c</span>on­tent.</p>
+</blockquote>
+<p><span class="pull-T">T</span>his<span class="push-o"></span> <span class="pull-o">o</span>b­ject us used to in­ter­act<span class="push-w"></span> <span class="pull-w">w</span>ith a group.<span class="push-A"></span> <span class="pull-A">A</span>ny group that your user has per­mis­sions to ac­cess<span class="push-c"></span> <span class="pull-c">c</span>an be in­ter­acted<span class="push-w"></span> <span class="pull-w">w</span>ith<span class="push-v"></span> <span class="pull-v">v</span>ia this method.<span class="push-A"></span> <span class="pull-A">A</span>s<span class="push-w"></span> <span class="pull-w">w</span>ith the <a href="#user"><code>user</code></a> <span class="pull-o">o</span>b­ject,<span class="push-c"></span> <span class="pull-c">c</span>all­ing this method<span class="push-w"></span> <span class="pull-w">w</span>ith no pa­ra­me­ters al­lows you to<span class="push-c"></span> <span class="pull-c">c</span>re­ate a new group.</p>
+<p><strong>Params:</strong>
+A group id string</p>
+<table>
+<thead>
+<tr>
+<th>Params</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­fault</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GroupID</td>
+<td>String</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to group<span class="push-o"></span> <span class="pull-o">o</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith man­age­ment meth­ods.</p>
+<pre><code class="hljs">{
+  access: <span class="hljs-built_in">String</span>,           <span class="hljs-comment">//</span>
+  capabilities: <span class="hljs-built_in">Array</span>,      <span class="hljs-comment">//</span>
+  created: <span class="hljs-built_in">Date</span>,            <span class="hljs-comment">//</span>
+  description: <span class="hljs-built_in">String</span>,      <span class="hljs-comment">//</span>
+  id: <span class="hljs-built_in">String</span>,               <span class="hljs-comment">//</span>
+  isFav: <span class="hljs-built_in">Boolean</span>,           <span class="hljs-comment">//</span>
+  isInvitationOnly: <span class="hljs-literal">true</span>    <span class="hljs-comment">//</span>
+  isReadOnly: <span class="hljs-built_in">Boolean</span>,      <span class="hljs-comment">//</span>
+  isViewOnly: <span class="hljs-built_in">Boolean</span>,      <span class="hljs-comment">//</span>
+  modified: <span class="hljs-built_in">Date</span>,           <span class="hljs-comment">//</span>
+  owner: <span class="hljs-built_in">String</span>,            <span class="hljs-comment">//</span>
+  phone: <span class="hljs-built_in">String</span>,            <span class="hljs-comment">//</span>
+  provider: <span class="hljs-built_in">String</span>,         <span class="hljs-comment">//</span>
+  providerGroupName: <span class="hljs-built_in">String</span>,<span class="hljs-comment">//</span>
+  snippet: <span class="hljs-built_in">String</span>,          <span class="hljs-comment">//</span>
+  sortField: <span class="hljs-built_in">String</span>,        <span class="hljs-comment">//</span>
+  sortOrder: <span class="hljs-built_in">String</span>,        <span class="hljs-comment">//</span>
+  tags: <span class="hljs-built_in">Array</span>,              <span class="hljs-comment">//</span>
+  thumbnail: <span class="hljs-built_in">String</span>,        <span class="hljs-comment">//</span>
+  title: <span class="hljs-built_in">String</span>,            <span class="hljs-comment">//</span>
+  userMembership: {         <span class="hljs-comment">//</span>
+    applications: Number    <span class="hljs-comment">//</span>
+    memberType: <span class="hljs-built_in">String</span>,     <span class="hljs-comment">//</span>
+    username: <span class="hljs-built_in">String</span>,       <span class="hljs-comment">//</span>
+  }                         <span class="hljs-comment">//</span>
+  update: function (),      <span class="hljs-comment">// Updates the group information</span>
+  content: function (),     <span class="hljs-comment">// Gets the content in the group</span>
+  members: function (),     <span class="hljs-comment">// Gets the members in the group</span>
+  removeUsers: function (), <span class="hljs-comment">// Remove a member from the group</span>
+  addUsers: function (),    <span class="hljs-comment">// Add a member to the group</span>
+  <span class="hljs-keyword">join</span>: function (),        <span class="hljs-comment">// Submit a request to join the group</span>
+  leave: function (),       <span class="hljs-comment">// Leave the group</span>
+  changeOwner: function (), <span class="hljs-comment">// Reassign the owner of the group</span>
+  delete: function ()       <span class="hljs-comment">// Delete the group</span>
+}
+</code></pre>
+<h6 id="example-17"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-17" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(group)</span></span> {
+  console.<span class="hljs-built_in">log</span>(group)
+})
+</code></pre>
+<h3 id="groupupdate">group.up­date <a class="header-anchor" href="#groupupdate" aria-hidden="true">¶</a></h3>
+<p>Up­dates the in­for­ma­tion for a group.</p>
+<blockquote>
+<p>Up­dat­a­ble params are still <span class="small-caps">TBD</span></p>
+</blockquote>
+<p><strong>Pa­ra­me­ters:</strong><span class="small-caps">
+JSON</span> <span class="pull-O">O</span>p­tions<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to up­dated <a href="#group"><code>group</code> <span class="pull-o">o</span>b­ject</a></p>
+<h6 id="example-18"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-18" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">group</span>(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-keyword">group</span>) {
+  return group.update({ title: <span class="hljs-string">"My New Group Name"</span> })
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-keyword">group</span>) {
+  console.log(group)
+})
+</code></pre>
+<h3 id="groupcontent">group.con­tent <a class="header-anchor" href="#groupcontent" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-T">T</span>his item re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject is sim­i­lar to a <a href="#search">search</a> re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+</blockquote>
+<p>Gets the items that are ag­gre­gated<span class="push-w"></span> <span class="pull-w">w</span>ith in the group.</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>100</td>
+<td>Re­sults per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>0</td>
+<td>Page<span class="push-o"></span> <span class="pull-o">o</span>f re­sults to re­turn</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><span class="pull-single">‘</span>cre­at­ed’</td>
+<td>Field to sort re­sults<span class="push-o"></span> <span class="pull-o">o</span>n</td>
+</tr>
+<tr>
+<td><span class="pull-o">o</span>r­der</td>
+<td><span class="pull-single">‘</span>de­sc’</td>
+<td><span class="pull-single">‘</span>asc’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>de­sc’, as­cend­ing<span class="push-o"></span> <span class="pull-o">o</span>r de­scend­ing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to <span class="small-caps">JSON</span> <a href="#search">earch re­sults</a> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  nextStart: <span class="hljs-type">Number</span>,
+  num: <span class="hljs-type">Number</span>,
+  query: <span class="hljs-type">String</span>
+  results: Array,
+  <span class="hljs-literal">start</span>: <span class="hljs-type">Number</span>,
+  total: <span class="hljs-type">Number</span>
+  pages: <span class="hljs-type">Number</span>,
+  currentPage, <span class="hljs-type">Number</span>
+}
+</code></pre>
+<h6 id="example-19"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-19" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(group)</span></span> {
+  <span class="hljs-keyword">return</span> group.content()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(content)</span></span> {
+  console.log(content)
+})
+</code></pre>
+<h3 id="groupmembers">group.mem­bers <a class="header-anchor" href="#groupmembers" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-T">T</span>his item is not pag­i­nated, not sim­i­lar to a search re­sults<span class="push-o"></span> <span class="pull-o">o</span>b­ject.<span class="push-C"></span> <span class="pull-C">C</span>omme se,<span class="push-c"></span> <span class="pull-c">c</span>omme<span class="push-c"></span> <span class="pull-c">c</span>a I guess.</p>
+</blockquote>
+<p>Gets the users<span class="push-w"></span> <span class="pull-w">w</span>ithin a group, along<span class="push-w"></span> <span class="pull-w">w</span>ith the groups<span class="push-o"></span> <span class="pull-o">o</span>wner and an ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f group ad­mins. It does not take params. Un­known<span class="push-w"></span> <span class="pull-w">w</span>hy this is dif­fer­ent, just<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-o"></span> <span class="pull-o">o</span>f those things.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">admins</span>: Array
+  <span class="hljs-attribute">owner</span>: String
+  <span class="hljs-attribute">users</span>: Array
+  <span class="hljs-attribute">length</span>: Number
+}
+</code></pre>
+<h6 id="example-20"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-20" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>( <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(group)</span></span> {
+  <span class="hljs-keyword">return</span> group.members()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(members)</span></span> {
+  console.log(members)
+})
+</code></pre>
+<h3 id="groupremoveusers">group.re­moveUsers <a class="header-anchor" href="#groupremoveusers" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><a href="#groupaddusers"><code>addUsers</code></a>, <a href="#groupinviteusers"><code>inviteUsers</code></a>, and <a href="#groupremoveusers"><code>removeUsers</code></a> <span class="pull-c">c</span>an all ac­cept an ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f user­names,<span class="push-o"></span> <span class="pull-o">o</span>r a sin­gle user­name as a string.</p>
+</blockquote>
+<p>Re­moves<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-o"></span> <span class="pull-o">o</span>r more users from the group.</p>
+<p><strong>Params:</strong>
+Ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f user­name strings.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+   <span class="hljs-attribute">notRemoved</span>: Array <span class="hljs-comment">// If any users couldn't be removed, thats noted here.</span>
+}
+</code></pre>
+<h6 id="example-21"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-21" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs"><span class="hljs-keyword">var</span> group = arcgis.group(id)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">group</span>) </span>{
+  <span class="hljs-keyword">return</span> group.removeUsers([<span class="hljs-string">'userOne'</span>, <span class="hljs-string">'userTwo'</span>])
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">confirmation</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(confirmation)
+})
+</code></pre>
+<h3 id="groupaddusers">group.ad­dUsers <a class="header-anchor" href="#groupaddusers" aria-hidden="true">¶</a></h3>
+<p>Users<span class="push-c"></span> <span class="pull-c">c</span>an be added to a group.<span class="push-T"></span> <span class="pull-T">T</span>he groups ad­min­is­tra­tors and<span class="push-o"></span> <span class="pull-o">o</span>wner<span class="push-c"></span> <span class="pull-c">c</span>an add any user to the group. Mem­bers<span class="push-w"></span> <span class="pull-w">w</span>ith­out this ac­cess<span class="push-c"></span> <span class="pull-c">c</span>an<span class="push-o"></span> <span class="pull-o">o</span>nly add<span class="push-o"></span> <span class="pull-o">o</span>ther mem­bers<span class="push-w"></span> <span class="pull-w">w</span>ithin the same<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion to the group.</p>
+<p><strong>Params:</strong>
+Ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f user­name strings</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true,
+  groupId: id
+</span></span></span>}
+</code></pre>
+<h6 id="example-22"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-22" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs"><span class="hljs-keyword">var</span> group = arcgis.group(id)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">group</span>) </span>{
+  <span class="hljs-keyword">return</span> group.addUsers([<span class="hljs-string">'userOne'</span>, <span class="hljs-string">'userTwo'</span>])
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">confirmation</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(confirmation)
+})
+</code></pre>
+<h3 id="groupinviteusers">group.in­vi­teUsers <a class="header-anchor" href="#groupinviteusers" aria-hidden="true">¶</a></h3>
+<p>Users<span class="push-c"></span> <span class="pull-c">c</span>an be in­vited to join a group.<span class="push-T"></span> <span class="pull-T">T</span>his method sends an email to the ad­dress<span class="push-o"></span> <span class="pull-o">o</span>n record for the users given.<span class="push-A"></span> <span class="pull-A">A</span>ll users in a group<span class="push-c"></span> <span class="pull-c">c</span>an in­vite<span class="push-o"></span> <span class="pull-o">o</span>ther users.</p>
+<p><strong>Params:</strong><span class="small-caps">
+JSON</span> <span class="pull-O">O</span>p­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject</p>
+<blockquote>
+<p><span class="pull-Y">Y</span>ou<span class="push-c"></span> <span class="pull-c">c</span>an­not put an ar­bi­trary num­ber<span class="push-o"></span> <span class="pull-o">o</span>f min­utes in for ex­pi­ra­tion. It must be<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-v"></span> <span class="pull-v">v</span>al­ues in de­scrip­tion.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>users</td>
+<td>[]</td>
+<td>Users to in­vite to group<span class="push-v"></span> <span class="pull-v">v</span>ia email</td>
+</tr>
+<tr>
+<td>role</td>
+<td><span class="pull-single">‘</span>group_mem­ber’</td>
+<td><span class="pull-single">‘</span>group_mem­ber’<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>group_ad­min’</td>
+</tr>
+<tr>
+<td>ex­pi­ra­tion</td>
+<td>1440</td>
+<td>Ex­pi­ra­tion date<span class="push-o"></span> <span class="pull-o">o</span>n the in­vi­ta­tion<span class="push-c"></span> <span class="pull-c">c</span>an be set for<span class="push-o"></span> <span class="pull-o">o</span>ne day, three days,<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-w"></span> <span class="pull-w">w</span>eek,<span class="push-o"></span> <span class="pull-o">o</span>r two<span class="push-w"></span> <span class="pull-w">w</span>eeks, in min­utes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true,
+  groupId: id
+</span></span></span>}
+</code></pre>
+<h6 id="example-23"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-23" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">var <span class="hljs-keyword">group</span> = arcgis.<span class="hljs-keyword">group</span>(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-keyword">group</span>) {
+  return group.inviteUsers({users: [<span class="hljs-string">'userOne'</span>, <span class="hljs-string">'userTwo'</span>]})
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> (confirmation) {
+  console.log(confirmation)
+})
+</code></pre>
+<h3 id="groupjoin">group.join <a class="header-anchor" href="#groupjoin" aria-hidden="true">¶</a></h3>
+<p><span class="pull-C">C</span>re­ates a re­quest to join a group for the<span class="push-c"></span> <span class="pull-c">c</span>ur­rently au­then­ti­cated user.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true,
+  groupId: id
+</span></span></span>}
+</code></pre>
+<h6 id="example-24"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-24" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(group)</span></span> {
+  <span class="hljs-keyword">return</span> group.join()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(confirmation)</span></span> {
+  console.log(confirmation)
+})
+</code></pre>
+<h3 id="groupleave">group.leave <a class="header-anchor" href="#groupleave" aria-hidden="true">¶</a></h3>
+<p>Re­moves the<span class="push-c"></span> <span class="pull-c">c</span>ur­rently au­then­ti­cated user from the group.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true,
+  groupId: id
+</span></span></span>}
+</code></pre>
+<h6 id="example-25"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-25" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(group)</span></span> {
+  <span class="hljs-keyword">return</span> group.leave()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(confirmation)</span></span> {
+  console.log(confirmation)
+})
+</code></pre>
+<h3 id="groupchangeowner">group.change­Owner <a class="header-anchor" href="#groupchangeowner" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p>If you are an<span class="push-o"></span> <span class="pull-o">o</span>rg ad­min, you<span class="push-c"></span> <span class="pull-c">c</span>an al­ways per­form this if you are a mem­ber<span class="push-o"></span> <span class="pull-o">o</span>f the group.<span class="push-O"></span> <span class="pull-O">O</span>th­er­wise,<span class="push-o"></span> <span class="pull-o">o</span>nly ad­mins<span class="push-c"></span> <span class="pull-c">c</span>an do this maybe?</p>
+</blockquote>
+<p><span class="pull-C">C</span>hanges to<span class="push-o"></span> <span class="pull-o">o</span>wner to a spec­i­ﬁed user­name.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f a User­name</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject.</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true,
+  groupId: id
+</span></span></span>}
+</code></pre>
+<h6 id="example-26"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-26" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(group)</span></span> {
+  <span class="hljs-keyword">return</span> group.changeOwner(username)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(confirmation)</span></span> {
+  console.log(confirmation)
+})
+</code></pre>
+<h3 id="groupdelete">group.delete <a class="header-anchor" href="#groupdelete" aria-hidden="true">¶</a></h3>
+<p>Deletes the group.<span class="push-T"></span> <span class="pull-T">T</span>his does not delete<span class="push-c"></span> <span class="pull-c">c</span>on­tent<span class="push-o"></span> <span class="pull-o">o</span>r users, just the group that ag­gre­gates them.<span class="push-T"></span> <span class="pull-T">T</span>his is per­ma­nent.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to a <span class="small-caps">JSON</span> <span class="pull-c">c</span>on­ﬁr­ma­tion<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> Boolean,
+  groupId: String
+</span></span></span>}
+</code></pre>
+<h6 id="example-27"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-27" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.group(id)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">group</span>) {</span>
+  <span class="hljs-constant">return</span> group.<span class="hljs-built_in">delete</span>()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">confirmation</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(confirmation)
+})
+</code></pre>
+<h3 id="groupcreate">group.cre­ate <a class="header-anchor" href="#groupcreate" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-C">C</span>re­at­ing a new group is a lit­tle dif­fer­ent than the<span class="push-o"></span> <span class="pull-o">o</span>ther group meth­ods -<span class="push-o"></span> <span class="pull-o">o</span>ne does not pass in a group Id, so it<span class="push-c"></span> <span class="pull-c">c</span>an be<span class="push-c"></span> <span class="pull-c">c</span>alled<span class="push-o"></span> <span class="pull-o">o</span>ff <code>group</code> im­me­di­ately.</p>
+</blockquote>
+<p><strong>Params:</strong><span class="small-caps">
+JSON</span> <span class="pull-O">O</span>p­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ti­tle</td>
+<td>none</td>
+<td>String, Name<span class="push-o"></span> <span class="pull-o">o</span>f the group</td>
+</tr>
+<tr>
+<td>de­scrip­tion</td>
+<td>none</td>
+<td>String, De­scrip­tion<span class="push-o"></span> <span class="pull-o">o</span>f the group</td>
+</tr>
+<tr>
+<td>sum­mary</td>
+<td>none</td>
+<td>String, &gt; 256<span class="push-c"></span> <span class="pull-c">c</span>har­ac­ter sum­mary</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>none</td>
+<td><span class="pull-A">A</span>r­ray, tags for group</td>
+</tr>
+<tr>
+<td>ac­cess</td>
+<td><span class="pull-single">‘</span>pri­vate’</td>
+<td>String.<span class="push-single"></span> <span class="pull-single">‘</span>pri­vate’,<span class="push-single"></span> <span class="pull-single">‘</span>pub­lic’,<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-single"></span> <span class="pull-single">‘</span>org’</td>
+</tr>
+<tr>
+<td>isViewOnly</td>
+<td>false</td>
+<td>Boolean.<span class="push-C"></span> <span class="pull-C">C</span>an items be added to the group?</td>
+</tr>
+<tr>
+<td>isIn­vi­ta­tionOnly</td>
+<td>false</td>
+<td>Boolean.<span class="push-C"></span> <span class="pull-C">C</span>an users join the group<span class="push-w"></span> <span class="pull-w">w</span>ith­out an in­vi­ta­tion?</td>
+</tr>
+</tbody>
+</table>
+<h6 id="example-28"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-28" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs"><span class="hljs-keyword">var</span> options = {
+  title: <span class="hljs-string">'My New Group'</span>,
+  description: <span class="hljs-string">'This group is both new and mine'</span>,
+  tags: [<span class="hljs-string">'my'</span>, <span class="hljs-string">'new'</span>, <span class="hljs-string">'cool'</span>, <span class="hljs-string">'group'</span>],
+  access: <span class="hljs-string">'public'</span>
+}
+arcgis.group.create(options)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newGroup</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(newGroup)
+})
+</code></pre>
+<hr>
+<h2 id="item">item <a class="header-anchor" href="#item" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>Item is a generic func­tion that de­ter­mines the type<span class="push-o"></span> <span class="pull-o">o</span>f item, and adds the ap­pro­pri­ate meth­ods from the func­tions be­low. If you know your item type, you<span class="push-c"></span> <span class="pull-c">c</span>an<span class="push-c"></span> <span class="pull-c">c</span>all the ap­pro­pri­ate func­tion be­low di­rectly.</p>
+</blockquote>
+<p><code>Item</code> <span class="pull-c">c</span>re­ates an<span class="push-o"></span> <span class="pull-o">o</span>b­ject that has the de­tails and in­ter­ac­tive meth­ods<span class="push-o"></span> <span class="pull-o">o</span>f an item in the plat­form.<span class="push-A"></span> <span class="pull-A">A</span>ll items share a set<span class="push-o"></span> <span class="pull-o">o</span>f<span class="push-c"></span> <span class="pull-c">c</span>om­mon meth­ods, doc­u­mented be­low. Spe­ciﬁc item types have ad­di­tional meth­ods, as doc­u­mented in <a href="#layer"><code>layer</code></a>, <a href="#map"><code>map</code></a>, <a href="#application"><code>application</code></a>, and <a href="#file"><code>file</code></a>.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f an Item <span class="small-caps">ID</span>.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith item in­for­ma­tion and meth­ods.</p>
+<pre><code class="hljs">{
+  access: <span class="hljs-built_in">String</span>,
+  accessInformation: <span class="hljs-built_in">String</span>,
+  appCategories: <span class="hljs-built_in">Array</span>,
+  avgRating: <span class="hljs-built_in">Number</span>,
+  banner: <span class="hljs-built_in">String</span>,
+  commentsEnabled: <span class="hljs-built_in">Boolean</span>.
+  created: <span class="hljs-built_in">Date</span>.
+  culture: <span class="hljs-built_in">String</span>,
+  description: <span class="hljs-built_in">String</span>,
+  documentation: <span class="hljs-built_in">String</span>,
+  extent: <span class="hljs-built_in">Array</span>,
+  favorite: <span class="hljs-built_in">Boolean</span>
+  groups: <span class="hljs-built_in">Array</span>
+  id: <span class="hljs-built_in">String</span>,
+  itemControl: <span class="hljs-built_in">String</span>
+  largeThumbnail: <span class="hljs-built_in">String</span>,
+  licenseInfo: <span class="hljs-built_in">String</span>
+  listed: <span class="hljs-built_in">Boolean</span>,
+  modified: <span class="hljs-built_in">Date</span>,
+  name: <span class="hljs-built_in">String</span>,
+  numComments: <span class="hljs-built_in">Number</span>,
+  numRatings: <span class="hljs-built_in">Number</span>,
+  numViews: <span class="hljs-built_in">Number</span>,
+  owner: <span class="hljs-built_in">String</span>,
+  ownerFolder: <span class="hljs-built_in">String</span>,
+  properties: <span class="hljs-built_in">String</span>?,
+  <span class="hljs-keyword">protected</span>: <span class="hljs-built_in">Boolean</span>,
+  screenshots: <span class="hljs-built_in">Array</span>,
+  size: <span class="hljs-built_in">Number</span>,
+  snippet: <span class="hljs-built_in">String</span>,
+  spatialReference: <span class="hljs-built_in">String</span>,
+  tags: <span class="hljs-built_in">Array</span>,
+  thumbnail: <span class="hljs-built_in">String</span>,
+  title: <span class="hljs-built_in">String</span>,
+  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>,
+  typeKeywords: <span class="hljs-built_in">Array</span>,
+  url: <span class="hljs-built_in">String</span>,
+  update: <span class="hljs-built_in">Function</span>,          <span class="hljs-comment">// Updates information</span>
+  rate: <span class="hljs-built_in">Function</span>,            <span class="hljs-comment">// Sets a rating</span>
+  favorite: <span class="hljs-built_in">Function</span>,        <span class="hljs-comment">// Adds to favorites</span>
+  duplicate: <span class="hljs-built_in">Function</span>,       <span class="hljs-comment">// Creates a copy, with options</span>
+  folder: <span class="hljs-built_in">Function</span>,          <span class="hljs-comment">// Moves to a folder</span>
+  changeOwner: <span class="hljs-built_in">Function</span>,     <span class="hljs-comment">// Changes owner</span>
+  deleteProtected: <span class="hljs-built_in">Function</span>, <span class="hljs-comment">// Prevents deletion</span>
+  relatedItems: <span class="hljs-built_in">Function</span>,    <span class="hljs-comment">// Gets related items</span>
+  permissions: <span class="hljs-built_in">Function</span>,     <span class="hljs-comment">// Sets permissions</span>
+  <span class="hljs-keyword">delete</span>: <span class="hljs-built_in">Function</span>,          <span class="hljs-comment">// Deletes item</span>
+  <span class="hljs-comment">// Additional methods per type, documented below</span>
+}
+</code></pre>
+<h6 id="example-29"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-29" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+})
+</code></pre>
+<h3 id="itemdata">item.data <a class="header-anchor" href="#itemdata" aria-hidden="true">¶</a></h3>
+<p>Get the data<span class="push-c"></span> <span class="pull-c">c</span>on­tent<span class="push-o"></span> <span class="pull-o">o</span>f the item such as<span class="push-W"></span> <span class="pull-W">W</span>ebMap<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-A"></span> <span class="pull-A">A</span>pp<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁg­u­ra­tion.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f an Item <span class="small-caps">ID</span>.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith item data.</p>
+<h6 id="example-30"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-30" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.item(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (item) {
+  <span class="hljs-keyword">return</span> item.<span class="hljs-type">data</span>()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (<span class="hljs-type">data</span>) {
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-type">data</span>)
+})
+</code></pre>
+<h3 id="itemcreate">item.cre­ate <a class="header-anchor" href="#itemcreate" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-C">C</span>re­ates a new Item and<span class="push-o"></span> <span class="pull-o">o</span>p­tional data</p>
+</blockquote>
+<p><strong>Params:</strong><span class="small-caps">
+JSON</span> <span class="pull-O">O</span>p­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th>De­fault</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ti­tle</td>
+<td>none</td>
+<td>String. Name<span class="push-o"></span> <span class="pull-o">o</span>f the group</td>
+</tr>
+<tr>
+<td>de­scrip­tion</td>
+<td>none</td>
+<td>String. De­scrip­tion<span class="push-o"></span> <span class="pull-o">o</span>f the group</td>
+</tr>
+<tr>
+<td>snip­pet</td>
+<td>none</td>
+<td>String. &gt; 256<span class="push-c"></span> <span class="pull-c">c</span>har­ac­ter sum­mary</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>none</td>
+<td><span class="pull-A">A</span>r­ray. tags for group</td>
+</tr>
+<tr>
+<td>url</td>
+<td>none</td>
+<td>String.<span class="push-W"></span> <span class="pull-W">W</span>eb <span class="small-caps">URI</span></td>
+</tr>
+<tr>
+<td>data</td>
+<td>none</td>
+<td>String. Data<span class="push-c"></span> <span class="pull-c">c</span>on­tent such as<span class="push-W"></span> <span class="pull-W">W</span>ebMap <span class="small-caps">JSON</span> <span class="pull-o">o</span>r<span class="push-A"></span> <span class="pull-A">A</span>pp<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁg­u­ra­tion</td>
+</tr>
+<tr>
+<td>li­cen­se­Info</td>
+<td>none</td>
+<td>String. ac­cess and us­age per­mis­sions<span class="push-o"></span> <span class="pull-o">o</span>r<span class="push-c"></span> <span class="pull-c">c</span>on­straints</td>
+</tr>
+<tr>
+<td>thumb­nail</td>
+<td>none</td>
+<td>String. <span class="small-caps">URL</span> to a thumb­nail</td>
+</tr>
+<tr>
+<td>ex­tent</td>
+<td>none</td>
+<td>String. min­i­mum bound­ing ex­tent</td>
+</tr>
+<tr>
+<td>type</td>
+<td>none</td>
+<td>String.<span class="push-T"></span> <span class="pull-T">T</span>ype<span class="push-o"></span> <span class="pull-o">o</span>f item from all Por­tal types</td>
+</tr>
+</tbody>
+</table>
+<h6 id="example-31"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-31" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">var options = {
+  title: <span class="hljs-string">'My New Item'</span>,
+  description: <span class="hljs-string">'This item is both new and mine'</span>,
+  tags: [<span class="hljs-string">'my'</span>, <span class="hljs-string">'new'</span>, <span class="hljs-string">'cool'</span>, <span class="hljs-string">'item'</span>],
+  type: <span class="hljs-string">'Web Mapping Application'</span>,
+  owner: <span class="hljs-string">'myuser'</span>
+}
+arcgis.<span class="hljs-keyword">item</span>.<span class="hljs-built_in">create</span>(options)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">newItem</span>) {</span>
+  console.<span class="hljs-built_in">log</span>({<span class="hljs-string">'id'</span>: newItem.id, <span class="hljs-string">'title'</span>: newItem.title})
+})
+</code></pre>
+<h3 id="itemupdate">item.up­date <a class="header-anchor" href="#itemupdate" aria-hidden="true">¶</a></h3>
+<p>Up­dates the in­for­ma­tion for an item.</p>
+<p><strong>Pa­ra­me­ters:</strong><span class="small-caps">
+JSON</span> <span class="pull-O">O</span>b­ject<span class="push-o"></span> <span class="pull-o">o</span>f<span class="push-O"></span> <span class="pull-O">O</span>p­tions</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ti­tle</td>
+<td>String</td>
+<td>Hu­man read­able ti­tle</td>
+</tr>
+<tr>
+<td>snip­pet</td>
+<td>String</td>
+<td>&lt;= 256<span class="push-c"></span> <span class="pull-c">c</span>har­ac­ter sum­mary</td>
+</tr>
+<tr>
+<td>de­scrip­tion</td>
+<td>String</td>
+<td>Longer de­scrip­tion</td>
+</tr>
+<tr>
+<td>tags</td>
+<td><span class="pull-A">A</span>r­ray</td>
+<td><span class="pull-A">A</span>r­ray<span class="push-o"></span> <span class="pull-o">o</span>f tags</td>
+</tr>
+<tr>
+<td>ex­tent</td>
+<td><span class="pull-A">A</span>r­ray</td>
+<td>[[lat, long], [lat, long]]</td>
+</tr>
+<tr>
+<td>li­cen­se­Info</td>
+<td>String</td>
+<td>Some­thing?</td>
+</tr>
+<tr>
+<td>ac­cess­In­for­ma­tion</td>
+<td>String</td>
+<td>Some­thing?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<h6 id="example-32"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-32" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.update({title: <span class="hljs-string">'A New Hope'</span>})
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+})
+</code></pre>
+<h3 id="itempermissions">item.per­mis­sions <a class="header-anchor" href="#itempermissions" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p>In this<span class="push-c"></span> <span class="pull-c">c</span>ase,<span class="push-single"></span> <span class="pull-single">‘</span>pri­vate’ means that the<span class="push-o"></span> <span class="pull-o">o</span>nly the user <strong>and ad­mins in that users<span class="push-o"></span> <span class="pull-o">o</span>rg</strong> <span class="pull-c">c</span>an<span class="push-v"></span> <span class="pull-v">v</span>iew the item.</p>
+</blockquote>
+<p>Up­dates the per­mis­sions for the item, ei­ther user<span class="push-o"></span> <span class="pull-o">o</span>nly,<span class="push-o"></span> <span class="pull-o">o</span>r­ga­ni­za­tion,<span class="push-o"></span> <span class="pull-o">o</span>r pub­lic, and<span class="push-w"></span> <span class="pull-w">w</span>hat groups have ac­cess to the item.</p>
+<p><strong>Params:</strong>
+Op­tions<span class="push-o"></span> <span class="pull-o">o</span>b­ject</p>
+<table>
+<thead>
+<tr>
+<th><span class="pull-O">O</span>p­tions</th>
+<th><span class="pull-T">T</span>ype</th>
+<th>De­scrip­tion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ac­cess</td>
+<td>String</td>
+<td><span class="pull-single">‘</span>pri­vate’,<span class="push-single"></span> <span class="pull-single">‘</span>org’,<span class="push-single"></span> <span class="pull-single">‘</span>pub­lic’</td>
+</tr>
+<tr>
+<td>group</td>
+<td><span class="pull-A">A</span>r­ray</td>
+<td>Group id’s to al­low ac­cess</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<p><strong>Ex­am­ple</strong></p>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  options = {
+    access: <span class="hljs-string">'private'</span>,
+    groups: [
+      group1id,
+    group2id
+    ]
+  }
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.permissions(options)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+}
+</code></pre>
+<h3 id="itemrate">item.rate <a class="header-anchor" href="#itemrate" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-A">A</span> user<span class="push-c"></span> <span class="pull-c">c</span>an­not rate their<span class="push-o"></span> <span class="pull-o">o</span>wn item.</p>
+</blockquote>
+<p>Items<span class="push-c"></span> <span class="pull-c">c</span>an be rated by users.<span class="push-T"></span> <span class="pull-T">T</span>hese rat­ings are tracked, and an av­er­age rat­ing is stored<span class="push-w"></span> <span class="pull-w">w</span>ith the item. Users<span class="push-c"></span> <span class="pull-c">c</span>an<span class="push-c"></span> <span class="pull-c">c</span>hange their rat­ing<span class="push-o"></span> <span class="pull-o">o</span>f an item at any time.<span class="push-A"></span> <span class="pull-A">A</span>s­so­ci­ates a rat­ing<span class="push-w"></span> <span class="pull-w">w</span>ith the<span class="push-c"></span> <span class="pull-c">c</span>ur­rently au­then­ti­cated user.</p>
+<p><strong>Params:</strong>
+Num­ber, be­tween 0 and 5</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<h6 id="example-33"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-33" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.rate(<span class="hljs-number">5</span>)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+})
+</code></pre>
+<h3 id="itemisfavorite">item.is­Fa­vorite <a class="header-anchor" href="#itemisfavorite" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-C">C</span>heck­ing if an item is<span class="push-c"></span> <span class="pull-c">c</span>ur­rently in the your fa­vorites group takes a<span class="push-c"></span> <span class="pull-c">c</span>ou­ple<span class="push-o"></span> <span class="pull-o">o</span>f ex­tra<span class="push-c"></span> <span class="pull-c">c</span>alls, so<span class="push-w"></span> <span class="pull-w">w</span>e don’t re­turn that<span class="push-w"></span> <span class="pull-w">w</span>ith the item it­self.</p>
+</blockquote>
+<p><span class="pull-C">C</span>hecks to see if an item is in the users<span class="push-single"></span> <span class="pull-single">‘</span>fa­vorite items’ group.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a boolean</p>
+<h6 id="example-34"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-34" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.isFavorite()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">isFavorite</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(isFavorite)
+})
+</code></pre>
+<h3 id="itemfavorite">item.fa­vorite <a class="header-anchor" href="#itemfavorite" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-A">A</span> users <code>favorites</code> are a <a href="#group">group</a> that<span class="push-o"></span> <span class="pull-o">o</span>nly that user is a mem­ber<span class="push-o"></span> <span class="pull-o">o</span>f. Pre­sum­ably<span class="push-o"></span> <span class="pull-o">o</span>ther users<span class="push-c"></span> <span class="pull-c">c</span>an be added to this. In most in­ter­faces, this group is ex­cluded from the list<span class="push-o"></span> <span class="pull-o">o</span>f<span class="push-o"></span> <span class="pull-o">o</span>ther groups.</p>
+</blockquote>
+<p><span class="pull-T">T</span>his method adds and re­moves an item from the users<span class="push-single"></span> <span class="pull-single">‘</span>fa­vorite items’ group.</p>
+<p><strong>Params:</strong>
+Boolean</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<h6 id="example-35"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-35" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.favorite(<span class="hljs-constant">true</span>)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+})
+</code></pre>
+<h3 id="itemgroups">item.groups <a class="header-anchor" href="#itemgroups" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p><span class="pull-A">A</span>n item be­ing in a group is<span class="push-o"></span> <span class="pull-o">o</span>f­ten re­ferred to as be­ing<span class="push-single"></span> <span class="pull-single">‘</span>shared<span class="push-w"></span> <span class="pull-w">w</span>ith’ that group.</p>
+</blockquote>
+<p>Items<span class="push-c"></span> <span class="pull-c">c</span>an be placed in<span class="push-o"></span> <span class="pull-o">o</span>ne<span class="push-o"></span> <span class="pull-o">o</span>r more groups.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-c"></span> <span class="pull-c">c</span>all de­ter­mines<span class="push-w"></span> <span class="pull-w">w</span>hat groups that item is a part<span class="push-o"></span> <span class="pull-o">o</span>f.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-o"></span> <span class="pull-o">o</span>nly re­turns groups that you<span class="push-c"></span> <span class="pull-c">c</span>an see - mean­ing it<span class="push-w"></span> <span class="pull-w">w</span>on’t re­turn<span class="push-o"></span> <span class="pull-o">o</span>ther users<span class="push-single"></span> <span class="pull-single">‘</span>fa­vorite items’ groups.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to an ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f <a href="#group">group</a> <span class="pull-o">o</span>b­jects.</p>
+<h6 id="example-36"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-36" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.groups()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">groups</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(groups)
+})
+</code></pre>
+<h3 id="itemchangeowner">item.change­Owner <a class="header-anchor" href="#itemchangeowner" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p>If the per­mis­sions<span class="push-o"></span> <span class="pull-o">o</span>n the item are set to pri­vate, this ac­tion<span class="push-c"></span> <span class="pull-c">c</span>ould re­move the item from your<span class="push-v"></span> <span class="pull-v">v</span>iew en­tirely.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-c"></span> <span class="pull-c">c</span>an­not be un­done un­less your user has ad­min per­mis­sions.</p>
+</blockquote>
+<p>Re­as­signs the item to a new user.<span class="push-T"></span> <span class="pull-T">T</span>his<span class="push-w"></span> <span class="pull-w">w</span>ill re­move the item from the<span class="push-c"></span> <span class="pull-c">c</span>on­tent<span class="push-o"></span> <span class="pull-o">o</span>f the<span class="push-o"></span> <span class="pull-o">o</span>rig­i­nal user, and add it to the<span class="push-c"></span> <span class="pull-c">c</span>on­tent<span class="push-o"></span> <span class="pull-o">o</span>f the new user.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f a user­name</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<h6 id="example-37"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-37" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.changeOwner(username)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+ <span class="hljs-comment"> // Will return an error if you no longer have permissions to view the item.</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+}
+</code></pre>
+<h3 id="itemdeleteprotected">item.deletePro­tected <a class="header-anchor" href="#itemdeleteprotected" aria-hidden="true">¶</a></h3>
+<p>Sets a boolean<span class="push-o"></span> <span class="pull-o">o</span>n the item that al­lows the item to be deleted.If set to <code>true</code>, this needs to be<span class="push-c"></span> <span class="pull-c">c</span>hanged to <code>false</code> be­fore <a href="#itemdelete"><code>item.delete</code></a> <span class="pull-w">w</span>ill func­tion.</p>
+<p><strong>Params:</strong>
+Boolean</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#item"><code>item</code></a></p>
+<h6 id="example-38"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-38" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.deleteProtected(<span class="hljs-constant">true</span>)
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">item</span>)
+}
+</code></pre>
+<h3 id="itemdelete">item.delete <a class="header-anchor" href="#itemdelete" aria-hidden="true">¶</a></h3>
+<blockquote>
+<p>For real,<span class="push-o"></span> <span class="pull-o">o</span>nce you do this, you<span class="push-c"></span> <span class="pull-c">c</span>an’t undo it.</p>
+</blockquote>
+<p>Deletes the item. Per­ma­nently. For ever. Se­ri­ously. Keep this from be­ing to ter­ri­fy­ing<span class="push-o"></span> <span class="pull-o">o</span>n pro­duc­tion items<span class="push-w"></span> <span class="pull-w">w</span>ith <a href="#itemdeleteprotected"><code>item.deleteProtected</code></a>.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to an<span class="push-o"></span> <span class="pull-o">o</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion.</p>
+<h6 id="example-39"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-39" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-keyword">item</span>(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">item</span>) {</span>
+  <span class="hljs-constant">return</span> <span class="hljs-keyword">item</span>.<span class="hljs-built_in">delete</span>()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">confirmation</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(confirmation)
+}
+</code></pre>
+<hr>
+<h2 id="layer">layer <a class="header-anchor" href="#layer" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p>For ex­am­ple, if you know your item id is for a layer, you<span class="push-c"></span> <span class="pull-c">c</span>an<span class="push-c"></span> <span class="pull-c">c</span>all <code>arcgis.layer(itemid)</code>. If aren’t sure, than <code>arcgis.item(itemid)</code> <span class="pull-w">w</span>ill<span class="push-c"></span> <span class="pull-c">c</span>heck, and re­turn the ap­pro­pri­ate type.</p>
+</blockquote>
+<p><code>Layer</code> re­turns an <a href="#item"><code>item</code></a> <span class="pull-w">w</span>ith ad­di­tional meth­ods.</p>
+<p><strong>Params:</strong>
+String<span class="push-o"></span> <span class="pull-o">o</span>f an Item <span class="small-caps">ID</span>.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith item in­for­ma­tion and meth­ods.</p>
+<pre><code class="hljs">{
+  <span class="hljs-type">data</span>: <span class="hljs-function"><span class="hljs-keyword">Function</span></span>,          // Geographic <span class="hljs-type">data</span> <span class="hljs-type">in</span> the layer
+  export: <span class="hljs-function"><span class="hljs-keyword">Function</span></span>,        // Exports to defined <span class="hljs-keyword">format</span>
+  generateTiles: <span class="hljs-function"><span class="hljs-keyword">Function</span></span>, // Creates a tile layer
+  usage: <span class="hljs-function"><span class="hljs-keyword">Function</span></span>          // Reports credits, requests
+}
+</code></pre>
+<h6 id="example-40"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-40" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.layer(<span class="hljs-string">'layerId'</span>)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">layer</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(layer)
+})
+</code></pre>
+<h3 id="layerdata">layer.data <a class="header-anchor" href="#layerdata" aria-hidden="true">¶</a></h3>
+<p>Lay­ers have ge­o­graphic data - a set<span class="push-o"></span> <span class="pull-o">o</span>f fea­tures<span class="push-w"></span> <span class="pull-w">w</span>ith prop­er­ties.<span class="push-T"></span> <span class="pull-T">T</span>his method re­turns that ge­o­graphic data as … some­thing?</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to a <span class="small-caps">JSON</span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  features: [
+    {
+      attributes: <span class="hljs-built_in">Object</span>,
+      geometry: <span class="hljs-built_in">Object</span>
+    }
+  ],
+  fields: [
+    {
+      ???: ???
+    }
+  ],
+  geometryType: <span class="hljs-built_in">String</span>,
+  globalIdFieldName: <span class="hljs-built_in">String</span>,
+  objectIdFieldName: <span class="hljs-built_in">String</span>,
+  spatialReference: {
+  latestWkid: <span class="hljs-built_in">String</span>,
+  wkid: <span class="hljs-built_in">String</span>
+  }
+}
+</code></pre>
+<h6 id="example-41"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-41" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.layer(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (layer) {
+  <span class="hljs-keyword">return</span> layer.<span class="hljs-type">data</span>()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span></span> (<span class="hljs-type">data</span>) {
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-type">data</span>)
+}
+</code></pre>
+<hr>
+<h2 id="map">map <a class="header-anchor" href="#map" aria-hidden="true">¶</a></h2>
+<blockquote>
+<p><span class="pull-T">T</span>hese map func­tions are largely as­pi­ra­tional.</p>
+</blockquote>
+<p><code>Map</code> re­turns an <a href="#item"><code>item</code></a> <span class="pull-w">w</span>ith ad­di­tional meth­ods.</p>
+<pre><code class="hljs"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">layers</span>:<span class="hljs-value"> Function,       // Lists the layers
+</span></span></span>}
+</code></pre>
+<h3 id="maplayers">map.lay­ers <a class="header-anchor" href="#maplayers" aria-hidden="true">¶</a></h3>
+<p>Re­turns all the lay­ers<span class="push-o"></span> <span class="pull-o">o</span>n the map, in<span class="push-o"></span> <span class="pull-o">o</span>r­der from back to front.<span class="push-C"></span> <span class="pull-C">C</span>an also be used to re­order lay­ers<span class="push-o"></span> <span class="pull-o">o</span>n the map.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to an<span class="push-O"></span> <span class="pull-O">O</span>b­ject</p>
+<pre><code class="hljs">{
+  authoringApp: <span class="hljs-built_in">String</span>,
+  authoringAppVersion: <span class="hljs-built_in">String</span>,
+  baseMap: {
+    baseMapLayers: [
+      {
+        id: <span class="hljs-built_in">String</span>,
+        layerType: <span class="hljs-built_in">String</span>,
+        opacity: <span class="hljs-built_in">Number</span>,
+        url: <span class="hljs-built_in">String</span>,
+        visibility: <span class="hljs-built_in">Boolean</span>,
+        length: <span class="hljs-built_in">Number</span>,
+        title: <span class="hljs-built_in">String</span>
+      }
+    ]
+  },
+  operationalLayers: [
+    {
+      id: <span class="hljs-built_in">String</span>,
+      itemId: <span class="hljs-built_in">String</span>,
+      layerType: <span class="hljs-built_in">String</span>,
+      opacity: <span class="hljs-built_in">Number</span>,
+      popupInfo: <span class="hljs-built_in">Object</span>,
+      title: <span class="hljs-built_in">String</span>,
+      url: <span class="hljs-built_in">String</span>,
+      visibility: <span class="hljs-built_in">Boolean</span>
+    }
+  ],
+  spatialReference: {
+    latestWkid: <span class="hljs-built_in">String</span>,
+    wkid: <span class="hljs-built_in">String</span>
+  }
+}
+</code></pre>
+<h6 id="example-42"><strong>Ex­am­ple:</strong> <a class="header-anchor" href="#example-42" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.map(itemId)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(map)</span></span> {
+  <span class="hljs-keyword">return</span> map.layers()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(layers)</span></span> {
+  console.log(layers)
+})
+</code></pre>
+<hr>
+<h2 id="application">ap­pli­ca­tion <a class="header-anchor" href="#application" aria-hidden="true">¶</a></h2>
+<p><code>Application</code> re­turns an <a href="#item"><code>item</code></a> <span class="pull-w">w</span>ith ad­di­tional meth­ods.</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">register</span>: Function,     <span class="hljs-comment">// Registers app with the portal</span>
+  <span class="hljs-attribute">getOAuth</span>: Function,     <span class="hljs-comment">// Gets oAtuh data for app</span>
+  <span class="hljs-attribute">getToken</span>: Function      <span class="hljs-comment">// Creates a token for the app</span>
+}
+</code></pre>
+<h3 id="applicationregister">ap­pli­ca­tion.reg­is­ter <a class="header-anchor" href="#applicationregister" aria-hidden="true">¶</a></h3>
+<p>Reg­is­ters the ap­pli­ca­tion<span class="push-w"></span> <span class="pull-w">w</span>ith the plat­form, pro­vid­ing ac­cess to<span class="push-o"></span> <span class="pull-o">o</span>Auth meth­ods.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the up­dated <a href="#application"><code>application</code></a></p>
+<h6 id="example-43"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-43" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.<span class="hljs-type">application</span>(appid)
+.<span class="hljs-keyword">then</span>(function (<span class="hljs-type">application</span>) {
+<span class="hljs-command">  return</span> <span class="hljs-type">application</span>.register()
+})
+.<span class="hljs-keyword">then</span>(function (<span class="hljs-type">application</span>) {
+  console.<span class="hljs-command">log</span>(<span class="hljs-type">application</span>)
+})
+</code></pre>
+<h3 id="applicationgetoauth">ap­pli­ca­tion.getOAuth <a class="header-anchor" href="#applicationgetoauth" aria-hidden="true">¶</a></h3>
+<p>Gets the ap­pli­ca­tions<span class="push-o"></span> <span class="pull-o">o</span>Auth in­for­ma­tion, in­clud­ing<span class="push-c"></span> <span class="pull-c">c</span>lient id and se­cret.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the<span class="push-o"></span> <span class="pull-o">o</span>Auth in­for­ma­tion<span class="push-o"></span> <span class="pull-o">o</span>b­ject.</p>
+<h6 id="example-44"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-44" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.application(appid)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(application)</span></span> {
+  <span class="hljs-keyword">return</span> application.getOAuth()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(oAuth)</span></span> {
+  console.log(oAuth)
+})
+</code></pre>
+<h3 id="applicationgettoken">ap­pli­ca­tion.get­To­ken <a class="header-anchor" href="#applicationgettoken" aria-hidden="true">¶</a></h3>
+<p>Gets a<span class="push-v"></span> <span class="pull-v">v</span>alid to­ken from the app.<span class="push-T"></span> <span class="pull-T">T</span>his to­ken<span class="push-c"></span> <span class="pull-c">c</span>an used to ac­cess ser­vices.</p>
+<p><strong>Re­turns:</strong>
+Promise that re­solves to the to­ken</p>
+<h6 id="example-45"><strong>Ex­am­ple</strong> <a class="header-anchor" href="#example-45" aria-hidden="true">¶</a></h6>
+<pre><code class="hljs">arcgis.application(appid)
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">application</span>) {</span>
+  <span class="hljs-constant">return</span> application.getToken()
+})
+.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-title">token</span>) {</span>
+  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">token</span>)
+})
+</code></pre>
+<hr>
+<h2 id="file">ﬁle <a class="header-anchor" href="#file" aria-hidden="true">¶</a></h2>
+<p><code>File</code> re­turns an <a href="#item"><code>item</code></a> <span class="pull-w">w</span>ith ad­di­tional meth­ods.</p>
+<pre><code class="hljs">{
+  <span class="hljs-attribute">publish</span>: Function, <span class="hljs-comment">// Turns the file into a layer</span>
+  <span class="hljs-attribute">download</span>: Function <span class="hljs-comment">// Downloads the file</span>
+}
+</code></pre>
+<h3 id="filepublish">ﬁle.pub­lish <a class="header-anchor" href="#filepublish" aria-hidden="true">¶</a></h3>
+<p>If the ﬁle<span class="push-c"></span> <span class="pull-c">c</span>on­tains ge­o­graphic data -<span class="push-c"></span> <span class="pull-c">c</span>sv, geo­j­son, shape­ﬁle, ge­o­data­base, etc - it<span class="push-c"></span> <span class="pull-c">c</span>an be turned into a layer that you<span class="push-c"></span> <span class="pull-c">c</span>an use<span class="push-o"></span> <span class="pull-o">o</span>n maps. Re­sults in a<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion<span class="push-o"></span> <span class="pull-o">o</span>b­ject that<span class="push-c"></span> <span class="pull-c">c</span>on­tains in­for­ma­tion<span class="push-o"></span> <span class="pull-o">o</span>n the new layer.</p>
+<p>Re­turns a Job <span class="small-caps">ID</span> in the<span class="push-c"></span> <span class="pull-c">c</span>on­ﬁr­ma­tion,<span class="push-w"></span> <span class="pull-w">w</span>hich<span class="push-c"></span> <span class="pull-c">c</span>an be used to pole the ser­vice to see if the layer has ﬁn­ished be­ing<span class="push-c"></span> <span class="pull-c">c</span>re­ated.</p>
+<p><strong>Re­turns</strong>
+Promise that re­solves to an<span class="push-o"></span> <span class="pull-o">o</span>b­ject<span class="push-w"></span> <span class="pull-w">w</span>ith ar­ray<span class="push-o"></span> <span class="pull-o">o</span>f processes</p>
+<blockquote>
+<p><span class="pull-T">T</span>he <code>serviceItemId</code> key is the item <span class="small-caps">ID</span> for the newly<span class="push-c"></span> <span class="pull-c">c</span>re­ated layer.</p>
+</blockquote>
+<pre><code class="hljs">{
+  services: [
+    {
+      encodedServiceURL: <span class="hljs-type">String</span>,
+      jobId: <span class="hljs-type">String</span>,
+      serviceItemId: <span class="hljs-type">String</span>,
+      serviceurl: <span class="hljs-type">String</span>,
+      size: <span class="hljs-type">Number</span>,
+      <span class="hljs-operator">type</span>: <span class="hljs-type">String</span>
+  }
+}
+</code></pre>
+<h3 id="filedownload">ﬁle.down­load <a class="header-anchor" href="#filedownload" aria-hidden="true">¶</a></h3>
+<p>Down­loads the ﬁle.</p>
+<hr>
+
+      </main>
+    </div>
+    <script src="/node-arcgis/bundle.js"></script>
+    <script src="/node-arcgis/js/calcite-web.js"></script>
+    <script>
+      calcite.init()
+    </script>
+  </body>
+</html>
