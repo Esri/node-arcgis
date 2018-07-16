@@ -41,7 +41,6 @@
     "snazzy": "^3.0.0",
     "standard": "^6.0.7",
     "static-site": "^1.0.2",
-    "surge": "^0.17.7",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
     "typeset": "^0.1.6",
@@ -49,8 +48,8 @@
     "uglifyify": "^3.0.1",
     "watchify": "^3.5.0"
   },
-  "engines" : {
-    "node" : ">=0.12"
+  "engines": {
+    "node": ">=0.12"
   },
   "homepage": "http://esri.github.io/node-arcgis/",
   "keywords": [
